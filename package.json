@@ -1,0 +1,19 @@
+{
+  "name": "email-signature",
+  "version": "1.0.0",
+  "description": "Multi-template professional email signatures with centralized profile management and 1-click rich clipboard copying",
+  "scripts": {
+    "build": "node scripts/build.js",
+    "serve": "npx -y serve .",
+    "preview": "open index.html"
+  },
+  "keywords": [
+    "email-signature",
+    "html-signature",
+    "gmail-signature",
+    "outlook-signature",
+    "apple-mail-signature"
+  ],
+  "author": "MD Razikul Islam Joni",
+  "license": "MIT"
+}
