@@ -29,3 +29,26 @@ test('migrate fills v2 fields from a v1 profile', () => {
   assert.strictEqual(p.signature.template, 'a');
 });
 console.log(`check schema: ${n} passed`);
+
+const FIXTURE = S.migrate({ name: `O'Brien & <Co>`, title: 'Dev', email: 'a@b.c',
+  phone: '+1 2', website: 'https://x.y', websiteDisplay: 'x.y', location: 'Dhaka',
+  booking: { url: 'https://cal.x', label: 'Book' },
+  socials: { linkedin: 'https://l', github: 'https://g', x: 'https://t' } });
+test('every template renders escaped and safe', () => {
+  for (const t of T.MANIFEST) {
+    const html = T.render(t.letter, FIXTURE, { assetPrefix: '..' });
+    assert.ok(!/<script/i.test(html), t.slug + ' has <script');
+    assert.ok(!/undefined/.test(html), t.slug + ' leaked undefined');
+    assert.ok(!/\bclass=/.test(html), t.slug + ' used a CSS class');
+    assert.ok(!/javascript:/i.test(html), t.slug + ' unsafe url');
+    assert.ok(html.includes('&amp;') || html.includes('&lt;'), t.slug + ' not escaped');
+  }
+});
+test('unsafe url is neutralized', () => {
+  const p = S.migrate(Object.assign({}, FIXTURE, { website: 'javascript:alert(1)' }));
+  assert.ok(!T.render('a', p).includes('javascript:'));
+});
+test('manifest names follow the convention', () => {
+  for (const t of T.MANIFEST) assert.ok(t.slug.startsWith('signature-' + t.letter + '-'), t.slug);
+});
+console.log(`check templates: ${T.MANIFEST.length} templates passed`);
