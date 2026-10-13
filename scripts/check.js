@@ -52,3 +52,19 @@ test('manifest names follow the convention', () => {
   for (const t of T.MANIFEST) assert.ok(t.slug.startsWith('signature-' + t.letter + '-'), t.slug);
 });
 console.log(`check templates: ${T.MANIFEST.length} templates passed`);
+
+const fs = require('node:fs');
+const path = require('node:path');
+const build = require('./build.js');
+test('build script writes manifest signatures and profile.js', () => {
+  const root = path.resolve(__dirname, '..');
+  const profileJs = fs.readFileSync(path.join(root, 'data', 'profile.js'), 'utf8');
+  assert.ok(profileJs.includes('window.PROFILE_DATA ='), 'profile.js has global data');
+  for (const t of T.MANIFEST) {
+    const sigPath = path.join(root, 'signatures', t.slug + '.html');
+    assert.ok(fs.existsSync(sigPath), 'missing ' + t.slug + '.html');
+    const content = fs.readFileSync(sigPath, 'utf8');
+    assert.ok(content.includes('SIGNATURE-START'), t.slug + ' has signature start');
+  }
+});
+console.log('check build: passed');
