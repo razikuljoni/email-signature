@@ -16,3 +16,16 @@ test('sanitizeUrl neutralizes unsafe schemes', () => {
   assert.strictEqual(T.sanitizeUrl('data:text/html,<script>'), '#');
 });
 console.log(`check: ${n} passed`);
+
+const S = require('../src/schema.js');
+test('migrate fills v2 fields from a v1 profile', () => {
+  const v1 = { name: 'A', email: 'a@b.c', phone: '+1 2', booking: { url: 'u', label: 'l' }, socials: { linkedin: 'x' } };
+  const p = S.migrate(v1);
+  assert.strictEqual(p.version, 2);
+  assert.strictEqual(p.name, 'A');
+  assert.strictEqual(p.tagline, '');
+  assert.strictEqual(p.socials.instagram, '');
+  assert.deepStrictEqual(p.brand, S.DEFAULT_BRAND);
+  assert.strictEqual(p.signature.template, 'a');
+});
+console.log(`check schema: ${n} passed`);
