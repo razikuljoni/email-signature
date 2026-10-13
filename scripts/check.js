@@ -68,3 +68,9 @@ test('build script writes manifest signatures and profile.js', () => {
   }
 });
 console.log('check build: passed');
+
+const root = path.resolve(__dirname, '..');
+const indexHtml = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
+assert.ok(indexHtml.includes('src/templates.js'), 'index.html loads templates.js');
+assert.ok(!indexHtml.includes('const SIGNATURE_DEFINITIONS = ['), 'index.html removed inline template definitions');
+console.log('check index: passed');
