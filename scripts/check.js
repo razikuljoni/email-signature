@@ -92,3 +92,15 @@ test('parseProfile rejects invalid JSON', () => {
   assert.throws(() => S.parseProfile('not-json'), { name: 'SyntaxError' });
 });
 console.log('check persistence helpers: passed');
+
+test('template renders data URI image src', () => {
+  const p = S.migrate({ name: 'Test', email: 'a@b.c', images: { photo: 'data:image/png;base64,AAAA' } });
+  const html = T.render('b', p, { assetPrefix: 'assets' });
+  assert.ok(html.includes('data:image/png;base64,AAAA'), 'data URI photo rendered');
+});
+test('template falls back to default image when empty', () => {
+  const p = S.migrate({ name: 'Test', email: 'a@b.c', images: { photo: '' } });
+  const html = T.render('b', p, { assetPrefix: 'assets' });
+  assert.ok(html.includes('assets/images/photo.png'), 'fallback photo used');
+});
+console.log('check image handling: passed');
