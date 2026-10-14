@@ -460,6 +460,14 @@
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
             Edit Info
           </button>
+          <button class="btn btn-secondary btn-sm" onclick="exportProfile()">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Export
+          </button>
+          <button class="btn btn-secondary btn-sm" onclick="importProfile()">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            Import
+          </button>
           <a href="#setup-guide" class="btn btn-secondary btn-sm">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
             Setup Guide
@@ -586,29 +594,25 @@
   </div>
 
   <!-- Templates & Profile Data -->
+  <script src="src/schema.js"></script>
   <script src="src/templates.js"></script>
   <script src="data/profile.js"></script>
 
   <script>
-    // In-memory profile with fallbacks
-    let profile = window.PROFILE_DATA || {
-      name: "MD Razikul Islam Joni",
-      title: "Full-Stack Developer",
-      email: "razikuljoni@gmail.com",
-      phone: "+880 1623-208660",
-      whatsapp: "https://wa.me/8801623208660",
-      website: "https://www.razikuljoni.xyz",
-      websiteDisplay: "razikuljoni.xyz",
-      location: "Dhaka, Bangladesh",
-      booking: { url: "https://cal.com/razikuljoni", label: "Book a call →" },
-      socials: {
-        linkedin: "https://www.linkedin.com/in/razikuljoni",
-        github: "https://github.com/razikuljoni",
-        x: "https://x.com/razikuljoni"
-      }
-    };
+    // In-memory profile with localStorage persistence
+    const SS = window.SignatureSchema;
+    let profile;
+    try {
+      const saved = localStorage.getItem('signatureStudio.profile');
+      profile = saved ? SS.parseProfile(saved) : SS.migrate(window.PROFILE_DATA || {});
+    } catch (e) {
+      profile = SS.migrate(window.PROFILE_DATA || {});
+    }
+    function saveProfile() {
+      try { localStorage.setItem('signatureStudio.profile', SS.serializeProfile(profile)); } catch (e) {}
+    }
 
-    let originalProfile = JSON.parse(JSON.stringify(profile));
+    let originalProfile = SS.migrate(window.PROFILE_DATA || {});
     let currentFilter = 'all';
     let currentSimBg = 'light';
 
@@ -720,14 +724,48 @@
           profile.websiteDisplay = val.replace(/^https?:\/\//, '').replace(/\/$/, '');
         }
       }
+      saveProfile();
       renderCards();
     }
 
     function resetProfile() {
       profile = JSON.parse(JSON.stringify(originalProfile));
+      try { localStorage.removeItem('signatureStudio.profile'); } catch (e) {}
       populateEditorInputs();
       renderCards();
       showToast('Profile reset to saved configuration.');
+    }
+
+    function exportProfile() {
+      const blob = new Blob([SS.serializeProfile(profile)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'profile.json'; a.click();
+      URL.revokeObjectURL(url);
+      showToast('Profile exported as profile.json');
+    }
+
+    function importProfile() {
+      const inp = document.createElement('input');
+      inp.type = 'file'; inp.accept = '.json,application/json';
+      inp.onchange = () => {
+        const file = inp.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = () => {
+          try {
+            profile = SS.parseProfile(reader.result);
+            saveProfile();
+            populateEditorInputs();
+            renderCards();
+            showToast('Profile imported successfully');
+          } catch (e) {
+            showToast('Invalid profile JSON file');
+          }
+        };
+        reader.readAsText(file);
+      };
+      inp.click();
     }
 
     // Copying helpers

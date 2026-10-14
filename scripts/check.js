@@ -79,3 +79,16 @@ const profileJson = require('../data/profile.json');
 assert.strictEqual(profileJson.version, 2, 'profile.json version is 2');
 assert.ok(profileJson.brand && typeof profileJson.brand.accent === 'string', 'profile.json has brand accent');
 console.log('check profile.json: passed');
+
+test('serializeProfile/parseProfile round-trip', () => {
+  const p = S.migrate({ name: 'Test', email: 'a@b.c' });
+  const json = S.serializeProfile(p);
+  const p2 = S.parseProfile(json);
+  assert.strictEqual(p2.name, 'Test');
+  assert.strictEqual(p2.version, 2);
+  assert.strictEqual(p2.email, 'a@b.c');
+});
+test('parseProfile rejects invalid JSON', () => {
+  assert.throws(() => S.parseProfile('not-json'), { name: 'SyntaxError' });
+});
+console.log('check persistence helpers: passed');
