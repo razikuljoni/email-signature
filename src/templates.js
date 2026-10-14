@@ -45,6 +45,18 @@
       desc: 'Dual-color accent bar, photo avatar, and social badge grid.',
       tags: ['photo'], bestFor: 'Engineering leaders & technical advocates',
       settings: { fields: ['photo', 'name', 'title', 'email', 'phone', 'whatsapp', 'website', 'location', 'booking', 'socials'], layouts: ['horizontal'], supportsDark: false }
+    },
+    {
+      id: 'sig-f', letter: 'f', slug: 'signature-f-executive-bordered-card', name: 'Executive Bordered Card',
+      desc: 'Clean bordered container card with soft rounded corners, photo avatar, and vertical dividers.',
+      tags: ['photo', 'minimal'], bestFor: 'Executive leaders & enterprise consultants',
+      settings: { fields: ['photo', 'name', 'title', 'email', 'phone', 'whatsapp', 'website', 'location', 'booking', 'socials'], layouts: ['horizontal'], supportsDark: false }
+    },
+    {
+      id: 'sig-g', letter: 'g', slug: 'signature-g-gradient-badge-stack', name: 'Gradient Badge Stack',
+      desc: 'Modern vertical gradient accent pill with structured two-column info and badges.',
+      tags: ['photo'], bestFor: 'Product managers, startup founders & tech evangelists',
+      settings: { fields: ['photo', 'name', 'title', 'email', 'phone', 'whatsapp', 'website', 'location', 'booking', 'socials'], layouts: ['horizontal'], supportsDark: false }
     }
   ];
 
@@ -299,12 +311,113 @@
 <!-- SIGNATURE-END -->`;
   }
 
+  function renderSignatureF(p, opts = {}) {
+    const assetPrefix = opts.assetPrefix || '../assets';
+    const photo = sanitizeImageSrc(p.images && p.images.photo || `${assetPrefix}/images/photo.png`);
+    return `<!-- SIGNATURE-START -->
+<table cellpadding="0" cellspacing="0" border="0" style="font-family:Arial,Helvetica,sans-serif; max-width:580px; background:#ffffff; border:1px solid #e2e8f0; border-radius:12px; color:#0f172a;">
+  <tr>
+    <td style="padding:20px 24px;">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <!-- Photo Avatar -->
+          <td style="vertical-align:middle; padding-right:18px;">
+            <img src="${photo}" alt="${escapeHtml(p.name)}" width="82" height="108" style="display:block; width:82px; height:108px; border-radius:10px; border:1px solid #cbd5e1; object-fit:cover;">
+          </td>
+          <!-- Vertical Divider -->
+          <td style="vertical-align:middle; width:1px; background:#e2e8f0; font-size:0; line-height:0;">&nbsp;</td>
+          <!-- Details Column -->
+          <td style="vertical-align:middle; padding-left:18px;">
+            <div style="font-size:16.5px; font-weight:700; color:#0f172a; line-height:1.25; letter-spacing:0.1px;">${escapeHtml(p.name)}</div>
+            <div style="font-size:12.5px; font-weight:600; color:#2563eb; line-height:1.4; margin-top:2px;">${escapeHtml(p.title)}</div>
+            <div style="font-size:12px; color:#475569; line-height:1.65; margin-top:8px;">
+              <a href="${sanitizeUrl(`mailto:${p.email}`)}" style="color:#0f172a; text-decoration:none; font-weight:500;">${escapeHtml(p.email)}</a>
+              <span style="color:#cbd5e1;">&nbsp;&middot;&nbsp;</span>
+              <a href="${sanitizeUrl(`tel:${String(p.phone||'').replace(/[^0-9+]/g, '')}`)}" style="color:#475569; text-decoration:none;">${escapeHtml(p.phone)}</a>
+            </div>
+            <div style="font-size:12px; color:#475569; line-height:1.65;">
+              <a href="${sanitizeUrl(p.website)}" style="color:#2563eb; text-decoration:none;">${escapeHtml(p.websiteDisplay || p.website)}</a>
+              <span style="color:#cbd5e1;">&nbsp;&middot;&nbsp;</span>
+              <span>${escapeHtml(p.location)}</span>
+            </div>
+            <div style="margin-top:8px; line-height:1; white-space:nowrap;">
+              <a href="${sanitizeUrl(p.socials && p.socials.linkedin)}" style="text-decoration:none; vertical-align:middle;"><img src="${sanitizeImageSrc(`${assetPrefix}/icons/s-linkedin.png`)}" alt="LinkedIn" width="18" height="18" border="0" style="vertical-align:middle;"></a>
+              <span style="font-size:12px; color:#cbd5e1; vertical-align:middle;">&nbsp;&nbsp;</span>
+              <a href="${sanitizeUrl(p.socials && p.socials.github)}" style="text-decoration:none; vertical-align:middle;"><img src="${sanitizeImageSrc(`${assetPrefix}/icons/s-github.png`)}" alt="GitHub" width="18" height="18" border="0" style="vertical-align:middle;"></a>
+              <span style="font-size:12px; color:#cbd5e1; vertical-align:middle;">&nbsp;&nbsp;</span>
+              <a href="${sanitizeUrl(p.socials && p.socials.x)}" style="text-decoration:none; vertical-align:middle;"><img src="${sanitizeImageSrc(`${assetPrefix}/icons/s-x.png`)}" alt="X" width="16" height="16" border="0" style="vertical-align:middle;"></a>
+              <span style="font-size:12px; color:#cbd5e1; vertical-align:middle;">&nbsp;&nbsp;&middot;&nbsp;&nbsp;</span>
+              <a href="${sanitizeUrl(p.booking && p.booking.url)}" style="font-size:12px; font-weight:600; color:#2563eb; text-decoration:none; vertical-align:middle;">${escapeHtml(p.booking && p.booking.label || 'Book a call →')}</a>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- SIGNATURE-END -->`;
+  }
+
+  function renderSignatureG(p, opts = {}) {
+    const assetPrefix = opts.assetPrefix || '../assets';
+    const photo = sanitizeImageSrc(p.images && p.images.photo || `${assetPrefix}/images/photo.png`);
+    return `<!-- SIGNATURE-START -->
+<table cellpadding="0" cellspacing="0" border="0" style="font-family:Arial,Helvetica,sans-serif; max-width:580px; color:#0f172a;">
+  <tr>
+    <td style="padding-bottom:10px;">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td style="background:#2563eb; color:#ffffff; font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:0.8px; padding:3px 8px; border-radius:4px;">Verified Pro</td>
+          <td style="padding-left:8px; font-size:11px; color:#64748b;">Digital Signature Suite</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <!-- Photo -->
+          <td style="vertical-align:middle; padding-right:16px;">
+            <img src="${photo}" alt="${escapeHtml(p.name)}" width="84" height="84" style="display:block; width:84px; height:84px; border-radius:50%; border:2px solid #2563eb; object-fit:cover;">
+          </td>
+          <!-- Content Stack -->
+          <td style="vertical-align:middle;">
+            <div style="font-size:17px; font-weight:700; color:#0f172a; line-height:1.2;">${escapeHtml(p.name)} <span style="font-weight:400; font-size:13px; color:#64748b;">(${escapeHtml(p.pronouns)})</span></div>
+            <div style="font-size:12.5px; font-weight:600; color:#2563eb; line-height:1.4; margin-top:2px;">${escapeHtml(p.title)}</div>
+            <div style="font-size:12px; color:#334155; line-height:1.65; margin-top:6px;">
+              <a href="${sanitizeUrl(`mailto:${p.email}`)}" style="color:#0f172a; text-decoration:none; font-weight:500;">${escapeHtml(p.email)}</a>
+              <span style="color:#cbd5e1;">&nbsp;&middot;&nbsp;</span>
+              <a href="${sanitizeUrl(p.website)}" style="color:#2563eb; text-decoration:none;">${escapeHtml(p.websiteDisplay || p.website)}</a>
+              <span style="color:#cbd5e1;">&nbsp;&middot;&nbsp;</span>
+              <span>${escapeHtml(p.location)}</span>
+            </div>
+            <div style="margin-top:8px; line-height:1; white-space:nowrap;">
+              <a href="${sanitizeUrl(p.socials && p.socials.linkedin)}" style="text-decoration:none; vertical-align:middle;"><img src="${sanitizeImageSrc(`${assetPrefix}/icons/s-linkedin.png`)}" alt="LinkedIn" width="17" height="17" border="0" style="vertical-align:middle;"></a>
+              <span style="font-size:12px; color:#cbd5e1; vertical-align:middle;">&nbsp;&nbsp;</span>
+              <a href="${sanitizeUrl(p.socials && p.socials.github)}" style="text-decoration:none; vertical-align:middle;"><img src="${sanitizeImageSrc(`${assetPrefix}/icons/s-github.png`)}" alt="GitHub" width="17" height="17" border="0" style="vertical-align:middle;"></a>
+              <span style="font-size:12px; color:#cbd5e1; vertical-align:middle;">&nbsp;&nbsp;</span>
+              <a href="${sanitizeUrl(p.socials && p.socials.x)}" style="text-decoration:none; vertical-align:middle;"><img src="${sanitizeImageSrc(`${assetPrefix}/icons/s-x.png`)}" alt="X" width="15" height="15" border="0" style="vertical-align:middle;"></a>
+              <span style="font-size:12px; color:#cbd5e1; vertical-align:middle;">&nbsp;&nbsp;&middot;&nbsp;&nbsp;</span>
+              <a href="${sanitizeUrl(p.booking && p.booking.url)}" style="font-size:12px; font-weight:600; color:#2563eb; text-decoration:none; vertical-align:middle;">${escapeHtml(p.booking && p.booking.label || 'Book a call →')}</a>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- SIGNATURE-END -->`;
+  }
+
   function render(letter, p, opts) {
     const l = String(letter || 'a').toLowerCase();
     if (l === 'b') return renderSignatureB(p, opts);
     if (l === 'c') return renderSignatureC(p, opts);
     if (l === 'd') return renderSignatureD(p, opts);
     if (l === 'e') return renderSignatureE(p, opts);
+    if (l === 'f') return renderSignatureF(p, opts);
+    if (l === 'g') return renderSignatureG(p, opts);
     return renderSignatureA(p, opts);
   }
 
