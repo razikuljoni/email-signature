@@ -23,8 +23,8 @@ window.PROFILE_DATA = {
     "youtube": ""
   },
   "images": {
-    "photo": "../assets/images/photo.png",
-    "monogram": "../assets/images/monogram.png",
+    "photo": "assets/images/photo.png",
+    "monogram": "assets/images/monogram.png",
     "logo": "",
     "remotePhoto": "https://i.ibb.co/YDmnRvZ/pro-bg-white-2.jpg"
   },

@@ -74,3 +74,8 @@ const indexHtml = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
 assert.ok(indexHtml.includes('src/templates.js'), 'index.html loads templates.js');
 assert.ok(!indexHtml.includes('const SIGNATURE_DEFINITIONS = ['), 'index.html removed inline template definitions');
 console.log('check index: passed');
+
+const profileJson = require('../data/profile.json');
+assert.strictEqual(profileJson.version, 2, 'profile.json version is 2');
+assert.ok(profileJson.brand && typeof profileJson.brand.accent === 'string', 'profile.json has brand accent');
+console.log('check profile.json: passed');

@@ -1,6 +1,9 @@
 {
+  "version": 2,
   "name": "MD Razikul Islam Joni",
   "title": "Full-Stack Developer",
+  "pronouns": "",
+  "tagline": "",
   "email": "razikuljoni@gmail.com",
   "phone": "+880 1623-208660",
   "whatsapp": "https://wa.me/8801623208660",
@@ -14,11 +17,26 @@
   "socials": {
     "linkedin": "https://www.linkedin.com/in/razikuljoni",
     "github": "https://github.com/razikuljoni",
-    "x": "https://x.com/razikuljoni"
+    "x": "https://x.com/razikuljoni",
+    "instagram": "",
+    "youtube": ""
   },
   "images": {
-    "photo": "../assets/images/photo.png",
-    "monogram": "../assets/images/monogram.png",
+    "photo": "assets/images/photo.png",
+    "monogram": "assets/images/monogram.png",
+    "logo": "",
     "remotePhoto": "https://i.ibb.co/YDmnRvZ/pro-bg-white-2.jpg"
+  },
+  "brand": {
+    "accent": "#2B4BF2",
+    "font": "helvetica",
+    "avatarShape": "rounded",
+    "avatarSize": 88,
+    "layout": "horizontal",
+    "mode": "light"
+  },
+  "signature": {
+    "template": "a",
+    "perTemplate": {}
   }
 }
