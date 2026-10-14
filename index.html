@@ -460,6 +460,14 @@
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
             Edit Info
           </button>
+          <button class="btn btn-secondary btn-sm" onclick="exportProfile()">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Export
+          </button>
+          <button class="btn btn-secondary btn-sm" onclick="importProfile()">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            Import
+          </button>
           <a href="#setup-guide" class="btn btn-secondary btn-sm">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
             Setup Guide
@@ -520,6 +528,18 @@
         <div class="field-group">
           <label class="field-label">Booking URL</label>
           <input type="text" class="field-input" id="inp-booking" oninput="updateProfileField('bookingUrl', this.value)">
+        </div>
+        <div class="field-group">
+          <label class="field-label">Photo</label>
+          <input type="file" accept="image/*" class="field-input" onchange="handleImageUpload('photo', this)">
+        </div>
+        <div class="field-group">
+          <label class="field-label">Monogram</label>
+          <input type="file" accept="image/*" class="field-input" onchange="handleImageUpload('monogram', this)">
+        </div>
+        <div class="field-group">
+          <label class="field-label">Logo</label>
+          <input type="file" accept="image/*" class="field-input" onchange="handleImageUpload('logo', this)">
         </div>
       </div>
     </div>
@@ -585,294 +605,40 @@
     <span id="toast-text">Signature copied to clipboard!</span>
   </div>
 
-  <!-- Profile Data -->
+  <!-- Templates & Profile Data -->
+  <script src="src/schema.js"></script>
+  <script src="src/templates.js"></script>
   <script src="data/profile.js"></script>
 
   <script>
-    // In-memory profile with fallbacks
-    let profile = window.PROFILE_DATA || {
-      name: "MD Razikul Islam Joni",
-      title: "Full-Stack Developer",
-      email: "razikuljoni@gmail.com",
-      phone: "+880 1623-208660",
-      whatsapp: "https://wa.me/8801623208660",
-      website: "https://www.razikuljoni.xyz",
-      websiteDisplay: "razikuljoni.xyz",
-      location: "Dhaka, Bangladesh",
-      booking: { url: "https://cal.com/razikuljoni", label: "Book a call →" },
-      socials: {
-        linkedin: "https://www.linkedin.com/in/razikuljoni",
-        github: "https://github.com/razikuljoni",
-        x: "https://x.com/razikuljoni"
-      }
-    };
+    // In-memory profile with localStorage persistence
+    const SS = window.SignatureSchema;
+    let profile;
+    try {
+      const saved = localStorage.getItem('signatureStudio.profile');
+      profile = saved ? SS.parseProfile(saved) : SS.migrate(window.PROFILE_DATA || {});
+    } catch (e) {
+      profile = SS.migrate(window.PROFILE_DATA || {});
+    }
+    function saveProfile() {
+      try { localStorage.setItem('signatureStudio.profile', SS.serializeProfile(profile)); } catch (e) {}
+    }
 
-    let originalProfile = JSON.parse(JSON.stringify(profile));
+    let originalProfile = SS.migrate(window.PROFILE_DATA || {});
     let currentFilter = 'all';
     let currentSimBg = 'light';
 
-    // Signatures Definitions
-    const SIGNATURE_DEFINITIONS = [
-      {
-        id: 'sig-a',
-        badge: 'Template A',
-        name: 'Essential Text-Only',
-        desc: 'Zero images, indestructible formatting. Works in 100% of email clients and firewalls.',
-        tags: ['minimal'],
-        standalone: 'signatures/signature-a.html',
-        render: (p) => `
-<table cellpadding="0" cellspacing="0" border="0" style="font-family:Arial,Helvetica,sans-serif; max-width:560px; color:#111827;">
-  <tr>
-    <td style="border-top:1px solid #e5e7eb; font-size:0; line-height:0; padding-bottom:12px;">&nbsp;</td>
-  </tr>
-  <tr>
-    <td>
-      <div style="font-size:16px; font-weight:700; color:#111827; line-height:1.3;">${p.name}</div>
-      <div style="font-size:12px; color:#6b7280; line-height:1.4; margin-top:2px;">${p.title}</div>
-      <div style="font-size:12.5px; color:#374151; line-height:1.7; margin-top:8px;">
-        <a href="mailto:${p.email}" style="color:#374151; text-decoration:none;">${p.email}</a>
-        <span style="color:#d1d5db;">&nbsp;&middot;&nbsp;</span>
-        <a href="tel:${p.phone.replace(/[^0-9+]/g, '')}" style="color:#374151; text-decoration:none;">${p.phone}</a>
-      </div>
-      <div style="font-size:12.5px; color:#374151; line-height:1.7;">
-        <a href="${p.website}" style="color:#2563eb; text-decoration:none;">${p.websiteDisplay || 'razikuljoni.xyz'}</a>
-        <span style="color:#d1d5db;">&nbsp;&middot;&nbsp;</span>
-        <span>${p.location}</span>
-      </div>
-      <div style="font-size:12px; color:#6b7280; line-height:1.7; margin-top:6px;">
-        <a href="${p.socials.linkedin}" style="color:#6b7280; text-decoration:none;">LinkedIn</a>
-        <span style="color:#d1d5db;">&nbsp;&middot;&nbsp;</span>
-        <a href="${p.socials.github}" style="color:#6b7280; text-decoration:none;">GitHub</a>
-        <span style="color:#d1d5db;">&nbsp;&middot;&nbsp;</span>
-        <a href="${p.socials.x}" style="color:#6b7280; text-decoration:none;">X</a>
-        <span style="color:#d1d5db;">&nbsp;&middot;&nbsp;</span>
-        <a href="${p.booking.url}" style="color:#2563eb; text-decoration:none; font-weight:600;">${p.booking.label}</a>
-      </div>
-    </td>
-  </tr>
-</table>`
-      },
-      {
-        id: 'sig-b',
-        badge: 'Template B',
-        name: 'Portrait Minimal',
-        desc: 'Vertical portrait photo, hairline divider, and monochrome social & contact icons.',
-        tags: ['minimal', 'photo'],
-        standalone: 'signatures/signature-b.html',
-        render: (p) => `
-<table cellpadding="0" cellspacing="0" border="0" style="font-family:Arial,Helvetica,sans-serif; max-width:560px; color:#111827;">
-  <tr>
-    <td style="border-top:1px solid #e5e7eb; font-size:0; line-height:0; padding-bottom:14px;">&nbsp;</td>
-  </tr>
-  <tr>
-    <td>
-      <table cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td style="vertical-align:middle; padding-right:16px;">
-            <img src="assets/images/photo.png" alt="${p.name}" width="80" height="110" style="display:block; width:80px; height:110px; border-radius:10px; border:1px solid #e5e7eb; object-fit:cover;">
-          </td>
-          <td style="vertical-align:middle; width:1px; background:#e5e7eb; font-size:0; line-height:0;">&nbsp;</td>
-          <td style="vertical-align:middle; padding-left:16px;">
-            <div style="font-size:16px; font-weight:700; color:#111827; line-height:1.25; letter-spacing:0.2px;">${p.name}</div>
-            <div style="font-size:12px; font-weight:500; color:#6b7280; line-height:1.4; margin-top:2px;">${p.title}</div>
-            <div style="font-size:12.5px; color:#374151; line-height:1.65; margin-top:8px; white-space:nowrap;">
-              <img src="assets/icons/i-mail.png" alt="" width="15" height="15" style="width:15px; height:15px; vertical-align:-2px;">
-              <a href="mailto:${p.email}" style="color:#374151; text-decoration:none; vertical-align:middle;">${p.email}</a>
-              <span style="color:#d1d5db; vertical-align:middle;">&nbsp;&middot;&nbsp;</span>
-              <img src="assets/icons/i-phone.png" alt="" width="15" height="15" style="width:15px; height:15px; vertical-align:-2px;">
-              <a href="${p.whatsapp}" style="color:#374151; text-decoration:none; vertical-align:middle;">${p.phone}</a>
-            </div>
-            <div style="font-size:12.5px; color:#374151; line-height:1.65; white-space:nowrap;">
-              <img src="assets/icons/i-globe.png" alt="" width="15" height="15" style="width:15px; height:15px; vertical-align:-2px;">
-              <a href="${p.website}" style="color:#2563eb; text-decoration:none; vertical-align:middle;">${p.websiteDisplay}</a>
-              <span style="color:#d1d5db; vertical-align:middle;">&nbsp;&middot;&nbsp;</span>
-              <img src="assets/icons/i-map-pin.png" alt="" width="15" height="15" style="width:15px; height:15px; vertical-align:-2px;">
-              <span style="vertical-align:middle;">${p.location}</span>
-            </div>
-            <div style="margin-top:8px; line-height:1; white-space:nowrap;">
-              <a href="${p.socials.linkedin}" style="text-decoration:none; vertical-align:middle;"><img src="assets/icons/s-linkedin.png" alt="LinkedIn" width="19" height="19" border="0" style="width:19px; height:19px; vertical-align:middle;"></a>
-              <span style="font-size:12px; color:#d1d5db; vertical-align:middle;">&nbsp;&nbsp;&nbsp;</span>
-              <a href="${p.socials.github}" style="text-decoration:none; vertical-align:middle;"><img src="assets/icons/s-github.png" alt="GitHub" width="19" height="19" border="0" style="width:19px; height:19px; vertical-align:middle;"></a>
-              <span style="font-size:12px; color:#d1d5db; vertical-align:middle;">&nbsp;&nbsp;&nbsp;</span>
-              <a href="${p.socials.x}" style="text-decoration:none; vertical-align:middle;"><img src="assets/icons/s-x.png" alt="X" width="17" height="17" border="0" style="width:17px; height:17px; vertical-align:middle;"></a>
-              <span style="font-size:12px; color:#d1d5db; vertical-align:middle;">&nbsp;&nbsp;&middot;&nbsp;&nbsp;</span>
-              <a href="${p.booking.url}" style="font-size:12.5px; font-weight:600; color:#2563eb; text-decoration:none; vertical-align:middle;">${p.booking.label}</a>
-            </div>
-          </td>
-        </tr>
-      </table>
-    </td>
-  </tr>
-</table>`
-      },
-      {
-        id: 'sig-c',
-        badge: 'Template C',
-        name: 'Monogram Avatar',
-        desc: 'Dark initial monogram avatar in place of a photograph. Professional and discreet.',
-        tags: ['minimal'],
-        standalone: 'signatures/signature-c.html',
-        render: (p) => `
-<table cellpadding="0" cellspacing="0" border="0" style="font-family:Arial,Helvetica,sans-serif; max-width:560px; color:#111827;">
-  <tr>
-    <td style="border-top:1px solid #e5e7eb; font-size:0; line-height:0; padding-bottom:14px;">&nbsp;</td>
-  </tr>
-  <tr>
-    <td>
-      <table cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td style="vertical-align:middle; padding-right:16px;">
-            <img src="assets/images/monogram.png" alt="RJ" width="80" height="110" style="display:block; width:80px; height:110px; border-radius:10px; object-fit:cover;">
-          </td>
-          <td style="vertical-align:middle; width:1px; background:#e5e7eb; font-size:0; line-height:0;">&nbsp;</td>
-          <td style="vertical-align:middle; padding-left:16px;">
-            <div style="font-size:16px; font-weight:700; color:#111827; line-height:1.25; letter-spacing:0.2px;">${p.name}</div>
-            <div style="font-size:12px; font-weight:500; color:#6b7280; line-height:1.4; margin-top:2px;">${p.title}</div>
-            <div style="font-size:12.5px; color:#374151; line-height:1.7; margin-top:8px;">
-              <a href="mailto:${p.email}" style="color:#374151; text-decoration:none;">${p.email}</a>
-              <span style="color:#d1d5db;">&nbsp;&middot;&nbsp;</span>
-              <a href="tel:${p.phone.replace(/[^0-9+]/g, '')}" style="color:#374151; text-decoration:none;">${p.phone}</a>
-            </div>
-            <div style="font-size:12.5px; color:#374151; line-height:1.7;">
-              <a href="${p.website}" style="color:#2563eb; text-decoration:none;">${p.websiteDisplay}</a>
-              <span style="color:#d1d5db;">&nbsp;&middot;&nbsp;</span>
-              <span>${p.location}</span>
-            </div>
-            <div style="font-size:12px; color:#6b7280; line-height:1.7; margin-top:6px;">
-              <a href="${p.socials.linkedin}" style="color:#6b7280; text-decoration:none;">LinkedIn</a>
-              <span style="color:#d1d5db;">&nbsp;&middot;&nbsp;</span>
-              <a href="${p.socials.github}" style="color:#6b7280; text-decoration:none;">GitHub</a>
-              <span style="color:#d1d5db;">&nbsp;&middot;&nbsp;</span>
-              <a href="${p.socials.x}" style="color:#6b7280; text-decoration:none;">X</a>
-              <span style="color:#d1d5db;">&nbsp;&middot;&nbsp;</span>
-              <a href="${p.booking.url}" style="color:#2563eb; text-decoration:none; font-weight:600;">${p.booking.label}</a>
-            </div>
-          </td>
-        </tr>
-      </table>
-    </td>
-  </tr>
-</table>`
-      },
-      {
-        id: 'sig-d',
-        badge: 'Template D',
-        name: 'Noir Card',
-        desc: 'Dark background container card with high-contrast white & light blue typography.',
-        tags: ['dark', 'photo'],
-        standalone: 'signatures/signature-d.html',
-        render: (p) => `
-<table cellpadding="0" cellspacing="0" border="0" style="font-family:Arial,Helvetica,sans-serif; max-width:560px; background:#0f1727; border-radius:18px; color:#ffffff;">
-  <tr>
-    <td style="padding:20px 24px;">
-      <table cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td style="vertical-align:middle; padding-right:16px;">
-            <img src="assets/images/photo.png" alt="${p.name}" width="80" height="110" style="display:block; width:80px; height:110px; border-radius:10px; object-fit:cover;">
-          </td>
-          <td style="vertical-align:middle; width:1px; background:#1f2937; font-size:0; line-height:0;">&nbsp;</td>
-          <td style="vertical-align:middle; padding-left:16px;">
-            <div style="font-size:16px; font-weight:700; color:#ffffff; line-height:1.25; letter-spacing:0.2px;">${p.name}</div>
-            <div style="font-size:12px; font-weight:500; color:#9ca3af; line-height:1.4; margin-top:2px;">${p.title}</div>
-            <div style="font-size:12.5px; color:#d1d5db; line-height:1.7; margin-top:8px;">
-              <a href="mailto:${p.email}" style="color:#d1d5db; text-decoration:none;">${p.email}</a>
-              <span style="color:#4b5563;">&nbsp;&middot;&nbsp;</span>
-              <a href="tel:${p.phone.replace(/[^0-9+]/g, '')}" style="color:#d1d5db; text-decoration:none;">${p.phone}</a>
-            </div>
-            <div style="font-size:12.5px; color:#d1d5db; line-height:1.7;">
-              <a href="${p.website}" style="color:#93c5fd; text-decoration:none;">${p.websiteDisplay}</a>
-              <span style="color:#4b5563;">&nbsp;&middot;&nbsp;</span>
-              <span style="color:#d1d5db;">${p.location}</span>
-            </div>
-            <div style="font-size:12px; color:#9ca3af; line-height:1.7; margin-top:6px;">
-              <a href="${p.socials.linkedin}" style="color:#9ca3af; text-decoration:none;">LinkedIn</a>
-              <span style="color:#4b5563;">&nbsp;&middot;&nbsp;</span>
-              <a href="${p.socials.github}" style="color:#9ca3af; text-decoration:none;">GitHub</a>
-              <span style="color:#4b5563;">&nbsp;&middot;&nbsp;</span>
-              <a href="${p.socials.x}" style="color:#9ca3af; text-decoration:none;">X</a>
-              <span style="color:#4b5563;">&nbsp;&middot;&nbsp;</span>
-              <a href="${p.booking.url}" style="color:#93c5fd; text-decoration:none; font-weight:600;">${p.booking.label}</a>
-            </div>
-          </td>
-        </tr>
-      </table>
-    </td>
-  </tr>
-</table>`
-      },
-      {
-        id: 'sig-e',
-        badge: 'Template E',
-        name: 'Developer Pro Banner',
-        desc: 'Horizontal dual accent top bar, square portrait, social badge column, and contact grid.',
-        tags: ['photo'],
-        standalone: 'signatures/signature-e.html',
-        render: (p) => `
-<table cellpadding="0" cellspacing="0" border="0" style="font-family:Arial,Helvetica,sans-serif; max-width:580px; vertical-align:-webkit-baseline-middle; color:#0f172a;">
-  <tr>
-    <td style="padding-bottom:12px;">
-      <table cellpadding="0" cellspacing="0" border="0" width="100%">
-        <tr>
-          <td style="height:4px; width:80px; background:#2563eb; border-radius:2px; font-size:0; line-height:0;">&nbsp;</td>
-          <td style="height:4px; width:6px; font-size:0; line-height:0;">&nbsp;</td>
-          <td style="height:4px; background:#93c5fd; border-radius:2px; font-size:0; line-height:0;">&nbsp;</td>
-        </tr>
-      </table>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <table cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td style="vertical-align:middle; padding-right:16px;">
-            <img src="assets/images/photo.png" alt="${p.name}" width="88" height="88" style="display:block; width:88px; height:88px; border-radius:14px; border:2px solid #e2e8f0; object-fit:cover;">
-          </td>
-          <td style="vertical-align:middle; padding-right:16px;">
-            <div style="font-size:17px; font-weight:700; color:#0f172a; line-height:1.2; letter-spacing:-0.2px;">${p.name}</div>
-            <div style="font-size:13px; font-weight:600; color:#2563eb; line-height:1.4; margin-top:3px;">${p.title}</div>
-            <div style="margin-top:10px; line-height:1; white-space:nowrap;">
-              <a href="${p.socials.linkedin}" style="display:inline-block; margin-right:8px; text-decoration:none;"><img src="assets/icons/s-linkedin.png" alt="LinkedIn" width="18" height="18" border="0" style="vertical-align:middle;"></a>
-              <a href="${p.socials.github}" style="display:inline-block; margin-right:8px; text-decoration:none;"><img src="assets/icons/s-github.png" alt="GitHub" width="18" height="18" border="0" style="vertical-align:middle;"></a>
-              <a href="${p.socials.x}" style="display:inline-block; margin-right:8px; text-decoration:none;"><img src="assets/icons/s-x.png" alt="X" width="16" height="16" border="0" style="vertical-align:middle;"></a>
-              <a href="${p.booking.url}" style="font-size:12px; font-weight:600; color:#2563eb; text-decoration:none; vertical-align:middle; margin-left:2px;">${p.booking.label}</a>
-            </div>
-          </td>
-          <td style="vertical-align:middle; width:1px; background:#e2e8f0; font-size:0; line-height:0; padding:0 0;">&nbsp;</td>
-          <td style="vertical-align:middle; padding-left:16px;">
-            <table cellpadding="0" cellspacing="0" border="0" style="font-size:12.5px; line-height:1.65; color:#475569;">
-              <tr>
-                <td style="padding:2px 0; white-space:nowrap;">
-                  <img src="assets/icons/i-mail.png" alt="" width="14" height="14" style="width:14px; height:14px; vertical-align:-2px; margin-right:6px;">
-                  <a href="mailto:${p.email}" style="color:#0f172a; text-decoration:none; font-weight:500;">${p.email}</a>
-                </td>
-              </tr>
-              <tr>
-                <td style="padding:2px 0; white-space:nowrap;">
-                  <img src="assets/icons/i-phone.png" alt="" width="14" height="14" style="width:14px; height:14px; vertical-align:-2px; margin-right:6px;">
-                  <a href="${p.whatsapp}" style="color:#475569; text-decoration:none;">${p.phone}</a>
-                </td>
-              </tr>
-              <tr>
-                <td style="padding:2px 0; white-space:nowrap;">
-                  <img src="assets/icons/i-globe.png" alt="" width="14" height="14" style="width:14px; height:14px; vertical-align:-2px; margin-right:6px;">
-                  <a href="${p.website}" style="color:#2563eb; text-decoration:none;">${p.websiteDisplay}</a>
-                </td>
-              </tr>
-              <tr>
-                <td style="padding:2px 0; white-space:nowrap;">
-                  <img src="assets/icons/i-map-pin.png" alt="" width="14" height="14" style="width:14px; height:14px; vertical-align:-2px; margin-right:6px;">
-                  <span>${p.location}</span>
-                </td>
-              </tr>
-            </table>
-          </td>
-        </tr>
-      </table>
-    </td>
-  </tr>
-</table>`
-      }
-    ];
+    // Signatures Definitions mapped from shared manifest
+    const T = window.SignatureTemplates;
+    const SIGNATURE_DEFINITIONS = T.MANIFEST.map(m => ({
+      id: m.id,
+      badge: `Template ${m.letter.toUpperCase()}`,
+      name: m.name,
+      desc: m.desc,
+      tags: m.tags,
+      standalone: `signatures/${m.slug}.html`,
+      render: (p) => T.render(m.letter, p, { assetPrefix: "assets" })
+    }));
 
     // Render Cards
     function renderCards() {
@@ -970,14 +736,76 @@
           profile.websiteDisplay = val.replace(/^https?:\/\//, '').replace(/\/$/, '');
         }
       }
+      saveProfile();
       renderCards();
     }
 
     function resetProfile() {
       profile = JSON.parse(JSON.stringify(originalProfile));
+      try { localStorage.removeItem('signatureStudio.profile'); } catch (e) {}
       populateEditorInputs();
       renderCards();
       showToast('Profile reset to saved configuration.');
+    }
+
+    function exportProfile() {
+      const blob = new Blob([SS.serializeProfile(profile)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'profile.json'; a.click();
+      URL.revokeObjectURL(url);
+      showToast('Profile exported as profile.json');
+    }
+
+    function importProfile() {
+      const inp = document.createElement('input');
+      inp.type = 'file'; inp.accept = '.json,application/json';
+      inp.onchange = () => {
+        const file = inp.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = () => {
+          try {
+            profile = SS.parseProfile(reader.result);
+            saveProfile();
+            populateEditorInputs();
+            renderCards();
+            showToast('Profile imported successfully');
+          } catch (e) {
+            showToast('Invalid profile JSON file');
+          }
+        };
+        reader.readAsText(file);
+      };
+      inp.click();
+    }
+
+    function handleImageUpload(key, input) {
+      const file = input.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        const img = new Image();
+        img.onload = () => {
+          const MAX = 512;
+          let w = img.width, h = img.height;
+          if (w > MAX || h > MAX) {
+            if (w > h) { h = Math.round(h * MAX / w); w = MAX; }
+            else { w = Math.round(w * MAX / h); h = MAX; }
+          }
+          const canvas = document.createElement('canvas');
+          canvas.width = w; canvas.height = h;
+          canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+          const dataUri = canvas.toDataURL('image/png');
+          if (!profile.images) profile.images = {};
+          profile.images[key] = dataUri;
+          saveProfile();
+          renderCards();
+          showToast(`${key} image updated`);
+        };
+        img.src = reader.result;
+      };
+      reader.readAsDataURL(file);
     }
 
     // Copying helpers

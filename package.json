@@ -5,7 +5,8 @@
   "scripts": {
     "build": "node scripts/build.js",
     "serve": "npx -y serve .",
-    "preview": "open index.html"
+    "preview": "open index.html",
+    "check": "node scripts/check.js"
   },
   "keywords": [
     "email-signature",
