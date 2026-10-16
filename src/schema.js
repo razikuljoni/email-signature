@@ -23,7 +23,7 @@
     location: '',
     booking: { url: '', label: 'Book a call →' },
     socials: { linkedin: '', github: '', x: '', instagram: '', youtube: '' },
-    images: { photo: 'assets/images/photo.png', monogram: 'assets/images/monogram.png', logo: '' },
+    images: { photo: 'assets/images/photo.png', monogram: 'assets/images/monogram.png', logo: '', remotePhoto: '' },
     brand: DEFAULT_BRAND,
     signature: { template: 'a', perTemplate: {} }
   };

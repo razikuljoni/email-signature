@@ -104,3 +104,57 @@ test('template falls back to default image when empty', () => {
   assert.ok(html.includes('assets/images/photo.png'), 'fallback photo used');
 });
 console.log('check image handling: passed');
+
+// New template-specific assertions
+test('photoSrc precedence: explicit data URI wins', () => {
+  const p = S.migrate({ name: 'Test', email: 'a@b.c', images: { photo: 'data:image/png;base64,AAAA', remotePhoto: 'https://remote.example/photo.jpg' } });
+  const html = T.render('h', p, { assetPrefix: 'assets' });
+  assert.ok(html.includes('data:image/png;base64,AAAA'), 'explicit data URI should win over remotePhoto');
+});
+test('photoSrc precedence: explicit https URL wins', () => {
+  const p = S.migrate({ name: 'Test', email: 'a@b.c', images: { photo: 'https://explicit.example/photo.jpg', remotePhoto: 'https://remote.example/photo.jpg' } });
+  const html = T.render('h', p, { assetPrefix: 'assets' });
+  assert.ok(html.includes('https://explicit.example/photo.jpg'), 'explicit https photo should win');
+});
+test('photoSrc precedence: remotePhoto used when photo is bundled default', () => {
+  const p = S.migrate({ name: 'Test', email: 'a@b.c', images: { photo: 'assets/images/photo.png', remotePhoto: 'https://remote.example/photo.jpg' } });
+  const html = T.render('h', p, { assetPrefix: 'assets' });
+  assert.ok(html.includes('https://remote.example/photo.jpg'), 'remotePhoto should be used when photo is default bundle');
+});
+test('K and N output contains white background fill', () => {
+  const p = S.migrate(Object.assign({}, FIXTURE));
+  const htmlK = T.render('k', p, { assetPrefix: '..' });
+  const htmlN = T.render('n', p, { assetPrefix: '..' });
+  assert.ok(htmlK.includes('background:#ffffff'), 'K should have white fill');
+  assert.ok(htmlN.includes('background:#ffffff'), 'N should have white fill');
+});
+test('H does not contain white card fill', () => {
+  const p = S.migrate(Object.assign({}, FIXTURE));
+  const htmlH = T.render('h', p, { assetPrefix: '..' });
+  assert.ok(!htmlH.includes('background:#ffffff'), 'H should not have white card fill');
+});
+test('L output uses serif font stack', () => {
+  const p = S.migrate(Object.assign({}, FIXTURE));
+  const htmlL = T.render('l', p, { assetPrefix: '..' });
+  assert.ok(htmlL.includes('Georgia'), 'L should use Georgia serif');
+  assert.ok(htmlL.includes("'Times New Roman'") || htmlL.includes('"Times New Roman"'), 'L should include Times New Roman');
+});
+test('O has solid background-color alongside linear-gradient', () => {
+  const p = S.migrate(Object.assign({}, FIXTURE));
+  const htmlO = T.render('o', p, { assetPrefix: '..' });
+  assert.ok(htmlO.includes('background-color:#2563eb'), 'O should have solid fallback color');
+  assert.ok(htmlO.includes('linear-gradient'), 'O should have gradient');
+});
+test('H renders name only, no job title', () => {
+  const p = S.migrate(Object.assign({}, FIXTURE));
+  const htmlH = T.render('h', p, { assetPrefix: '..' });
+  // H should have the name
+  assert.ok(htmlH.includes(T.escapeHtml(FIXTURE.name)), 'H renders name');
+  // H should NOT have the title field rendered (no 12px muted title div)
+  // Specifically, it should not contain the title text between name and contact rows
+  const nameIdx = htmlH.indexOf(T.escapeHtml(FIXTURE.name));
+  const contactIdx = htmlH.indexOf('i-mail');
+  const between = htmlH.slice(nameIdx, contactIdx);
+  assert.ok(!between.includes(T.escapeHtml(FIXTURE.title)), 'H should not render job title');
+});
+console.log('check new template assertions: passed');

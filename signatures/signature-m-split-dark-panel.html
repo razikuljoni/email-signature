@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Split Dark Panel — Email Signature</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; padding: 0; background: #f1f5f9;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: #0f172a; min-height: 100vh; display: flex; flex-direction: column;
+    }
+    .top-bar {
+      background: #ffffff; border-bottom: 1px solid #e2e8f0; padding: 12px 24px;
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px;
+      position: sticky; top: 0; z-index: 50; box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+    .top-left { display: flex; align-items: center; gap: 12px; }
+    .back-btn {
+      display: inline-flex; align-items: center; gap: 6px; padding: 7px 12px;
+      background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px; color: #334155;
+      text-decoration: none; font-size: 13px; font-weight: 500; transition: all 0.15s ease;
+    }
+    .back-btn:hover { background: #e2e8f0; color: #0f172a; }
+    .sig-title { font-size: 15px; font-weight: 600; color: #0f172a; }
+    .actions { display: flex; align-items: center; gap: 10px; }
+    .btn {
+      cursor: pointer; display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px;
+      font-size: 13px; font-weight: 600; border-radius: 8px; border: 1px solid transparent; transition: all 0.15s ease; user-select: none;
+    }
+    .btn-primary { background: #2563eb; color: #ffffff; }
+    .btn-primary:hover { background: #1d4ed8; box-shadow: 0 4px 10px rgba(37, 99, 235, 0.25); }
+    .btn-secondary { background: #ffffff; color: #334155; border-color: #cbd5e1; }
+    .btn-secondary:hover { background: #f8fafc; color: #0f172a; }
+    .preview-canvas { flex: 1; padding: 40px 24px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+    .card-preview {
+      background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 32px;
+      box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05); max-width: 650px; width: 100%; overflow-x: auto;
+    }
+    .bg-dark-preview { background: #0f172a !important; border-color: #1e293b !important; }
+    .copy-tip { margin-top: 24px; font-size: 13px; color: #64748b; text-align: center; max-width: 500px; line-height: 1.5; }
+    .copy-tip strong { color: #0f172a; }
+    @media (max-width: 480px) {
+      .card-preview { padding: 16px !important; }
+      .card-preview table { max-width: 100% !important; }
+      .card-preview td[style*="width:180px"] { width: 100% !important; display: block !important; }
+    }
+    #toast {
+      position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(20px);
+      background: #0f172a; color: #ffffff; padding: 10px 20px; border-radius: 8px; font-size: 13.5px; font-weight: 500;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2); opacity: 0; pointer-events: none;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1); z-index: 999; display: flex; align-items: center; gap: 8px;
+    }
+    #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  </style>
+</head>
+<body>
+  <div class="top-bar">
+    <div class="top-left">
+      <a href="../index.html" class="back-btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+        Dashboard
+      </a>
+      <span class="sig-title">Split Dark Panel</span>
+    </div>
+    <div class="actions">
+      <button class="btn btn-secondary" onclick="copyHtmlCode()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        Copy HTML
+      </button>
+      <button class="btn btn-primary" onclick="copyVisualSignature()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+        Copy for Gmail / Outlook
+      </button>
+    </div>
+  </div>
+
+  <main class="preview-canvas">
+    <div class="card-preview bg-dark-preview">
+      <div id="signature-container">
+<!-- SIGNATURE-START -->
+<table cellpadding="0" cellspacing="0" border="0" style="font-family:Arial,Helvetica,sans-serif; width:580px; max-width:580px; border-radius:14px; overflow:hidden;">
+  <tr>
+    <td style="background:#0f1727; padding:24px 20px; vertical-align:middle; text-align:center; width:180px;">
+      <img src="https://i.ibb.co/YDmnRvZ/pro-bg-white-2.jpg" alt="MD Razikul Islam Joni" width="72" height="72" style="display:block; width:72px; height:72px; border-radius:50%; object-fit:cover; margin:0 auto; border:2px solid #1e293b;">
+      <div style="font-size:15px; font-weight:700; color:#ffffff; line-height:1.3; margin-top:10px;">MD Razikul Islam Joni</div>
+      <div style="font-size:11px; color:#94a3b8; line-height:1.4; margin-top:2px;">Full-Stack Developer</div>
+    </td>
+    <td style="background:#ffffff; padding:20px 24px; vertical-align:top; color:#111827;">
+      <div style="font-size:14px; font-weight:700; color:#111827; line-height:1.3; margin-bottom:12px;">Get in touch</div>
+      <table cellpadding="0" cellspacing="0" border="0" style="font-size:12.5px; color:#374151; line-height:1.65;">
+        <tr>
+          <td style="padding:3px 0;">
+            <img src="../assets/icons/i-mail.png" alt="" width="14" height="14" style="width:14px; height:14px; vertical-align:-2px; margin-right:6px;">
+            <a href="mailto:razikuljoni@gmail.com" style="color:#374151; text-decoration:none;">razikuljoni@gmail.com</a>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:3px 0;">
+            <img src="../assets/icons/i-phone.png" alt="" width="14" height="14" style="width:14px; height:14px; vertical-align:-2px; margin-right:6px;">
+            <a href="tel:+8801623208660" style="color:#374151; text-decoration:none;">+880 1623-208660</a>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:3px 0;">
+            <img src="../assets/icons/i-globe.png" alt="" width="14" height="14" style="width:14px; height:14px; vertical-align:-2px; margin-right:6px;">
+            <a href="https://www.razikuljoni.xyz" style="color:#2563eb; text-decoration:none;">razikuljoni.xyz</a>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:3px 0;">
+            <img src="../assets/icons/i-map-pin.png" alt="" width="14" height="14" style="width:14px; height:14px; vertical-align:-2px; margin-right:6px;">
+            <span>Dhaka, Bangladesh</span>
+          </td>
+        </tr>
+      </table>
+      <div style="margin-top:10px; line-height:1;">
+        <a href="https://www.linkedin.com/in/razikuljoni" style="text-decoration:none; vertical-align:middle;"><img src="../assets/icons/s-linkedin.png" alt="LinkedIn" width="17" height="17" border="0" style="vertical-align:middle;"></a>
+        <span style="font-size:12px; color:#d1d5db; vertical-align:middle;">&nbsp;&nbsp;</span>
+        <a href="https://github.com/razikuljoni" style="text-decoration:none; vertical-align:middle;"><img src="../assets/icons/s-github.png" alt="GitHub" width="17" height="17" border="0" style="vertical-align:middle;"></a>
+        <span style="font-size:12px; color:#d1d5db; vertical-align:middle;">&nbsp;&nbsp;</span>
+        <a href="https://x.com/razikuljoni" style="text-decoration:none; vertical-align:middle;"><img src="../assets/icons/s-x.png" alt="X" width="15" height="15" border="0" style="vertical-align:middle;"></a>
+        <span style="font-size:12px; color:#d1d5db; vertical-align:middle;">&nbsp;&nbsp;&middot;&nbsp;&nbsp;</span>
+        <a href="https://cal.com/razikuljoni" style="font-size:12px; font-weight:600; color:#2563eb; text-decoration:none; vertical-align:middle;">Book a call →</a>
+      </div>
+    </td>
+  </tr>
+</table>
+<!-- SIGNATURE-END -->
+      </div>
+    </div>
+    <div class="copy-tip">
+      Click <strong>Copy for Gmail / Outlook</strong>, then open your email settings and press <strong>Ctrl+V / Cmd+V</strong>.
+    </div>
+  </main>
+
+  <div id="toast">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+    <span id="toast-text">Signature copied to clipboard!</span>
+  </div>
+
+  <script>
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toast-text').innerText = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2500);
+    }
+
+    async function copyVisualSignature() {
+      const container = document.getElementById('signature-container');
+      try {
+        if (navigator.clipboard && window.ClipboardItem) {
+          const htmlBlob = new Blob([container.innerHTML], { type: 'text/html' });
+          const textBlob = new Blob([container.innerText], { type: 'text/plain' });
+          await navigator.clipboard.write([
+            new ClipboardItem({ 'text/html': htmlBlob, 'text/plain': textBlob })
+          ]);
+          showToast('Copied! Paste into Gmail / Outlook / Apple Mail.');
+          return;
+        }
+      } catch (err) {
+        console.warn('ClipboardItem fallback:', err);
+      }
+      const range = document.createRange();
+      range.selectNode(container);
+      const sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+      document.execCommand('copy');
+      sel.removeAllRanges();
+      showToast('Copied! Paste into Gmail / Outlook / Apple Mail.');
+    }
+
+    async function copyHtmlCode() {
+      const container = document.getElementById('signature-container');
+      await navigator.clipboard.writeText(container.innerHTML.trim());
+      showToast('Raw HTML code copied to clipboard!');
+    }
+  </script>
+</body>
+</html>
