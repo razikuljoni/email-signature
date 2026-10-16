@@ -35,11 +35,21 @@ email-signature/
 │       ├── i-mail.png, i-phone.png, i-globe.png, i-map-pin.png
 │       └── s-github.png, s-linkedin.png, s-x.png
 ├── signatures/                  # Standalone signature pages (open directly)
-│   ├── signature-a.html         # Essential (Text-only, zero images, 100% deliverability)
-│   ├── signature-b.html         # Portrait Minimal (Photo, divider, monochrome icons)
-│   ├── signature-c.html         # Monogram Avatar (Discreet monogram + hairline divider)
-│   ├── signature-d.html         # Noir Card (Dark container card with high contrast)
-│   └── signature-e.html         # Developer Pro (Dual-color banner + social badge grid)
+│   ├── signature-a-*.html       # A — Essential Text-Only (zero images, 100% deliverability)
+│   ├── signature-b-*.html       # B — Portrait Minimal (photo, divider, monochrome icons)
+│   ├── signature-c-*.html       # C — Monogram Avatar (discreet monogram + hairline divider)
+│   ├── signature-d-*.html       # D — Noir Dark Card (dark container, high contrast)
+│   ├── signature-e-*.html       # E — Developer Pro Banner (dual-color bar + badge grid)
+│   ├── signature-f-*.html       # F — Executive Bordered Card (bordered, rounded corners)
+│   ├── signature-g-*.html       # G — Gradient Badge Stack (vertical gradient pill)
+│   ├── signature-h-*.html       # H — Contact Rail (horizontal icon rail, circular photo)
+│   ├── signature-i-*.html       # I — Pill Badges (rounded pill chips per contact)
+│   ├── signature-j-*.html       # J — Labeled Columns (4-column uppercase micro-labels)
+│   ├── signature-k-*.html       # K — Bordered Contact Grid (white card, 2×2 icon grid)
+│   ├── signature-l-*.html       # L — Centered Serif Classic (serif, centered, no photo)
+│   ├── signature-m-*.html       # M — Split Dark Panel (navy + white two-column card)
+│   ├── signature-n-*.html       # N — Card + CTA (white card, dark pill CTA button)
+│   └── signature-o-*.html       # O — Accent Rail (vertical gradient rail, icon rows)
 ├── scripts/
 │   └── build.js                 # Rebuilds all signatures from data/profile.json
 └── package.json
@@ -49,7 +59,18 @@ email-signature/
 
 ## ✏️ How to Update Your Information
 
-1. Edit [`data/profile.json`](file:///Users/razikuljoni/Workspace/Others/email-signature/data/profile.json) with your updated contact information, links, or titles:
+### Via the Live Profile Editor (recommended)
+
+1. Open `index.html` in any browser.
+2. Click **Edit Info** in the header to expand the Live Profile Editor.
+3. Edit fields directly — name, title, email, phone, website, location, booking URL, and **Photo URL** (`images.remotePhoto`).
+4. Upload a photo, monogram, or logo via the file inputs.
+5. Changes render live across all 15 templates.
+6. Data persists in your browser's localStorage; use **Export** to save a `profile.json` snapshot.
+
+### Via `profile.json` (for standalone / CI builds)
+
+1. Edit [`data/profile.json`](data/profile.json) with your updated contact information, links, or titles:
    ```json
    {
      "name": "MD Razikul Islam Joni",
