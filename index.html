@@ -479,7 +479,7 @@
     <!-- Controls Bar -->
     <div class="controls-bar">
       <div class="view-filters">
-        <button class="filter-chip active" onclick="filterSignatures('all', this)">All Signatures (5)</button>
+        <button class="filter-chip active" id="chip-all" onclick="filterSignatures('all', this)">All Signatures (5)</button>
         <button class="filter-chip" onclick="filterSignatures('minimal', this)">Minimalist</button>
         <button class="filter-chip" onclick="filterSignatures('photo', this)">With Photo</button>
         <button class="filter-chip" onclick="filterSignatures('dark', this)">Dark Card</button>
@@ -540,6 +540,10 @@
         <div class="field-group">
           <label class="field-label">Logo</label>
           <input type="file" accept="image/*" class="field-input" onchange="handleImageUpload('logo', this)">
+        </div>
+        <div class="field-group">
+          <label class="field-label">Photo URL</label>
+          <input type="text" class="field-input" id="inp-photo-url" oninput="updateProfileField('photoUrl', this.value)">
         </div>
       </div>
     </div>
@@ -725,11 +729,15 @@
       document.getElementById('inp-website').value = profile.website;
       document.getElementById('inp-location').value = profile.location;
       document.getElementById('inp-booking').value = profile.booking.url;
+      document.getElementById('inp-photo-url').value = (profile.images && profile.images.remotePhoto) || '';
     }
 
     function updateProfileField(field, val) {
       if (field === 'bookingUrl') {
         profile.booking.url = val;
+      } else if (field === 'photoUrl') {
+        if (!profile.images) profile.images = {};
+        profile.images.remotePhoto = val;
       } else {
         profile[field] = val;
         if (field === 'website') {
@@ -854,6 +862,7 @@
     // Initialize
     renderCards();
     populateEditorInputs();
+    document.getElementById('chip-all').textContent = `All Signatures (${SIGNATURE_DEFINITIONS.length})`;
   </script>
 </body>
 </html>
