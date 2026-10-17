@@ -4,52 +4,96 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Noir Dark Card — Email Signature</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
-    * { box-sizing: border-box; }
+    :root {
+      --bg: #080c16;
+      --card-bg: rgba(15, 23, 42, 0.72);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --accent: #4f46e5;
+      --accent-hover: #4338ca;
+      --accent-glow: rgba(79, 70, 229, 0.28);
+      --success: #10b981;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      margin: 0; padding: 0; background: #f1f5f9;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      color: #0f172a; min-height: 100vh; display: flex; flex-direction: column;
+      background-color: var(--bg);
+      background-image: 
+        radial-gradient(circle at 15% 10%, rgba(79, 70, 229, 0.15) 0, transparent 40%),
+        radial-gradient(circle at 85% 80%, rgba(6, 182, 212, 0.1) 0, transparent 40%);
+      background-attachment: fixed;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
     .top-bar {
-      background: #ffffff; border-bottom: 1px solid #e2e8f0; padding: 12px 24px;
-      display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px;
-      position: sticky; top: 0; z-index: 50; box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      background: rgba(8, 12, 22, 0.82);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--card-border);
+      padding: 14px 24px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      position: sticky;
+      top: 0;
+      z-index: 50;
     }
-    .top-left { display: flex; align-items: center; gap: 12px; }
+    .top-left { display: flex; align-items: center; gap: 14px; }
     .back-btn {
       display: inline-flex; align-items: center; gap: 6px; padding: 7px 12px;
-      background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px; color: #334155;
-      text-decoration: none; font-size: 13px; font-weight: 500; transition: all 0.15s ease;
+      background: rgba(255, 255, 255, 0.05); border: 1px solid var(--card-border); border-radius: 8px; color: var(--text-muted);
+      text-decoration: none; font-size: 13px; font-weight: 600; transition: all 0.15s ease;
     }
-    .back-btn:hover { background: #e2e8f0; color: #0f172a; }
-    .sig-title { font-size: 15px; font-weight: 600; color: #0f172a; }
-    .actions { display: flex; align-items: center; gap: 10px; }
+    .back-btn:hover { background: rgba(255, 255, 255, 0.1); color: #ffffff; }
+    .sig-title { font-size: 16px; font-weight: 700; color: #ffffff; letter-spacing: -0.2px; }
+    .actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .sim-toggle {
+      display: flex; align-items: center; gap: 2px; background: rgba(0, 0, 0, 0.35);
+      border: 1px solid var(--card-border); border-radius: 18px; padding: 3px;
+    }
+    .sim-btn {
+      padding: 4px 10px; font-size: 11.5px; font-weight: 600; border-radius: 14px;
+      border: none; background: transparent; color: var(--text-muted); cursor: pointer; transition: all 0.15s ease;
+    }
+    .sim-btn.active { background: var(--accent); color: #ffffff; }
     .btn {
       cursor: pointer; display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px;
-      font-size: 13px; font-weight: 600; border-radius: 8px; border: 1px solid transparent; transition: all 0.15s ease; user-select: none;
+      font-size: 13px; font-weight: 600; border-radius: 8px; border: 1px solid transparent; transition: all 0.18s ease; user-select: none;
     }
-    .btn-primary { background: #2563eb; color: #ffffff; }
-    .btn-primary:hover { background: #1d4ed8; box-shadow: 0 4px 10px rgba(37, 99, 235, 0.25); }
-    .btn-secondary { background: #ffffff; color: #334155; border-color: #cbd5e1; }
-    .btn-secondary:hover { background: #f8fafc; color: #0f172a; }
-    .preview-canvas { flex: 1; padding: 40px 24px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+    .btn-primary { background: var(--accent); color: #ffffff; box-shadow: 0 4px 14px var(--accent-glow); }
+    .btn-primary:hover { background: var(--accent-hover); transform: translateY(-1px); }
+    .btn-secondary { background: rgba(255, 255, 255, 0.05); color: #ffffff; border-color: var(--card-border); }
+    .btn-secondary:hover { background: rgba(255, 255, 255, 0.1); }
+    .btn-success { background: var(--success) !important; color: #ffffff !important; border-color: var(--success) !important; }
+    .preview-canvas { flex: 1; padding: 48px 24px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
     .card-preview {
-      background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 32px;
-      box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05); max-width: 650px; width: 100%; overflow-x: auto;
+      background: #ffffff; border: 1px solid var(--card-border); border-radius: 16px; padding: 32px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35); max-width: 680px; width: 100%; overflow-x: auto;
+      transition: background 0.2s ease, border-color 0.2s ease;
     }
-    .bg-dark-preview { background: #0f172a !important; border-color: #1e293b !important; }
-    .copy-tip { margin-top: 24px; font-size: 13px; color: #64748b; text-align: center; max-width: 500px; line-height: 1.5; }
-    .copy-tip strong { color: #0f172a; }
-    @media (max-width: 480px) {
-      .card-preview { padding: 16px !important; }
-      .card-preview table { max-width: 100% !important; }
-      .card-preview td[style*="width:180px"] { width: 100% !important; display: block !important; }
+    .bg-dark-preview { background: #0f172a !important; border-color: #1e293b !important; color: #f8fafc; }
+    .copy-tip {
+      margin-top: 24px; font-size: 13px; color: var(--text-muted); text-align: center; max-width: 520px; line-height: 1.6;
+      background: var(--card-bg); padding: 12px 20px; border-radius: 12px; border: 1px solid var(--card-border);
+    }
+    .copy-tip strong { color: #ffffff; }
+    @media (max-width: 600px) {
+      .card-preview { padding: 18px !important; }
+      .actions { width: 100%; justify-content: flex-start; }
     }
     #toast {
-      position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(20px);
-      background: #0f172a; color: #ffffff; padding: 10px 20px; border-radius: 8px; font-size: 13.5px; font-weight: 500;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2); opacity: 0; pointer-events: none;
+      position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%) translateY(30px);
+      background: #1e293b; color: #ffffff; padding: 12px 22px; border-radius: 10px; font-size: 13.5px; font-weight: 600;
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.12); opacity: 0; pointer-events: none;
       transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1); z-index: 999; display: flex; align-items: center; gap: 8px;
     }
     #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
@@ -59,25 +103,29 @@
   <div class="top-bar">
     <div class="top-left">
       <a href="../index.html" class="back-btn">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
-        Dashboard
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m15 18-6-6 6-6"/></svg>
+        Studio
       </a>
       <span class="sig-title">Noir Dark Card</span>
     </div>
     <div class="actions">
-      <button class="btn btn-secondary" onclick="copyHtmlCode()">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-        Copy HTML
+      <div class="sim-toggle">
+        <button class="sim-btn active" id="sim-light-btn" onclick="setTheme('light')">Light</button>
+        <button class="sim-btn" id="sim-dark-btn" onclick="setTheme('dark')">Dark</button>
+      </div>
+      <button class="btn btn-secondary" id="btn-html" onclick="copyHtmlCode()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        <span>Copy HTML</span>
       </button>
-      <button class="btn btn-primary" onclick="copyVisualSignature()">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
-        Copy for Gmail / Outlook
+      <button class="btn btn-primary" id="btn-copy" onclick="copyVisualSignature()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+        <span>Copy Signature</span>
       </button>
     </div>
   </div>
 
   <main class="preview-canvas">
-    <div class="card-preview bg-dark-preview">
+    <div class="card-preview bg-dark-preview" id="preview-wrapper">
       <div id="signature-container">
 <!-- SIGNATURE-START -->
 <table cellpadding="0" cellspacing="0" border="0" style="font-family:Arial,Helvetica,sans-serif; max-width:560px; background:#0f1727; border-radius:18px; color:#ffffff;">
@@ -121,12 +169,12 @@
       </div>
     </div>
     <div class="copy-tip">
-      Click <strong>Copy for Gmail / Outlook</strong>, then open your email settings and press <strong>Ctrl+V / Cmd+V</strong>.
+      Click <strong>Copy Signature</strong>, then paste (<kbd>Ctrl+V</kbd> / <kbd>Cmd+V</kbd>) into Gmail, Apple Mail, or Outlook settings.
     </div>
   </main>
 
   <div id="toast">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
     <span id="toast-text">Signature copied to clipboard!</span>
   </div>
 
@@ -135,7 +183,26 @@
       const toast = document.getElementById('toast');
       document.getElementById('toast-text').innerText = msg;
       toast.classList.add('show');
-      setTimeout(() => toast.classList.remove('show'), 2500);
+      setTimeout(() => toast.classList.remove('show'), 2600);
+    }
+
+    function setTheme(mode) {
+      document.getElementById('sim-light-btn').classList.toggle('active', mode === 'light');
+      document.getElementById('sim-dark-btn').classList.toggle('active', mode === 'dark');
+      const w = document.getElementById('preview-wrapper');
+      w.classList.toggle('bg-dark-preview', mode === 'dark');
+    }
+
+    function flashSuccess(btnId, text) {
+      const btn = document.getElementById(btnId);
+      if (!btn) return;
+      const oldHtml = btn.innerHTML;
+      btn.classList.add('btn-success');
+      btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> <span>' + text + '</span>';
+      setTimeout(() => {
+        btn.classList.remove('btn-success');
+        btn.innerHTML = oldHtml;
+      }, 2000);
     }
 
     async function copyVisualSignature() {
@@ -147,7 +214,8 @@
           await navigator.clipboard.write([
             new ClipboardItem({ 'text/html': htmlBlob, 'text/plain': textBlob })
           ]);
-          showToast('Copied! Paste into Gmail / Outlook / Apple Mail.');
+          flashSuccess('btn-copy', 'Copied! ✓');
+          showToast('Copied! Paste into Gmail / Apple Mail / Outlook.');
           return;
         }
       } catch (err) {
@@ -160,12 +228,14 @@
       sel.addRange(range);
       document.execCommand('copy');
       sel.removeAllRanges();
-      showToast('Copied! Paste into Gmail / Outlook / Apple Mail.');
+      flashSuccess('btn-copy', 'Copied! ✓');
+      showToast('Copied! Paste into Gmail / Apple Mail / Outlook.');
     }
 
     async function copyHtmlCode() {
       const container = document.getElementById('signature-container');
       await navigator.clipboard.writeText(container.innerHTML.trim());
+      flashSuccess('btn-html', 'HTML Copied! ✓');
       showToast('Raw HTML code copied to clipboard!');
     }
   </script>

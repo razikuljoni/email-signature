@@ -24,6 +24,9 @@ jobs:
         with:
           node-version: '22'
 
+      - name: Validate & Test Signatures
+        run: npm test
+
       - name: Build (regenerate profile.js and signatures)
         run: npm run build
 
