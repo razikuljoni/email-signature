@@ -3,10 +3,15 @@
   "version": "1.0.0",
   "description": "Multi-template professional email signatures with centralized profile management and 1-click rich clipboard copying",
   "scripts": {
+    "test": "node scripts/check.js",
+    "check": "node scripts/check.js",
     "build": "node scripts/build.js",
+    "validate": "npm test && npm run build",
     "serve": "npx -y serve .",
-    "preview": "open index.html",
-    "check": "node scripts/check.js"
+    "preview": "open index.html"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   },
   "keywords": [
     "email-signature",
