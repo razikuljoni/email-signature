@@ -3,98 +3,165 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Email Signature Studio — MD Razikul Islam Joni</title>
+  <title>Email Signature Studio — Professional Signatures</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
       --font-main: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
-      --bg: #090d16;
-      --card-bg: rgba(17, 24, 39, 0.7);
+      --bg-dark: #080c16;
+      --bg-card: rgba(15, 23, 42, 0.72);
+      --bg-card-hover: rgba(22, 33, 58, 0.85);
       --card-border: rgba(255, 255, 255, 0.08);
-      --accent: #3b82f6;
-      --accent-hover: #2563eb;
-      --accent-glow: rgba(59, 130, 246, 0.25);
-      --text: #f8fafc;
+      --card-border-hover: rgba(99, 102, 241, 0.35);
+      --accent: #4f46e5;
+      --accent-rgb: 79, 70, 229;
+      --accent-gradient: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #06b6d4 100%);
+      --accent-hover: #4338ca;
+      --accent-glow: rgba(79, 70, 229, 0.28);
+      --success: #10b981;
+      --success-glow: rgba(16, 185, 129, 0.25);
+      --text-main: #f8fafc;
       --text-muted: #94a3b8;
       --text-dim: #64748b;
       --preview-bg-light: #ffffff;
       --preview-bg-dark: #0f172a;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 18px;
+      --radius-xl: 24px;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: var(--font-main);
-      background-color: var(--bg);
+      background-color: var(--bg-dark);
       background-image: 
-        radial-gradient(at 100% 0%, rgba(59, 130, 246, 0.12) 0px, transparent 50%),
-        radial-gradient(at 0% 50%, rgba(139, 92, 246, 0.08) 0px, transparent 50%),
-        radial-gradient(at 50% 100%, rgba(16, 185, 129, 0.05) 0px, transparent 50%);
+        radial-gradient(circle at 10% 0%, rgba(79, 70, 229, 0.16) 0, transparent 40%),
+        radial-gradient(circle at 90% 15%, rgba(6, 182, 212, 0.12) 0, transparent 38%),
+        radial-gradient(circle at 50% 60%, rgba(124, 58, 237, 0.09) 0, transparent 50%),
+        radial-gradient(circle at 80% 95%, rgba(16, 185, 129, 0.08) 0, transparent 40%);
       background-attachment: fixed;
-      color: var(--text);
+      color: var(--text-main);
       min-height: 100vh;
       line-height: 1.5;
-      padding-bottom: 80px;
+      padding-bottom: 90px;
+      -webkit-font-smoothing: antialiased;
     }
 
-    /* Container */
+    /* Layout Container */
     .container {
-      max-width: 1240px;
+      max-width: 1360px;
       margin: 0 auto;
       padding: 0 24px;
     }
 
-    /* Header */
-    header {
-      padding: 48px 0 32px;
+    /* Top Sticky Header */
+    header.site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(8, 12, 22, 0.82);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
       border-bottom: 1px solid var(--card-border);
+      padding: 16px 0;
+      transition: border-color 0.2s ease;
     }
-    .header-top {
+    .header-inner {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
-      gap: 20px;
-    }
-    .brand-group {
-      display: flex;
-      align-items: center;
       gap: 16px;
     }
-    .brand-icon {
-      width: 48px;
-      height: 48px;
-      border-radius: 14px;
-      background: linear-gradient(135deg, #2563eb, #7c3aed);
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+    }
+    .brand-badge-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: var(--accent-gradient);
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 8px 20px var(--accent-glow);
+      box-shadow: 0 4px 16px var(--accent-glow);
+      flex-shrink: 0;
     }
-    .brand-icon svg {
-      width: 26px;
-      height: 26px;
+    .brand-badge-icon svg {
+      width: 24px;
+      height: 24px;
       color: #ffffff;
     }
-    .brand-title {
-      font-size: 26px;
+    .brand-title-wrap h1 {
+      font-size: 20px;
       font-weight: 800;
-      letter-spacing: -0.5px;
+      letter-spacing: -0.4px;
       color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .version-pill {
+      font-size: 10px;
+      font-weight: 700;
+      font-family: var(--font-mono);
+      background: rgba(79, 70, 229, 0.22);
+      color: #a5b4fc;
+      border: 1px solid rgba(79, 70, 229, 0.35);
+      padding: 2px 7px;
+      border-radius: 6px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
     }
     .brand-subtitle {
-      font-size: 13.5px;
+      font-size: 13px;
       color: var(--text-muted);
-      margin-top: 2px;
+      margin-top: 1px;
+    }
+
+    /* Active User Quick Profile Pill */
+    .profile-quick-pill {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--card-border);
+      padding: 6px 14px 6px 8px;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .profile-quick-pill:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.18);
+    }
+    .user-avatar-mini {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: var(--accent);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .user-mini-name {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--text-main);
     }
 
     .header-actions {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
+      flex-wrap: wrap;
     }
 
     /* Buttons */
@@ -103,15 +170,17 @@
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      padding: 10px 16px;
-      font-size: 13.5px;
+      justify-content: center;
+      gap: 7px;
+      padding: 8px 16px;
+      font-size: 13px;
       font-weight: 600;
-      border-radius: 10px;
+      border-radius: var(--radius-sm);
       border: 1px solid transparent;
-      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
       text-decoration: none;
       user-select: none;
+      white-space: nowrap;
     }
     .btn-primary {
       background: var(--accent);
@@ -121,120 +190,549 @@
     .btn-primary:hover {
       background: var(--accent-hover);
       transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(79, 70, 229, 0.4);
     }
     .btn-secondary {
       background: rgba(255, 255, 255, 0.05);
-      color: var(--text);
+      color: var(--text-main);
       border-color: var(--card-border);
       backdrop-filter: blur(8px);
     }
     .btn-secondary:hover {
       background: rgba(255, 255, 255, 0.1);
       border-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-1px);
+    }
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-muted);
+      border-color: transparent;
+    }
+    .btn-ghost:hover {
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text-main);
     }
     .btn-sm {
-      padding: 7px 12px;
-      font-size: 12.5px;
-      border-radius: 8px;
+      padding: 6px 12px;
+      font-size: 12px;
+      border-radius: 7px;
+    }
+    .btn-success-state {
+      background: var(--success) !important;
+      color: #ffffff !important;
+      border-color: var(--success) !important;
+      box-shadow: 0 4px 14px var(--success-glow) !important;
+      transform: scale(0.98);
     }
 
-    /* Controls Bar */
-    .controls-bar {
-      margin: 32px 0 24px;
+    /* Hero Banner Area */
+    .hero-strip {
+      padding: 32px 0 20px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .hero-info h2 {
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: -0.6px;
+      color: #ffffff;
+      margin-bottom: 6px;
+    }
+    .hero-info p {
+      font-size: 14.5px;
+      color: var(--text-muted);
+      max-width: 680px;
+    }
+    .stats-badges {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .stat-pill {
+      background: var(--bg-card);
+      border: 1px solid var(--card-border);
+      padding: 6px 14px;
+      border-radius: 24px;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      backdrop-filter: blur(10px);
+    }
+    .stat-indicator {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--success);
+      box-shadow: 0 0 8px var(--success);
+    }
+    .stat-label {
+      color: var(--text-muted);
+    }
+    .stat-val {
+      font-weight: 700;
+      color: #ffffff;
+      font-family: var(--font-mono);
+    }
+
+    /* Controls Bar & Filter Section */
+    .controls-panel {
+      margin: 16px 0 30px;
+      background: var(--bg-card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-lg);
+      padding: 16px 20px;
+      backdrop-filter: blur(14px);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .controls-row-top {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
       gap: 16px;
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 16px;
-      padding: 14px 20px;
-      backdrop-filter: blur(12px);
     }
-    .view-filters {
+    .search-box {
+      position: relative;
+      flex: 1;
+      min-width: 260px;
+      max-width: 440px;
+    }
+    .search-box svg {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-dim);
+      pointer-events: none;
+    }
+    .search-input {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 9px 14px 9px 38px;
+      font-size: 13.5px;
+      font-family: var(--font-main);
+      color: #ffffff;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+    .search-input:focus {
+      border-color: var(--accent);
+      background: rgba(0, 0, 0, 0.5);
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+    }
+    .search-clear-btn {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: var(--text-dim);
+      cursor: pointer;
+      display: none;
+      padding: 4px;
+    }
+    .search-clear-btn:hover {
+      color: var(--text-main);
+    }
+
+    /* Toggles / View Switcher Group */
+    .view-switches-group {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .control-label-mini {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-right: 4px;
+    }
+    .segmented-switch {
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 3px;
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
+    .switch-tab {
+      padding: 5px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 16px;
+      cursor: pointer;
+      color: var(--text-muted);
+      transition: all 0.16s ease;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      border: none;
+      background: transparent;
+    }
+    .switch-tab:hover:not(.active) {
+      color: var(--text-main);
+    }
+    .switch-tab.active {
+      background: var(--accent);
+      color: #ffffff;
+      box-shadow: 0 2px 8px var(--accent-glow);
+    }
+
+    /* Filter Chips Row */
+    .filters-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .chips-group {
       display: flex;
       align-items: center;
       gap: 8px;
       flex-wrap: wrap;
     }
     .filter-chip {
-      background: transparent;
+      background: rgba(255, 255, 255, 0.03);
       border: 1px solid var(--card-border);
       color: var(--text-muted);
       padding: 6px 14px;
       border-radius: 20px;
-      font-size: 13px;
-      font-weight: 500;
+      font-size: 12.5px;
+      font-weight: 600;
       cursor: pointer;
       transition: all 0.15s ease;
-    }
-    .filter-chip.active {
-      background: rgba(59, 130, 246, 0.15);
-      border-color: var(--accent);
-      color: #93c5fd;
-    }
-    .filter-chip:hover:not(.active) {
-      background: rgba(255, 255, 255, 0.05);
-      color: var(--text);
-    }
-
-    .mode-toggle {
       display: flex;
       align-items: center;
-      gap: 10px;
-      font-size: 13px;
-      color: var(--text-muted);
+      gap: 6px;
     }
-    .switch-btn {
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid var(--card-border);
-      border-radius: 20px;
-      padding: 4px;
-      display: flex;
-      gap: 4px;
+    .filter-chip:hover:not(.active) {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-main);
+      border-color: rgba(255, 255, 255, 0.16);
     }
-    .switch-opt {
-      padding: 4px 10px;
-      font-size: 12px;
-      font-weight: 600;
-      border-radius: 14px;
-      cursor: pointer;
-      color: var(--text-muted);
-      transition: all 0.15s ease;
+    .filter-chip.active {
+      background: rgba(79, 70, 229, 0.18);
+      border-color: var(--accent);
+      color: #c7d2fe;
     }
-    .switch-opt.active {
-      background: var(--accent);
-      color: #ffffff;
+    .chip-count {
+      font-size: 11px;
+      opacity: 0.75;
+      font-family: var(--font-mono);
+    }
+    .results-count-text {
+      font-size: 12.5px;
+      color: var(--text-dim);
     }
 
-    /* Live Data Editor Panel (Collapsible) */
-    .editor-section {
-      background: var(--card-bg);
+    /* Signatures Grid */
+    .signatures-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(540px, 1fr));
+      gap: 28px;
+      transition: all 0.2s ease;
+    }
+    @media (max-width: 640px) {
+      .signatures-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Single Card */
+    .sig-card {
+      background: var(--bg-card);
       border: 1px solid var(--card-border);
-      border-radius: 16px;
-      padding: 24px;
-      margin-bottom: 32px;
-      display: none;
-      backdrop-filter: blur(12px);
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      backdrop-filter: blur(14px);
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+      position: relative;
     }
-    .editor-section.open {
-      display: block;
-      animation: fadeIn 0.25s ease;
+    .sig-card:hover {
+      border-color: var(--card-border-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
     }
-    .editor-title {
+    .sig-card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .sig-header-left {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .sig-letter-badge {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: rgba(79, 70, 229, 0.18);
+      color: #c7d2fe;
+      border: 1px solid rgba(79, 70, 229, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-weight: 800;
+      font-size: 17px;
+      flex-shrink: 0;
+    }
+    .sig-title-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .sig-name-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .sig-name {
       font-size: 16px;
       font-weight: 700;
-      margin-bottom: 16px;
+      color: #ffffff;
+      letter-spacing: -0.2px;
+    }
+    .sig-tag-pill {
+      font-size: 10.5px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text-muted);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .sig-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+    .sig-best-for {
+      font-size: 11.5px;
+      color: #818cf8;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 2px;
+    }
+
+    /* Preview Canvas Area */
+    .sig-preview-canvas {
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      min-height: 185px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transition: background-color 0.25s ease;
+      position: relative;
+    }
+    .preview-canvas-header {
+      padding: 8px 14px;
+      background: rgba(0, 0, 0, 0.06);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
       display: flex;
       align-items: center;
       justify-content: space-between;
+      font-size: 11px;
+      color: rgba(100, 116, 139, 0.8);
+      font-family: var(--font-mono);
     }
-    .editor-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 14px;
+    .preview-canvas-dots {
+      display: flex;
+      align-items: center;
+      gap: 5px;
     }
+    .p-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: rgba(148, 163, 184, 0.4);
+    }
+    .preview-canvas-body {
+      padding: 22px;
+      overflow-x: auto;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      flex: 1;
+    }
+    .preview-light {
+      background-color: var(--preview-bg-light);
+      color: #1e293b;
+    }
+    .preview-dark {
+      background-color: var(--preview-bg-dark);
+      color: #f8fafc;
+    }
+    .preview-dark .preview-canvas-header {
+      background: rgba(255, 255, 255, 0.04);
+      border-bottom-color: rgba(255, 255, 255, 0.05);
+      color: rgba(148, 163, 184, 0.7);
+    }
+
+    /* Mobile Viewport Simulation Constraint */
+    .mobile-simulator-active .preview-canvas-body {
+      max-width: 375px;
+      margin: 0 auto;
+      border-left: 1px dashed rgba(124, 58, 237, 0.3);
+      border-right: 1px dashed rgba(124, 58, 237, 0.3);
+    }
+
+    /* Card Action Footer */
+    .sig-card-footer {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: auto;
+      padding-top: 14px;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .card-footer-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Slide-Over Drawer for Profile Editor */
+    .drawer-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(4, 7, 15, 0.65);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 100;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+    .drawer-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .drawer-panel {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 100%;
+      max-width: 580px;
+      height: 100%;
+      background: #0d1322;
+      border-left: 1px solid var(--card-border);
+      box-shadow: -20px 0 50px rgba(0, 0, 0, 0.6);
+      z-index: 101;
+      transform: translateX(100%);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+    }
+    .drawer-panel.open {
+      transform: translateX(0);
+    }
+    .drawer-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--card-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(15, 23, 42, 0.5);
+    }
+    .drawer-header-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .drawer-header-subtitle {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+    .drawer-nav-tabs {
+      display: flex;
+      border-bottom: 1px solid var(--card-border);
+      background: rgba(8, 12, 22, 0.7);
+      padding: 0 16px;
+      overflow-x: auto;
+    }
+    .drawer-tab {
+      padding: 12px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      border-bottom: 2px solid transparent;
+      cursor: pointer;
+      background: none;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+    .drawer-tab:hover {
+      color: var(--text-main);
+    }
+    .drawer-tab.active {
+      color: #a5b4fc;
+      border-bottom-color: var(--accent);
+    }
+    .drawer-body {
+      padding: 24px;
+      overflow-y: auto;
+      flex: 1;
+    }
+    .drawer-tab-content {
+      display: none;
+      flex-direction: column;
+      gap: 18px;
+      animation: fadeIn 0.2s ease;
+    }
+    .drawer-tab-content.active {
+      display: flex;
+    }
+    .drawer-footer {
+      padding: 16px 24px;
+      border-top: 1px solid var(--card-border);
+      background: rgba(15, 23, 42, 0.7);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    /* Form Inputs */
     .field-group {
       display: flex;
       flex-direction: column;
@@ -244,165 +742,300 @@
       font-size: 12px;
       font-weight: 600;
       color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .field-hint {
+      font-size: 11px;
+      color: var(--text-dim);
+      font-weight: 400;
     }
     .field-input {
       background: rgba(0, 0, 0, 0.35);
       border: 1px solid var(--card-border);
       border-radius: 8px;
-      padding: 8px 12px;
+      padding: 9px 12px;
       color: #ffffff;
       font-family: var(--font-main);
       font-size: 13.5px;
       outline: none;
       transition: border-color 0.15s;
+      width: 100%;
     }
     .field-input:focus {
       border-color: var(--accent);
+      box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
+    }
+    .field-input[type="file"] {
+      padding: 6px;
+      font-size: 12px;
+      color: var(--text-muted);
     }
 
-    /* Signature Cards Grid */
-    .signatures-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(520px, 1fr));
-      gap: 28px;
+    /* Color Swatches Grid */
+    .color-swatches-grid {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 6px;
+      flex-wrap: wrap;
     }
-    @media (max-width: 600px) {
-      .signatures-grid {
-        grid-template-columns: 1fr;
-      }
+    .color-swatch-btn {
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: transform 0.15s ease, border-color 0.15s ease;
+    }
+    .color-swatch-btn:hover {
+      transform: scale(1.15);
+    }
+    .color-swatch-btn.active {
+      border-color: #ffffff;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
     }
 
-    .sig-card {
-      background: var(--card-bg);
+    /* Image Preview & Upload Row */
+    .image-upload-card {
+      background: rgba(0, 0, 0, 0.25);
       border: 1px solid var(--card-border);
-      border-radius: 18px;
-      padding: 24px;
+      border-radius: var(--radius-sm);
+      padding: 14px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .image-thumb-preview {
+      width: 52px;
+      height: 52px;
+      border-radius: 10px;
+      object-fit: cover;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--card-border);
+      flex-shrink: 0;
+    }
+    .image-upload-info {
+      flex: 1;
       display: flex;
       flex-direction: column;
-      gap: 18px;
-      backdrop-filter: blur(12px);
-      transition: border-color 0.2s ease, transform 0.2s ease;
-      position: relative;
+      gap: 6px;
     }
-    .sig-card:hover {
-      border-color: rgba(59, 130, 246, 0.3);
-      transform: translateY(-2px);
+
+    /* Interactive Email Mockup Modal */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(3, 7, 18, 0.75);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      z-index: 110;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
     }
-    .sig-card-header {
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .modal-window {
+      background: #0f172a;
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-lg);
+      width: 100%;
+      max-width: 820px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      animation: modalZoom 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .modal-titlebar {
+      padding: 14px 20px;
+      background: #090e1a;
+      border-bottom: 1px solid var(--card-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .modal-traffic-lights {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .t-light {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+    }
+    .t-red { background: #ef4444; }
+    .t-yellow { background: #f59e0b; }
+    .t-green { background: #10b981; }
+
+    .modal-client-meta {
+      padding: 14px 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 13px;
+      background: rgba(0, 0, 0, 0.2);
+    }
+    .client-field-row {
+      display: flex;
+      gap: 12px;
+      color: var(--text-muted);
+    }
+    .client-field-label {
+      width: 60px;
+      color: var(--text-dim);
+      font-weight: 600;
+    }
+    .client-field-val {
+      color: var(--text-main);
+    }
+    .modal-email-body {
+      padding: 24px;
+      background: #ffffff;
+      color: #1e293b;
+      min-height: 280px;
+      overflow-y: auto;
+      max-height: 60vh;
+    }
+    .mock-message-text {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      line-height: 1.6;
+      color: #334155;
+      margin-bottom: 24px;
+    }
+    .modal-signature-holder {
+      padding-top: 16px;
+      border-top: 1px dashed #cbd5e1;
+    }
+    .modal-footer {
+      padding: 14px 20px;
+      background: #090e1a;
+      border-top: 1px solid var(--card-border);
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 12px;
     }
-    .sig-meta {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .sig-badge {
-      font-size: 11px;
-      font-weight: 700;
-      padding: 3px 8px;
-      border-radius: 6px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      background: rgba(59, 130, 246, 0.2);
-      color: #93c5fd;
-      border: 1px solid rgba(59, 130, 246, 0.3);
-    }
-    .sig-name {
-      font-size: 16px;
-      font-weight: 700;
-      color: #ffffff;
-    }
-    .sig-desc {
-      font-size: 12.5px;
-      color: var(--text-dim);
-    }
 
-    /* Preview Canvas Inside Card */
-    .sig-preview-wrapper {
-      border-radius: 12px;
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      padding: 24px;
-      min-height: 180px;
+    /* Setup Guide Section */
+    .guide-section {
+      margin-top: 60px;
+      background: var(--bg-card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-xl);
+      padding: 32px;
+      backdrop-filter: blur(14px);
+    }
+    .guide-header {
+      margin-bottom: 24px;
       display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      overflow-x: auto;
-      transition: background 0.2s ease;
-    }
-    .preview-light {
-      background: var(--preview-bg-light);
-    }
-    .preview-dark {
-      background: var(--preview-bg-dark);
-    }
-
-    .sig-card-actions {
-      display: flex;
-      flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
-      gap: 10px;
-      margin-top: auto;
-      padding-top: 14px;
-      border-top: 1px solid rgba(255, 255, 255, 0.06);
-    }
-    .action-links {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    /* Instructions Modal / Drawer */
-    .guide-section {
-      margin-top: 56px;
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 18px;
-      padding: 32px;
-      backdrop-filter: blur(12px);
+      flex-wrap: wrap;
+      gap: 16px;
     }
     .guide-title {
-      font-size: 20px;
+      font-size: 22px;
       font-weight: 800;
-      margin-bottom: 20px;
+      color: #ffffff;
       display: flex;
       align-items: center;
       gap: 10px;
     }
-    .guide-grid {
-      display: grid;
+    .guide-tabs {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid var(--card-border);
+      padding: 4px;
+      border-radius: 12px;
+    }
+    .guide-tab-btn {
+      padding: 6px 14px;
+      font-size: 12.5px;
+      font-weight: 600;
+      border-radius: 8px;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+    .guide-tab-btn.active {
+      background: var(--accent);
+      color: #ffffff;
+    }
+    .guide-pane {
+      display: none;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 20px;
+      animation: fadeIn 0.25s ease;
     }
-    .guide-card {
+    .guide-pane.active {
+      display: grid;
+    }
+    .guide-step-card {
       background: rgba(0, 0, 0, 0.25);
       border: 1px solid var(--card-border);
-      border-radius: 12px;
+      border-radius: var(--radius-md);
       padding: 20px;
+      position: relative;
     }
-    .guide-client {
+    .step-num {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: rgba(79, 70, 229, 0.2);
+      border: 1px solid rgba(79, 70, 229, 0.4);
+      color: #c7d2fe;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      font-family: var(--font-mono);
+    }
+    .step-heading {
       font-size: 15px;
       font-weight: 700;
       color: #ffffff;
-      margin-bottom: 12px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
+      margin-bottom: 8px;
     }
-    .guide-steps {
-      list-style-type: decimal;
-      padding-left: 20px;
+    .step-desc {
       font-size: 13px;
       color: var(--text-muted);
-      line-height: 1.8;
+      line-height: 1.6;
     }
-    .guide-steps strong {
+    .step-desc strong {
       color: #ffffff;
+    }
+    .step-code-badge {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: #e2e8f0;
     }
 
     /* Toast Notification */
@@ -413,11 +1046,11 @@
       transform: translateX(-50%) translateY(30px);
       background: #1e293b;
       color: #ffffff;
-      padding: 12px 24px;
-      border-radius: 10px;
-      font-size: 14px;
+      padding: 12px 22px;
+      border-radius: 12px;
+      font-size: 13.5px;
       font-weight: 600;
-      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.12);
       opacity: 0;
       pointer-events: none;
       transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
@@ -431,76 +1064,284 @@
       transform: translateX(-50%) translateY(0);
     }
 
+    /* Keyframes */
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-8px); }
+      from { opacity: 0; transform: translateY(-6px); }
       to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes modalZoom {
+      from { opacity: 0; transform: scale(0.96); }
+      to { opacity: 1; transform: scale(1); }
     }
   </style>
 </head>
 <body>
 
-  <div class="container">
-    <header>
-      <div class="header-top">
-        <div class="brand-group">
-          <div class="brand-icon">
+  <!-- Sticky Site Header -->
+  <header class="site-header">
+    <div class="container">
+      <div class="header-inner">
+        <a href="#" class="brand-wrap">
+          <div class="brand-badge-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
               <rect width="20" height="16" x="2" y="4" rx="3"/>
               <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
             </svg>
           </div>
-          <div>
-            <h1 class="brand-title">Email Signature Studio</h1>
-            <p class="brand-subtitle">Manage, preview, and 1-click copy rich email signatures for Gmail, Apple Mail & Outlook</p>
+          <div class="brand-title-wrap">
+            <h1>Email Signature Studio <span class="version-pill">v2.0</span></h1>
+            <p class="brand-subtitle">Professional cross-client signatures for Gmail, Apple Mail & Outlook</p>
           </div>
-        </div>
+        </a>
 
+        <!-- Quick Profile Chip & Action Buttons -->
         <div class="header-actions">
-          <button class="btn btn-secondary btn-sm" id="toggle-editor-btn" onclick="toggleEditor()">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
-            Edit Info
+          <div class="profile-quick-pill" onclick="openDrawer('general')" title="Click to customize profile">
+            <img id="header-avatar" src="assets/images/photo.png" alt="Profile" class="user-avatar-mini" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22%234f46e5%22><circle cx=%2212%22 cy=%228%22 r=%224%22/><path d=%22M4 20c0-4 4-6 8-6s8 2 8 6%22/></svg>'">
+            <span class="user-mini-name" id="header-username">MD Razikul Islam Joni</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+          </div>
+
+          <button class="btn btn-primary" onclick="openDrawer('general')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+            Edit Profile
           </button>
-          <button class="btn btn-secondary btn-sm" onclick="exportProfile()">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+
+          <button class="btn btn-secondary btn-sm" onclick="exportProfile()" title="Export profile.json backup">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
             Export
           </button>
-          <button class="btn btn-secondary btn-sm" onclick="importProfile()">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+
+          <button class="btn btn-secondary btn-sm" onclick="importProfile()" title="Import existing profile JSON">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
             Import
           </button>
-          <a href="#setup-guide" class="btn btn-secondary btn-sm">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+
+          <a href="#setup-guide" class="btn btn-ghost btn-sm">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
             Setup Guide
           </a>
         </div>
       </div>
-    </header>
+    </div>
+  </header>
 
-    <!-- Controls Bar -->
-    <div class="controls-bar">
-      <div class="view-filters">
-        <button class="filter-chip active" id="chip-all" onclick="filterSignatures('all', this)">All Signatures (5)</button>
-        <button class="filter-chip" onclick="filterSignatures('minimal', this)">Minimalist</button>
-        <button class="filter-chip" onclick="filterSignatures('photo', this)">With Photo</button>
-        <button class="filter-chip" onclick="filterSignatures('dark', this)">Dark Card</button>
+  <!-- Main Body Content -->
+  <main class="container">
+    <!-- Hero Strip -->
+    <section class="hero-strip">
+      <div class="hero-info">
+        <h2>Choose Your Signature Design</h2>
+        <p>Preview in real time with your personalized information. Click <strong>Copy Signature</strong> for 1-click rich clipboard copying formatted to paste directly into your email client.</p>
       </div>
 
-      <div class="mode-toggle">
-        <span>Email Simulator:</span>
-        <div class="switch-btn">
-          <div class="switch-opt active" id="sim-light" onclick="setSimBg('light')">Light</div>
-          <div class="switch-opt" id="sim-dark" onclick="setSimBg('dark')">Dark</div>
+      <div class="stats-badges">
+        <div class="stat-pill">
+          <div class="stat-indicator"></div>
+          <span class="stat-label">Templates:</span>
+          <span class="stat-val" id="stat-total-count">15 Ready</span>
+        </div>
+        <div class="stat-pill">
+          <span class="stat-label">Output:</span>
+          <span class="stat-val">HTML 4.01 Strict</span>
         </div>
       </div>
+    </section>
+
+    <!-- Controls, Search & Filter Bar -->
+    <section class="controls-panel">
+      <div class="controls-row-top">
+        <!-- Live Search -->
+        <div class="search-box">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          <input type="text" id="template-search" class="search-input" placeholder="Search templates (e.g., photo, minimal, dark, executive)..." oninput="handleSearch(this.value)">
+          <button id="search-clear" class="search-clear-btn" onclick="clearSearch()" title="Clear search">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+          </button>
+        </div>
+
+        <!-- Viewport & Simulator Mode Switches -->
+        <div class="view-switches-group">
+          <!-- Viewport Mode -->
+          <div style="display:flex; align-items:center;">
+            <span class="control-label-mini">View:</span>
+            <div class="segmented-switch">
+              <button class="switch-tab active" id="view-desktop-btn" onclick="setViewMode('desktop')">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                Desktop
+              </button>
+              <button class="switch-tab" id="view-mobile-btn" onclick="setViewMode('mobile')">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg>
+                Mobile
+              </button>
+            </div>
+          </div>
+
+          <!-- Email Background Simulator -->
+          <div style="display:flex; align-items:center;">
+            <span class="control-label-mini">Client Theme:</span>
+            <div class="segmented-switch">
+              <button class="switch-tab active" id="sim-light-btn" onclick="setSimBg('light')">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+                Light
+              </button>
+              <button class="switch-tab" id="sim-dark-btn" onclick="setSimBg('dark')">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+                Dark
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Category Filter Chips -->
+      <div class="filters-row">
+        <div class="chips-group">
+          <button class="filter-chip active" data-filter="all" onclick="filterCategory('all', this)">
+            All Templates <span class="chip-count" id="chip-count-all">(15)</span>
+          </button>
+          <button class="filter-chip" data-filter="minimal" onclick="filterCategory('minimal', this)">
+            Minimalist <span class="chip-count" id="chip-count-minimal"></span>
+          </button>
+          <button class="filter-chip" data-filter="photo" onclick="filterCategory('photo', this)">
+            With Photo <span class="chip-count" id="chip-count-photo"></span>
+          </button>
+          <button class="filter-chip" data-filter="dark" onclick="filterCategory('dark', this)">
+            Dark Card <span class="chip-count" id="chip-count-dark"></span>
+          </button>
+        </div>
+
+        <div class="results-count-text" id="results-count-text">Showing 15 of 15 signatures</div>
+      </div>
+    </section>
+
+    <!-- Signatures Cards Grid -->
+    <div class="signatures-grid" id="signatures-container">
+      <!-- Injected via JavaScript from T.MANIFEST -->
     </div>
 
-    <!-- Live Profile Data Editor -->
-    <div class="editor-section" id="editor-panel">
-      <div class="editor-title">
-        <span>Live Profile Editor</span>
-        <button class="btn btn-secondary btn-sm" onclick="resetProfile()">Reset to Default</button>
+    <!-- Client Setup Guide Section -->
+    <section class="guide-section" id="setup-guide">
+      <div class="guide-header">
+        <h2 class="guide-title">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          How to Paste Your Signature
+        </h2>
+
+        <div class="guide-tabs">
+          <button class="guide-tab-btn active" onclick="switchGuideTab('gmail', this)">Gmail</button>
+          <button class="guide-tab-btn" onclick="switchGuideTab('apple', this)">Apple Mail</button>
+          <button class="guide-tab-btn" onclick="switchGuideTab('outlook-web', this)">Outlook Web</button>
+          <button class="guide-tab-btn" onclick="switchGuideTab('outlook-app', this)">Outlook App</button>
+        </div>
       </div>
-      <div class="editor-grid">
+
+      <!-- Gmail Pane -->
+      <div class="guide-pane active" id="guide-pane-gmail">
+        <div class="guide-step-card">
+          <div class="step-num">1</div>
+          <div class="step-heading">Copy Signature</div>
+          <p class="step-desc">Click <strong>Copy Signature</strong> on your preferred card above. This loads rendered HTML & formatting directly into your clipboard.</p>
+        </div>
+        <div class="guide-step-card">
+          <div class="step-num">2</div>
+          <div class="step-heading">Open Gmail Settings</div>
+          <p class="step-desc">In Gmail, click the cog icon in top-right &rarr; <strong>See all settings</strong>. Under the <strong>General</strong> tab, scroll down to <strong>Signature</strong>.</p>
+        </div>
+        <div class="guide-step-card">
+          <div class="step-num">3</div>
+          <div class="step-heading">Paste & Save</div>
+          <p class="step-desc">Click <strong>+ Create new</strong>, name your signature, click inside the editor box, and press <span class="step-code-badge">Cmd + V</span> (or <span class="step-code-badge">Ctrl + V</span>). Scroll down and click <strong>Save Changes</strong>.</p>
+        </div>
+      </div>
+
+      <!-- Apple Mail Pane -->
+      <div class="guide-pane" id="guide-pane-apple">
+        <div class="guide-step-card">
+          <div class="step-num">1</div>
+          <div class="step-heading">Copy Signature</div>
+          <p class="step-desc">Click <strong>Copy Signature</strong> above.</p>
+        </div>
+        <div class="guide-step-card">
+          <div class="step-num">2</div>
+          <div class="step-heading">Mail Preferences</div>
+          <p class="step-desc">In macOS Mail, choose <strong>Mail &rarr; Settings &rarr; Signatures</strong>. Select your account and click <strong>+</strong>.</p>
+        </div>
+        <div class="guide-step-card">
+          <div class="step-num">3</div>
+          <div class="step-heading">Paste & Crucial Checkbox</div>
+          <p class="step-desc">Click into the signature preview area and press <span class="step-code-badge">Cmd + V</span>. <strong>Important:</strong> Uncheck <em>"Always match my default message font"</em> at the bottom so your styles remain preserved.</p>
+        </div>
+      </div>
+
+      <!-- Outlook Web Pane -->
+      <div class="guide-pane" id="guide-pane-outlook-web">
+        <div class="guide-step-card">
+          <div class="step-num">1</div>
+          <div class="step-heading">Copy Signature</div>
+          <p class="step-desc">Click <strong>Copy Signature</strong> on your design.</p>
+        </div>
+        <div class="guide-step-card">
+          <div class="step-num">2</div>
+          <div class="step-heading">Outlook Web Settings</div>
+          <p class="step-desc">Click the Settings gear icon &rarr; <strong>Mail &rarr; Compose and reply</strong>.</p>
+        </div>
+        <div class="guide-step-card">
+          <div class="step-num">3</div>
+          <div class="step-heading">Paste & Set Default</div>
+          <p class="step-desc">Click <strong>+ New signature</strong>, paste with <span class="step-code-badge">Ctrl + V</span> or <span class="step-code-badge">Cmd + V</span>, assign as default for new messages, and click <strong>Save</strong>.</p>
+        </div>
+      </div>
+
+      <!-- Outlook App Pane -->
+      <div class="guide-pane" id="guide-pane-outlook-app">
+        <div class="guide-step-card">
+          <div class="step-num">1</div>
+          <div class="step-heading">Copy Signature</div>
+          <p class="step-desc">Click <strong>Copy Signature</strong> on any card.</p>
+        </div>
+        <div class="guide-step-card">
+          <div class="step-num">2</div>
+          <div class="step-heading">Signature Manager</div>
+          <p class="step-desc">In Outlook desktop app, click <strong>File &rarr; Options &rarr; Mail &rarr; Signatures</strong> (or <strong>Outlook &rarr; Settings &rarr; Signatures</strong> on Mac).</p>
+        </div>
+        <div class="guide-step-card">
+          <div class="step-num">3</div>
+          <div class="step-heading">Paste into Box</div>
+          <p class="step-desc">Click <strong>New</strong>, paste directly into the bottom edit box, set as default for new emails, and click <strong>OK</strong>.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Slide-Over Profile Editor Drawer -->
+  <div class="drawer-overlay" id="drawer-overlay" onclick="closeDrawer()"></div>
+  <aside class="drawer-panel" id="drawer-panel">
+    <div class="drawer-header">
+      <div>
+        <div class="drawer-header-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+          Customize Profile
+        </div>
+        <div class="drawer-header-subtitle">Changes update all signature previews in real time</div>
+      </div>
+      <button class="btn btn-ghost btn-sm" onclick="closeDrawer()" title="Close (Esc)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+      </button>
+    </div>
+
+    <!-- Drawer Navigation Tabs -->
+    <div class="drawer-nav-tabs">
+      <button class="drawer-tab active" onclick="switchDrawerTab('general', this)">General</button>
+      <button class="drawer-tab" onclick="switchDrawerTab('contact', this)">Contact</button>
+      <button class="drawer-tab" onclick="switchDrawerTab('socials', this)">Socials</button>
+      <button class="drawer-tab" onclick="switchDrawerTab('branding', this)">Brand & Images</button>
+    </div>
+
+    <!-- Drawer Form Body -->
+    <div class="drawer-body">
+      <!-- Tab 1: General Info -->
+      <div class="drawer-tab-content active" id="tab-general">
         <div class="field-group">
           <label class="field-label">Full Name</label>
           <input type="text" class="field-input" id="inp-name" oninput="updateProfileField('name', this.value)">
@@ -510,113 +1351,204 @@
           <input type="text" class="field-input" id="inp-title" oninput="updateProfileField('title', this.value)">
         </div>
         <div class="field-group">
-          <label class="field-label">Email</label>
+          <label class="field-label">Pronouns <span class="field-hint">(optional)</span></label>
+          <input type="text" class="field-input" id="inp-pronouns" placeholder="e.g. He/Him" oninput="updateProfileField('pronouns', this.value)">
+        </div>
+        <div class="field-group">
+          <label class="field-label">Tagline / Motto <span class="field-hint">(optional)</span></label>
+          <input type="text" class="field-input" id="inp-tagline" placeholder="e.g. Building delightful web apps" oninput="updateProfileField('tagline', this.value)">
+        </div>
+      </div>
+
+      <!-- Tab 2: Contact & Booking -->
+      <div class="drawer-tab-content" id="tab-contact">
+        <div class="field-group">
+          <label class="field-label">Email Address</label>
           <input type="email" class="field-input" id="inp-email" oninput="updateProfileField('email', this.value)">
         </div>
         <div class="field-group">
-          <label class="field-label">Phone</label>
+          <label class="field-label">Phone Number</label>
           <input type="text" class="field-input" id="inp-phone" oninput="updateProfileField('phone', this.value)">
         </div>
         <div class="field-group">
-          <label class="field-label">Website</label>
+          <label class="field-label">WhatsApp URL</label>
+          <input type="text" class="field-input" id="inp-whatsapp" placeholder="https://wa.me/..." oninput="updateProfileField('whatsapp', this.value)">
+        </div>
+        <div class="field-group">
+          <label class="field-label">Website URL</label>
           <input type="text" class="field-input" id="inp-website" oninput="updateProfileField('website', this.value)">
         </div>
         <div class="field-group">
-          <label class="field-label">Location</label>
+          <label class="field-label">Website Display Text</label>
+          <input type="text" class="field-input" id="inp-websitedisplay" oninput="updateProfileField('websiteDisplay', this.value)">
+        </div>
+        <div class="field-group">
+          <label class="field-label">Location / City</label>
           <input type="text" class="field-input" id="inp-location" oninput="updateProfileField('location', this.value)">
         </div>
         <div class="field-group">
-          <label class="field-label">Booking URL</label>
+          <label class="field-label">Booking URL (Calendly, Cal.com)</label>
           <input type="text" class="field-input" id="inp-booking" oninput="updateProfileField('bookingUrl', this.value)">
         </div>
         <div class="field-group">
-          <label class="field-label">Photo</label>
-          <input type="file" accept="image/*" class="field-input" onchange="handleImageUpload('photo', this)">
+          <label class="field-label">Booking Button Label</label>
+          <input type="text" class="field-input" id="inp-booking-label" placeholder="Book a call →" oninput="updateProfileField('bookingLabel', this.value)">
+        </div>
+      </div>
+
+      <!-- Tab 3: Social Profiles -->
+      <div class="drawer-tab-content" id="tab-socials">
+        <div class="field-group">
+          <label class="field-label">LinkedIn URL</label>
+          <input type="text" class="field-input" id="inp-social-linkedin" placeholder="https://linkedin.com/in/..." oninput="updateSocialField('linkedin', this.value)">
         </div>
         <div class="field-group">
-          <label class="field-label">Monogram</label>
-          <input type="file" accept="image/*" class="field-input" onchange="handleImageUpload('monogram', this)">
+          <label class="field-label">GitHub URL</label>
+          <input type="text" class="field-input" id="inp-social-github" placeholder="https://github.com/..." oninput="updateSocialField('github', this.value)">
         </div>
         <div class="field-group">
-          <label class="field-label">Logo</label>
-          <input type="file" accept="image/*" class="field-input" onchange="handleImageUpload('logo', this)">
+          <label class="field-label">X (Twitter) URL</label>
+          <input type="text" class="field-input" id="inp-social-x" placeholder="https://x.com/..." oninput="updateSocialField('x', this.value)">
         </div>
         <div class="field-group">
-          <label class="field-label">Photo URL</label>
-          <input type="text" class="field-input" id="inp-photo-url" oninput="updateProfileField('photoUrl', this.value)">
+          <label class="field-label">Instagram URL</label>
+          <input type="text" class="field-input" id="inp-social-instagram" placeholder="https://instagram.com/..." oninput="updateSocialField('instagram', this.value)">
+        </div>
+        <div class="field-group">
+          <label class="field-label">YouTube URL</label>
+          <input type="text" class="field-input" id="inp-social-youtube" placeholder="https://youtube.com/@..." oninput="updateSocialField('youtube', this.value)">
+        </div>
+      </div>
+
+      <!-- Tab 4: Branding & Media -->
+      <div class="drawer-tab-content" id="tab-branding">
+        <div class="field-group">
+          <label class="field-label">Brand Accent Color</label>
+          <div style="display:flex; align-items:center; gap:10px;">
+            <input type="color" id="inp-brand-color" value="#2B4BF2" style="width:40px; height:38px; border-radius:8px; border:1px solid var(--card-border); background:none; cursor:pointer;" onchange="updateBrandAccent(this.value)">
+            <input type="text" class="field-input" id="inp-brand-color-text" value="#2B4BF2" style="font-family:var(--font-mono); width:110px;" oninput="updateBrandAccent(this.value)">
+          </div>
+          <!-- Presets -->
+          <div class="color-swatches-grid">
+            <button class="color-swatch-btn" style="background:#2B4BF2;" onclick="updateBrandAccent('#2B4BF2')" title="Signature Blue"></button>
+            <button class="color-swatch-btn" style="background:#4f46e5;" onclick="updateBrandAccent('#4f46e5')" title="Indigo"></button>
+            <button class="color-swatch-btn" style="background:#7c3aed;" onclick="updateBrandAccent('#7c3aed')" title="Purple"></button>
+            <button class="color-swatch-btn" style="background:#059669;" onclick="updateBrandAccent('#059669')" title="Emerald"></button>
+            <button class="color-swatch-btn" style="background:#ea580c;" onclick="updateBrandAccent('#ea580c')" title="Amber"></button>
+            <button class="color-swatch-btn" style="background:#0f172a;" onclick="updateBrandAccent('#0f172a')" title="Slate Black"></button>
+          </div>
+        </div>
+
+        <div class="field-group" style="margin-top:12px;">
+          <label class="field-label">Remote Hosted Photo URL <span class="field-hint">(Recommended for high deliverability)</span></label>
+          <input type="text" class="field-input" id="inp-photo-url" placeholder="https://..." oninput="updateProfileField('photoUrl', this.value)">
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">Photo Upload <span class="field-hint">(Embedded data URI fallback)</span></label>
+          <div class="image-upload-card">
+            <img id="thumb-photo" src="assets/images/photo.png" class="image-thumb-preview" alt="Photo thumbnail" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22%234f46e5%22><circle cx=%2212%22 cy=%228%22 r=%224%22/><path d=%22M4 20c0-4 4-6 8-6s8 2 8 6%22/></svg>'">
+            <div class="image-upload-info">
+              <input type="file" accept="image/*" class="field-input" onchange="handleImageUpload('photo', this)">
+            </div>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">Monogram Avatar Image</label>
+          <div class="image-upload-card">
+            <img id="thumb-monogram" src="assets/images/monogram.png" class="image-thumb-preview" alt="Monogram thumbnail">
+            <div class="image-upload-info">
+              <input type="file" accept="image/*" class="field-input" onchange="handleImageUpload('monogram', this)">
+            </div>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">Company Logo Image</label>
+          <div class="image-upload-card">
+            <img id="thumb-logo" src="" class="image-thumb-preview" alt="Logo" onerror="this.style.display='none'">
+            <div class="image-upload-info">
+              <input type="file" accept="image/*" class="field-input" onchange="handleImageUpload('logo', this)">
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- Signature Cards Grid -->
-    <div class="signatures-grid" id="signatures-container">
-      <!-- Populated via JS -->
+    <!-- Drawer Action Footer -->
+    <div class="drawer-footer">
+      <button class="btn btn-secondary btn-sm" onclick="resetProfile()">Reset Defaults</button>
+      <button class="btn btn-primary btn-sm" onclick="closeDrawer()">Done</button>
     </div>
+  </aside>
 
-    <!-- Instructions / Guide Section -->
-    <section class="guide-section" id="setup-guide">
-      <h2 class="guide-title">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-        How to Paste Your Signature
-      </h2>
-      <div class="guide-grid">
-        <div class="guide-card">
-          <div class="guide-client">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ea4335" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-            Gmail
-          </div>
-          <ol class="guide-steps">
-            <li>Click <strong>Copy Signature</strong> on your preferred design above.</li>
-            <li>In Gmail, click <strong>Settings (cog) &rarr; See all settings</strong>.</li>
-            <li>Under the <strong>General</strong> tab, scroll down to <strong>Signature</strong>.</li>
-            <li>Click <strong>Create new</strong>, then press <strong>Ctrl+V (Cmd+V)</strong> into the box.</li>
-            <li>Scroll to the bottom and click <strong>Save Changes</strong>.</li>
-          </ol>
+  <!-- Email Client Mockup Modal -->
+  <div class="modal-overlay" id="email-mockup-modal" onclick="handleModalBackdropClick(event)">
+    <div class="modal-window">
+      <div class="modal-titlebar">
+        <div class="modal-traffic-lights">
+          <div class="t-light t-red" onclick="closeMockupModal()" style="cursor:pointer;" title="Close"></div>
+          <div class="t-light t-yellow"></div>
+          <div class="t-light t-green"></div>
         </div>
+        <div style="font-size:12.5px; font-weight:600; color:var(--text-muted); font-family:var(--font-mono);" id="modal-template-title">Template Preview</div>
+        <button class="btn btn-ghost btn-sm" onclick="closeMockupModal()" style="padding:2px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
+      </div>
 
-        <div class="guide-card">
-          <div class="guide-client">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2"><path d="M12 20.94c1.5 0 2.75 1.06 4 1.06 3 0 6-8 6-12.22A4.91 4.91 0 0 0 17 5c-2.22 0-4 1.44-5 2-1-.56-2.78-2-5-2a4.9 4.9 0 0 0-5 4.78C2 14 5 22 8 22c1.25 0 2.5-1.06 4-1.06Z"/></svg>
-            Apple Mail (macOS)
-          </div>
-          <ol class="guide-steps">
-            <li>Click <strong>Copy Signature</strong> above.</li>
-            <li>Open Mail &rarr; <strong>Settings &rarr; Signatures</strong>.</li>
-            <li>Add a signature, click in the preview box, and press <strong>Cmd+V</strong>.</li>
-            <li><strong>Crucial:</strong> Uncheck <em>"Always match my default message font"</em> so your custom layout and sizes stay exact.</li>
-          </ol>
+      <div class="modal-client-meta">
+        <div class="client-field-row">
+          <span class="client-field-label">To:</span>
+          <span class="client-field-val">alex.partner@enterprise.com</span>
         </div>
-
-        <div class="guide-card">
-          <div class="guide-client">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0078d4" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
-            Outlook / Webmail
-          </div>
-          <ol class="guide-steps">
-            <li>Click <strong>Copy Signature</strong> above.</li>
-            <li>In Outlook, go to <strong>Settings &rarr; Mail &rarr; Compose and reply &rarr; Email signature</strong>.</li>
-            <li>Click <strong>New signature</strong> and paste directly into the editor box.</li>
-            <li>Set as default for new messages and replies, then click <strong>Save</strong>.</li>
-          </ol>
+        <div class="client-field-row">
+          <span class="client-field-label">Subject:</span>
+          <span class="client-field-val">Re: Collaboration & Strategy Next Steps</span>
         </div>
       </div>
-    </section>
+
+      <div class="modal-email-body">
+        <div class="mock-message-text">
+          Hi Alex,<br><br>
+          Thanks for reaching out! I've reviewed the updated project scope and deliverables. Everything looks solid and ready to move forward. Let's touch base on Thursday to align on timelines.<br><br>
+          Best regards,
+        </div>
+        <div class="modal-signature-holder" id="modal-signature-render-area">
+          <!-- Rendered signature -->
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-secondary btn-sm" onclick="copyFromModal('html')">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          Copy HTML
+        </button>
+        <button class="btn btn-primary" id="modal-copy-btn" onclick="copyFromModal('visual')">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+          <span>Copy Signature</span>
+        </button>
+      </div>
+    </div>
   </div>
 
-  <!-- Toast -->
+  <!-- Toast Floating Notification -->
   <div id="toast">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
     <span id="toast-text">Signature copied to clipboard!</span>
   </div>
 
-  <!-- Templates & Profile Data -->
+  <!-- Templates & Profile Data Dependencies -->
   <script src="src/schema.js"></script>
   <script src="src/templates.js"></script>
   <script src="data/profile.js"></script>
 
   <script>
-    // In-memory profile with localStorage persistence
+    // State Management
     const SS = window.SignatureSchema;
+    const T = window.SignatureTemplates;
+
     let profile;
     try {
       const saved = localStorage.getItem('signatureStudio.profile');
@@ -624,68 +1556,134 @@
     } catch (e) {
       profile = SS.migrate(window.PROFILE_DATA || {});
     }
+
     function saveProfile() {
-      try { localStorage.setItem('signatureStudio.profile', SS.serializeProfile(profile)); } catch (e) {}
+      try {
+        localStorage.setItem('signatureStudio.profile', SS.serializeProfile(profile));
+      } catch (e) {}
     }
 
-    let originalProfile = SS.migrate(window.PROFILE_DATA || {});
+    const originalProfile = SS.migrate(window.PROFILE_DATA || {});
     let currentFilter = 'all';
+    let searchQuery = '';
     let currentSimBg = 'light';
+    let currentViewMode = 'desktop';
+    let activeModalTemplateLetter = null;
 
-    // Signatures Definitions mapped from shared manifest
-    const T = window.SignatureTemplates;
+    // Build dynamic signature list directly from T.MANIFEST
     const SIGNATURE_DEFINITIONS = T.MANIFEST.map(m => ({
       id: m.id,
+      letter: m.letter,
       badge: `Template ${m.letter.toUpperCase()}`,
       name: m.name,
       desc: m.desc,
-      tags: m.tags,
+      bestFor: m.bestFor || '',
+      tags: m.tags || [],
+      slug: m.slug,
       standalone: `signatures/${m.slug}.html`,
       render: (p) => T.render(m.letter, p, { assetPrefix: "assets" })
     }));
 
-    // Render Cards
+    // Render Cards in Grid
     function renderCards() {
       const container = document.getElementById('signatures-container');
       container.innerHTML = '';
 
+      const query = searchQuery.trim().toLowerCase();
+
       const filtered = SIGNATURE_DEFINITIONS.filter(sig => {
-        if (currentFilter === 'all') return true;
-        return sig.tags.includes(currentFilter);
+        // Tag Filter
+        if (currentFilter !== 'all' && !sig.tags.includes(currentFilter)) {
+          return false;
+        }
+        // Search Filter
+        if (query) {
+          const matchLetter = sig.letter.toLowerCase() === query;
+          const matchName = sig.name.toLowerCase().includes(query);
+          const matchDesc = sig.desc.toLowerCase().includes(query);
+          const matchBestFor = sig.bestFor.toLowerCase().includes(query);
+          const matchTags = sig.tags.some(t => t.toLowerCase().includes(query));
+          return matchLetter || matchName || matchDesc || matchBestFor || matchTags;
+        }
+        return true;
       });
+
+      // Update Result Counts
+      document.getElementById('results-count-text').textContent = 
+        `Showing ${filtered.length} of ${SIGNATURE_DEFINITIONS.length} signatures`;
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; background: var(--bg-card); border-radius: var(--radius-lg); border: 1px solid var(--card-border);">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color:var(--text-dim); margin-bottom:14px;"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            <div style="font-size:16px; font-weight:700; color:#fff; margin-bottom:6px;">No signatures found</div>
+            <div style="font-size:13px; color:var(--text-muted); margin-bottom:16px;">No templates matched "${escapeHtml(searchQuery)}"</div>
+            <button class="btn btn-secondary btn-sm" onclick="clearSearch()">Clear Search</button>
+          </div>
+        `;
+        return;
+      }
 
       filtered.forEach(sig => {
         const card = document.createElement('div');
         card.className = 'sig-card';
+        card.id = `card-${sig.id}`;
+
+        const tagsHtml = sig.tags.map(t => `<span class="sig-tag-pill">${t}</span>`).join('');
+        const bestForHtml = sig.bestFor ? `
+          <div class="sig-best-for">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            ${sig.bestFor}
+          </div>` : '';
+
         card.innerHTML = `
           <div class="sig-card-header">
-            <div class="sig-meta">
-              <span class="sig-badge">${sig.badge}</span>
-              <div>
-                <div class="sig-name">${sig.name}</div>
+            <div class="sig-header-left">
+              <div class="sig-letter-badge">${sig.letter.toUpperCase()}</div>
+              <div class="sig-title-meta">
+                <div class="sig-name-row">
+                  <div class="sig-name">${sig.name}</div>
+                  ${tagsHtml}
+                </div>
                 <div class="sig-desc">${sig.desc}</div>
+                ${bestForHtml}
               </div>
             </div>
-            <a href="${sig.standalone}" target="_blank" class="btn btn-secondary btn-sm" title="Open standalone page in new tab">
+
+            <a href="${sig.standalone}" target="_blank" class="btn btn-ghost btn-sm" title="Open standalone page in new tab">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-              Open Page
             </a>
           </div>
 
-          <div class="sig-preview-wrapper ${currentSimBg === 'dark' ? 'preview-dark' : 'preview-light'}" id="preview-${sig.id}">
-            ${sig.render(profile)}
+          <div class="sig-preview-canvas ${currentSimBg === 'dark' ? 'preview-dark' : 'preview-light'} ${currentViewMode === 'mobile' ? 'mobile-simulator-active' : ''}" id="preview-box-${sig.id}">
+            <div class="preview-canvas-header">
+              <div class="preview-canvas-dots">
+                <div class="p-dot"></div>
+                <div class="p-dot"></div>
+                <div class="p-dot"></div>
+              </div>
+              <span>${currentViewMode === 'mobile' ? 'Mobile 375px' : 'Standard 600px'}</span>
+            </div>
+            <div class="preview-canvas-body" id="preview-${sig.id}">
+              ${sig.render(profile)}
+            </div>
           </div>
 
-          <div class="sig-card-actions">
-            <div class="action-links">
-              <button class="btn btn-secondary btn-sm" onclick="copySignatureHtml('${sig.id}')">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-                Copy HTML
+          <div class="sig-card-footer">
+            <div class="card-footer-left">
+              <button class="btn btn-secondary btn-sm" id="btn-html-${sig.id}" onclick="copySignatureHtml('${sig.id}')" title="Copy raw HTML for webmail / code">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                <span>Copy HTML</span>
+              </button>
+              <button class="btn btn-secondary btn-sm" onclick="openMockupModal('${sig.letter}')" title="Preview in realistic email window">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                <span>Email Client Preview</span>
               </button>
             </div>
-            <button class="btn btn-primary" onclick="copySignatureVisual('${sig.id}')">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
-              Copy Signature
+
+            <button class="btn btn-primary" id="btn-copy-${sig.id}" onclick="copySignatureVisual('${sig.id}')">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              <span>Copy Signature</span>
             </button>
           </div>
         `;
@@ -693,81 +1691,182 @@
       });
     }
 
-    // Filter cards
-    function filterSignatures(filter, chipEl) {
+    // Search Handlers
+    function handleSearch(val) {
+      searchQuery = val;
+      const clearBtn = document.getElementById('search-clear');
+      clearBtn.style.display = val ? 'block' : 'none';
+      renderCards();
+    }
+    function clearSearch() {
+      const input = document.getElementById('template-search');
+      input.value = '';
+      searchQuery = '';
+      document.getElementById('search-clear').style.display = 'none';
+      renderCards();
+    }
+
+    // Category Filter Handlers
+    function filterCategory(filter, chipEl) {
       currentFilter = filter;
       document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
       chipEl.classList.add('active');
       renderCards();
     }
 
-    // Email Simulator background toggle
+    // Viewport and Simulator Theme Handlers
     function setSimBg(mode) {
       currentSimBg = mode;
-      document.getElementById('sim-light').classList.toggle('active', mode === 'light');
-      document.getElementById('sim-dark').classList.toggle('active', mode === 'dark');
-      document.querySelectorAll('.sig-preview-wrapper').forEach(w => {
+      document.getElementById('sim-light-btn').classList.toggle('active', mode === 'light');
+      document.getElementById('sim-dark-btn').classList.toggle('active', mode === 'dark');
+      document.querySelectorAll('.sig-preview-canvas').forEach(w => {
         w.classList.toggle('preview-light', mode === 'light');
         w.classList.toggle('preview-dark', mode === 'dark');
       });
     }
 
-    // Editor Panel logic
-    function toggleEditor() {
-      const panel = document.getElementById('editor-panel');
-      panel.classList.toggle('open');
-      if (panel.classList.contains('open')) {
-        populateEditorInputs();
+    function setViewMode(mode) {
+      currentViewMode = mode;
+      document.getElementById('view-desktop-btn').classList.toggle('active', mode === 'desktop');
+      document.getElementById('view-mobile-btn').classList.toggle('active', mode === 'mobile');
+      renderCards();
+    }
+
+    // Slide-Over Drawer Controls
+    function openDrawer(tabName = 'general') {
+      document.getElementById('drawer-overlay').classList.add('open');
+      document.getElementById('drawer-panel').classList.add('open');
+      populateDrawerInputs();
+      if (tabName) {
+        const tabBtn = Array.from(document.querySelectorAll('.drawer-tab')).find(b => b.textContent.toLowerCase().includes(tabName));
+        if (tabBtn) switchDrawerTab(tabName, tabBtn);
       }
     }
 
-    function populateEditorInputs() {
-      document.getElementById('inp-name').value = profile.name;
-      document.getElementById('inp-title').value = profile.title;
-      document.getElementById('inp-email').value = profile.email;
-      document.getElementById('inp-phone').value = profile.phone;
-      document.getElementById('inp-website').value = profile.website;
-      document.getElementById('inp-location').value = profile.location;
-      document.getElementById('inp-booking').value = profile.booking.url;
-      document.getElementById('inp-photo-url').value = (profile.images && profile.images.remotePhoto) || '';
+    function closeDrawer() {
+      document.getElementById('drawer-overlay').classList.remove('open');
+      document.getElementById('drawer-panel').classList.remove('open');
+    }
+
+    function switchDrawerTab(tabId, btn) {
+      document.querySelectorAll('.drawer-tab').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.drawer-tab-content').forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+      const target = document.getElementById(`tab-${tabId}`);
+      if (target) target.classList.add('active');
+    }
+
+    // Setup Guide Tab Switcher
+    function switchGuideTab(client, btn) {
+      document.querySelectorAll('.guide-tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.guide-pane').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      const pane = document.getElementById(`guide-pane-${client}`);
+      if (pane) pane.classList.add('active');
+    }
+
+    // Input Synchronization
+    function populateDrawerInputs() {
+      document.getElementById('inp-name').value = profile.name || '';
+      document.getElementById('inp-title').value = profile.title || '';
+      document.getElementById('inp-pronouns').value = profile.pronouns || '';
+      document.getElementById('inp-tagline').value = profile.tagline || '';
+      document.getElementById('inp-email').value = profile.email || '';
+      document.getElementById('inp-phone').value = profile.phone || '';
+      document.getElementById('inp-whatsapp').value = profile.whatsapp || '';
+      document.getElementById('inp-website').value = profile.website || '';
+      document.getElementById('inp-websitedisplay').value = profile.websiteDisplay || '';
+      document.getElementById('inp-location').value = profile.location || '';
+      document.getElementById('inp-booking').value = (profile.booking && profile.booking.url) || '';
+      document.getElementById('inp-booking-label').value = (profile.booking && profile.booking.label) || '';
+
+      const soc = profile.socials || {};
+      document.getElementById('inp-social-linkedin').value = soc.linkedin || '';
+      document.getElementById('inp-social-github').value = soc.github || '';
+      document.getElementById('inp-social-x').value = soc.x || '';
+      document.getElementById('inp-social-instagram').value = soc.instagram || '';
+      document.getElementById('inp-social-youtube').value = soc.youtube || '';
+
+      const brandAccent = (profile.brand && profile.brand.accent) || '#2B4BF2';
+      document.getElementById('inp-brand-color').value = brandAccent;
+      document.getElementById('inp-brand-color-text').value = brandAccent;
+
+      const remoteImg = (profile.images && profile.images.remotePhoto) || '';
+      document.getElementById('inp-photo-url').value = remoteImg;
+
+      // Update header details
+      document.getElementById('header-username').textContent = profile.name || 'Set Your Profile';
+      const avatarSrc = (profile.images && profile.images.photo) || remoteImg || 'assets/images/photo.png';
+      document.getElementById('header-avatar').src = avatarSrc;
     }
 
     function updateProfileField(field, val) {
       if (field === 'bookingUrl') {
+        if (!profile.booking) profile.booking = {};
         profile.booking.url = val;
+      } else if (field === 'bookingLabel') {
+        if (!profile.booking) profile.booking = {};
+        profile.booking.label = val;
       } else if (field === 'photoUrl') {
         if (!profile.images) profile.images = {};
         profile.images.remotePhoto = val;
       } else {
         profile[field] = val;
-        if (field === 'website') {
+        if (field === 'website' && !profile.websiteDisplay) {
           profile.websiteDisplay = val.replace(/^https?:\/\//, '').replace(/\/$/, '');
+          document.getElementById('inp-websitedisplay').value = profile.websiteDisplay;
         }
       }
       saveProfile();
+      updateHeaderSummary();
       renderCards();
+    }
+
+    function updateSocialField(network, val) {
+      if (!profile.socials) profile.socials = {};
+      profile.socials[network] = val;
+      saveProfile();
+      renderCards();
+    }
+
+    function updateBrandAccent(color) {
+      if (!profile.brand) profile.brand = {};
+      profile.brand.accent = color;
+      document.getElementById('inp-brand-color').value = color;
+      document.getElementById('inp-brand-color-text').value = color;
+      saveProfile();
+      renderCards();
+    }
+
+    function updateHeaderSummary() {
+      document.getElementById('header-username').textContent = profile.name || 'Set Your Profile';
+      const img = (profile.images && profile.images.photo) || (profile.images && profile.images.remotePhoto) || 'assets/images/photo.png';
+      document.getElementById('header-avatar').src = img;
     }
 
     function resetProfile() {
       profile = JSON.parse(JSON.stringify(originalProfile));
       try { localStorage.removeItem('signatureStudio.profile'); } catch (e) {}
-      populateEditorInputs();
+      populateDrawerInputs();
       renderCards();
-      showToast('Profile reset to saved configuration.');
+      showToast('Profile restored to saved configuration');
     }
 
     function exportProfile() {
       const blob = new Blob([SS.serializeProfile(profile)], { type: 'application/json' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
-      a.href = url; a.download = 'profile.json'; a.click();
+      a.href = url;
+      a.download = 'profile.json';
+      a.click();
       URL.revokeObjectURL(url);
-      showToast('Profile exported as profile.json');
+      showToast('Exported profile.json successfully');
     }
 
     function importProfile() {
       const inp = document.createElement('input');
-      inp.type = 'file'; inp.accept = '.json,application/json';
+      inp.type = 'file';
+      inp.accept = '.json,application/json';
       inp.onchange = () => {
         const file = inp.files[0];
         if (!file) return;
@@ -776,11 +1875,11 @@
           try {
             profile = SS.parseProfile(reader.result);
             saveProfile();
-            populateEditorInputs();
+            populateDrawerInputs();
             renderCards();
-            showToast('Profile imported successfully');
+            showToast('Profile imported successfully!');
           } catch (e) {
-            showToast('Invalid profile JSON file');
+            showToast('Error: Invalid profile JSON file');
           }
         };
         reader.readAsText(file);
@@ -808,24 +1907,58 @@
           if (!profile.images) profile.images = {};
           profile.images[key] = dataUri;
           saveProfile();
+          populateDrawerInputs();
           renderCards();
-          showToast(`${key} image updated`);
+          showToast(`${key} image updated!`);
         };
         img.src = reader.result;
       };
       reader.readAsDataURL(file);
     }
 
-    // Copying helpers
-    function showToast(msg) {
-      const toast = document.getElementById('toast');
-      document.getElementById('toast-text').innerText = msg;
-      toast.classList.add('show');
-      setTimeout(() => toast.classList.remove('show'), 2800);
+    // Modal Simulation Logic
+    function openMockupModal(letter) {
+      activeModalTemplateLetter = letter;
+      const sigDef = SIGNATURE_DEFINITIONS.find(s => s.letter === letter);
+      if (!sigDef) return;
+
+      document.getElementById('modal-template-title').textContent = `${sigDef.name} (${sigDef.badge})`;
+      const area = document.getElementById('modal-signature-render-area');
+      area.innerHTML = sigDef.render(profile);
+
+      document.getElementById('email-mockup-modal').classList.add('open');
     }
 
-    async function copySignatureVisual(id) {
+    function closeMockupModal() {
+      document.getElementById('email-mockup-modal').classList.remove('open');
+      activeModalTemplateLetter = null;
+    }
+
+    function handleModalBackdropClick(e) {
+      if (e.target.id === 'email-mockup-modal') {
+        closeMockupModal();
+      }
+    }
+
+    async function copyFromModal(format) {
+      if (!activeModalTemplateLetter) return;
+      const sigDef = SIGNATURE_DEFINITIONS.find(s => s.letter === activeModalTemplateLetter);
+      if (!sigDef) return;
+
+      if (format === 'html') {
+        await copySignatureHtml(sigDef.id);
+      } else {
+        const copyBtn = document.getElementById('modal-copy-btn');
+        await copySignatureVisual(sigDef.id, copyBtn);
+      }
+    }
+
+    // 1-Click Clipboard Actions & Animated Button Morphing
+    async function copySignatureVisual(id, explicitBtn = null) {
       const container = document.getElementById(`preview-${id}`);
+      const btn = explicitBtn || document.getElementById(`btn-copy-${id}`);
+
+      let success = false;
       try {
         if (navigator.clipboard && window.ClipboardItem) {
           const htmlBlob = new Blob([container.innerHTML], { type: 'text/html' });
@@ -836,33 +1969,103 @@
               'text/plain': textBlob
             })
           ]);
-          showToast('Copied! Now paste into Gmail / Outlook / Apple Mail.');
-          return;
+          success = true;
         }
       } catch (err) {
-        console.warn('ClipboardItem fallback:', err);
+        console.warn('ClipboardItem error, trying fallback:', err);
       }
-      // Fallback
-      const range = document.createRange();
-      range.selectNode(container);
-      const sel = window.getSelection();
-      sel.removeAllRanges();
-      sel.addRange(range);
-      document.execCommand('copy');
-      sel.removeAllRanges();
-      showToast('Copied! Now paste into Gmail / Outlook / Apple Mail.');
+
+      if (!success) {
+        // Fallback for older browsers
+        const range = document.createRange();
+        range.selectNode(container);
+        const sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+        success = document.execCommand('copy');
+        sel.removeAllRanges();
+      }
+
+      if (success) {
+        triggerButtonSuccess(btn, 'Copied! ✓');
+        showToast('Signature copied! Paste into Gmail, Apple Mail, or Outlook.');
+      } else {
+        showToast('Could not copy automatically. Please copy manually.');
+      }
     }
 
     async function copySignatureHtml(id) {
       const container = document.getElementById(`preview-${id}`);
-      await navigator.clipboard.writeText(container.innerHTML.trim());
-      showToast('Raw HTML copied to clipboard.');
+      const btn = document.getElementById(`btn-html-${id}`);
+      try {
+        await navigator.clipboard.writeText(container.innerHTML.trim());
+        triggerButtonSuccess(btn, 'HTML Copied! ✓');
+        showToast('Raw HTML copied to clipboard.');
+      } catch (e) {
+        showToast('Error copying HTML');
+      }
     }
 
-    // Initialize
+    function triggerButtonSuccess(btn, text) {
+      if (!btn) return;
+      const originalHtml = btn.innerHTML;
+      btn.classList.add('btn-success-state');
+      btn.innerHTML = `
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        <span>${text}</span>
+      `;
+      setTimeout(() => {
+        btn.classList.remove('btn-success-state');
+        btn.innerHTML = originalHtml;
+      }, 2200);
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toast-text').innerText = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2800);
+    }
+
+    function escapeHtml(str) {
+      return String(str || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    // Keyboard Shortcuts
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeDrawer();
+        closeMockupModal();
+      }
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        document.getElementById('template-search').focus();
+      }
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'e') {
+        e.preventDefault();
+        openDrawer('general');
+      }
+    });
+
+    // Initialize counts on category chips
+    function initCategoryCounts() {
+      const counts = { all: SIGNATURE_DEFINITIONS.length, minimal: 0, photo: 0, dark: 0 };
+      SIGNATURE_DEFINITIONS.forEach(s => {
+        if (s.tags.includes('minimal')) counts.minimal++;
+        if (s.tags.includes('photo')) counts.photo++;
+        if (s.tags.includes('dark')) counts.dark++;
+      });
+      document.getElementById('chip-count-all').textContent = `(${counts.all})`;
+      document.getElementById('chip-count-minimal').textContent = `(${counts.minimal})`;
+      document.getElementById('chip-count-photo').textContent = `(${counts.photo})`;
+      document.getElementById('chip-count-dark').textContent = `(${counts.dark})`;
+      document.getElementById('stat-total-count').textContent = `${counts.all} Ready`;
+    }
+
+    // Startup
+    initCategoryCounts();
+    populateDrawerInputs();
     renderCards();
-    populateEditorInputs();
-    document.getElementById('chip-all').textContent = `All Signatures (${SIGNATURE_DEFINITIONS.length})`;
   </script>
 </body>
 </html>
