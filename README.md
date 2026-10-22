@@ -36,7 +36,7 @@ Zero runtime dependencies &bull; 100% offline &bull; HTML 4.01 Strict email comp
 
 ## 🎨 Signature Template Directory
 
-All 20 templates are rendered in both the studio dashboard and standalone HTML files inside `signatures/`:
+All 25 templates are rendered in both the studio dashboard and standalone HTML files inside `signatures/`:
 
 | Letter | Template Name | Tags | Best Suited For | Standalone File |
 |:---:|---|---|---|---|
@@ -60,6 +60,11 @@ All 20 templates are rendered in both the studio dashboard and standalone HTML f
 | **R** | **Git Contributor Card** | `dev`, `photo` | GitHub power users, open-source contributors & freelancers | [`signatures/signature-r-git-contributor.html`](signatures/signature-r-git-contributor.html) |
 | **S** | **VS Code Editor Card** | `dev`, `dark` | TypeScript developers, frontend engineers & software architects | [`signatures/signature-s-code-editor.html`](signatures/signature-s-code-editor.html) |
 | **T** | **macOS Terminal Prompt** | `dev`, `dark` | Backend engineers, DevOps, Linux enthusiasts & CLI power users | [`signatures/signature-t-terminal-prompt.html`](signatures/signature-t-terminal-prompt.html) |
+| **U** | **QR Contact Card** | `photo`, `minimal` | In-person networkers, founders & conference attendees | [`signatures/signature-u-qr-contact-card.html`](signatures/signature-u-qr-contact-card.html) |
+| **V** | **Availability & Stack Rail** | `dev`, `photo` | Freelancers, contract engineers & agency developers | [`signatures/signature-v-availability-stack.html`](signatures/signature-v-availability-stack.html) |
+| **W** | **Split Portrait Card** | `photo` | Client-facing leaders, speakers & design directors | [`signatures/signature-w-split-portrait-card.html`](signatures/signature-w-split-portrait-card.html) |
+| **X** | **Accent Divider Minimal** | `photo`, `minimal` | Engineers & designers who appreciate clean typography | [`signatures/signature-x-accent-divider-minimal.html`](signatures/signature-x-accent-divider-minimal.html) |
+| **Y** | **Monogram Watermark Card** | `minimal` | Developers, architects & technical writers | [`signatures/signature-y-monogram-watermark.html`](signatures/signature-y-monogram-watermark.html) |
 
 ---
 
@@ -67,7 +72,7 @@ All 20 templates are rendered in both the studio dashboard and standalone HTML f
 
 ```text
 email-signature/
-├── index.html                   # Showcase & preview dashboard for all 20 signatures
+├── index.html                   # Showcase & preview dashboard for all 25 signatures
 ├── data/
 │   ├── profile.json             # Single source of truth for personal / contact info (Schema v2)
 │   └── profile.js               # Auto-synced global data for zero-CORS browser support
@@ -79,7 +84,7 @@ email-signature/
 │       ├── i-mail.png, i-phone.png, i-globe.png, i-map-pin.png, i-whatsapp.png
 │       └── s-github.png, s-linkedin.png, s-x.png, s-instagram.png, s-youtube.png
 ├── signatures/                  # Standalone signature pages with simulator toggles
-│   └── signature-[a-t]-*.html   # 20 standalone HTML signature files
+│   └── signature-[a-y]-*.html   # 25 standalone HTML signature files
 ├── scripts/
 │   ├── build.js                 # Rebuilds standalone signatures and data/profile.js
 │   └── check.js                 # Automated test suite (security, escaping, schema)
@@ -101,7 +106,7 @@ email-signature/
 # Run automated test suite (XSS escaping, URL sanitization, schema migration)
 npm test
 
-# Regenerate data/profile.js and all 20 signatures/ files
+# Regenerate data/profile.js and all 25 signatures/ files
 npm run build
 
 # Run tests and verify build integrity

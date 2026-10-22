@@ -5,6 +5,19 @@ All notable changes to the Email Signature Studio project will be documented in 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.0] - 2026-10-22
+
+### Added
+- **5 New Signature Styles (Templates U through Y)**:
+  - **Template U (`signature-u-qr-contact-card`)**: QR Contact Card — Bordered card with portrait avatar, contact details, socials, and scannable QR code linking to contact/website.
+  - **Template V (`signature-v-availability-stack`)**: Availability & Stack Rail — Left-rail layout with green project availability indicator (`● Available for new projects`), tech stack tags, and contact rows.
+  - **Template W (`signature-w-split-portrait-card`)**: Split Portrait Card — Bordered card featuring flush full-height portrait photo on the left pane and 2×2 contact details grid on the right pane.
+  - **Template X (`signature-x-accent-divider-minimal`)**: Accent Divider Minimal — Two-tone accent typography on name, vertical divider line, and clean contact & social icons.
+  - **Template Y (`signature-y-monogram-watermark`)**: Monogram Watermark Card — Large, subtle `RJ` initials watermark backdrop on the right pane with structured contact details on the left.
+- **Suite Expansion**: Rebuilt and validated all 25 standalone HTML signatures. Total collection is now 25 production-ready signatures.
+
+---
+
 ## [2.1.0] - 2026-10-22
 
 ### Added

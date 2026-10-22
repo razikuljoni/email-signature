@@ -191,4 +191,33 @@ test('T renders macOS terminal prompt with whoami output', () => {
   assert.ok(htmlT.includes('zsh'), 'T should include zsh title');
   assert.ok(htmlT.includes('#ff5f56'), 'T should render macOS red traffic light');
 });
+test('U renders QR contact card with QR code and scan instruction', () => {
+  const p = S.migrate(Object.assign({}, FIXTURE));
+  const htmlU = T.render('u', p, { assetPrefix: '..' });
+  assert.ok(htmlU.includes('qrserver.com'), 'U should render QR code API url');
+  assert.ok(htmlU.includes('Scan to save my contact'), 'U should render scan caption');
+});
+test('V renders availability indicator and tech stack list', () => {
+  const p = S.migrate(Object.assign({}, FIXTURE));
+  const htmlV = T.render('v', p, { assetPrefix: '..' });
+  assert.ok(htmlV.includes('Available for new projects'), 'V should render availability text');
+  assert.ok(htmlV.includes('React'), 'V should render React in stack');
+});
+test('W renders split portrait layout with flush photo', () => {
+  const p = S.migrate(Object.assign({}, FIXTURE));
+  const htmlW = T.render('w', p, { assetPrefix: '..' });
+  assert.ok(htmlW.includes('border-top-left-radius:18px'), 'W should have rounded left photo');
+  assert.ok(htmlW.includes(T.escapeHtml(FIXTURE.name)), 'W should render name');
+});
+test('X renders accent divider minimal with accented name', () => {
+  const p = S.migrate(Object.assign({}, FIXTURE));
+  const htmlX = T.render('x', p, { assetPrefix: '..' });
+  assert.ok(htmlX.includes('color:#2563eb'), 'X should render blue accent on name');
+});
+test('Y renders watermark initials backdrop', () => {
+  const p = S.migrate(Object.assign({}, FIXTURE));
+  const htmlY = T.render('y', p, { assetPrefix: '..' });
+  assert.ok(htmlY.includes('RJ'), 'Y should render RJ watermark');
+});
 console.log('check new template assertions: passed');
+
