@@ -5,6 +5,20 @@ All notable changes to the Email Signature Studio project will be documented in 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.3.0] - 2026-10-23
+
+### Added
+- **Template Z (`signature-z-animated-glow-name`)**: Animated Glow Name — Minimal portrait signature with a glowing animated blue light-sweep GIF name banner (`name-anim.gif`) and clean contact rows.
+- **New Template X (`signature-x-corporate-top-banner`)**: Corporate Top Banner — Deep corporate navy brand bar (`#1e3a5f`) with company slogan, round portrait avatar, structured contact details, and social icons.
+- **Animated GIF In-Browser Upload**: Added animated GIF preservation and thumbnail preview in the studio drawer under the Branding tab.
+- **Extended Schema**: Added support for `company`, `department`, `facebook`, `linkTree`, and `userName` in `src/schema.js`, `data/profile.json`, and `data/profile.js`.
+
+### Changed
+- **Removed Duplicate Signature**: Replaced redundant Template X (Accent Divider Minimal) with the distinct Corporate Top Banner style.
+- **Template Pronouns Handling**: Fixed conditional display of pronouns so empty values do not render empty parentheses `()`.
+
+---
+
 ## [2.2.0] - 2026-10-22
 
 ### Added

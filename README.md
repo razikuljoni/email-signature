@@ -36,7 +36,7 @@ Zero runtime dependencies &bull; 100% offline &bull; HTML 4.01 Strict email comp
 
 ## 🎨 Signature Template Directory
 
-All 25 templates are rendered in both the studio dashboard and standalone HTML files inside `signatures/`:
+All 26 templates are rendered in both the studio dashboard and standalone HTML files inside `signatures/`:
 
 | Letter | Template Name | Tags | Best Suited For | Standalone File |
 |:---:|---|---|---|---|
@@ -63,8 +63,9 @@ All 25 templates are rendered in both the studio dashboard and standalone HTML f
 | **U** | **QR Contact Card** | `photo`, `minimal` | In-person networkers, founders & conference attendees | [`signatures/signature-u-qr-contact-card.html`](signatures/signature-u-qr-contact-card.html) |
 | **V** | **Availability & Stack Rail** | `dev`, `photo` | Freelancers, contract engineers & agency developers | [`signatures/signature-v-availability-stack.html`](signatures/signature-v-availability-stack.html) |
 | **W** | **Split Portrait Card** | `photo` | Client-facing leaders, speakers & design directors | [`signatures/signature-w-split-portrait-card.html`](signatures/signature-w-split-portrait-card.html) |
-| **X** | **Accent Divider Minimal** | `photo`, `minimal` | Engineers & designers who appreciate clean typography | [`signatures/signature-x-accent-divider-minimal.html`](signatures/signature-x-accent-divider-minimal.html) |
+| **X** | **Corporate Top Banner** | `photo`, `dev` | Enterprise software engineers, corporate tech leads & solutions architects | [`signatures/signature-x-corporate-top-banner.html`](signatures/signature-x-corporate-top-banner.html) |
 | **Y** | **Monogram Watermark Card** | `minimal` | Developers, architects & technical writers | [`signatures/signature-y-monogram-watermark.html`](signatures/signature-y-monogram-watermark.html) |
+| **Z** | **Animated Glow Name** | `photo`, `dev` | Tech founders, web developers, creators & modern innovators | [`signatures/signature-z-animated-glow-name.html`](signatures/signature-z-animated-glow-name.html) |
 
 ---
 
@@ -72,7 +73,7 @@ All 25 templates are rendered in both the studio dashboard and standalone HTML f
 
 ```text
 email-signature/
-├── index.html                   # Showcase & preview dashboard for all 25 signatures
+├── index.html                   # Showcase & preview dashboard for all 26 signatures
 ├── data/
 │   ├── profile.json             # Single source of truth for personal / contact info (Schema v2)
 │   └── profile.js               # Auto-synced global data for zero-CORS browser support

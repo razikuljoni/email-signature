@@ -1,6 +1,6 @@
 {
   "name": "email-signature",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "Multi-template professional email signatures with centralized profile management and 1-click rich clipboard copying",
   "scripts": {
     "test": "node scripts/check.js",

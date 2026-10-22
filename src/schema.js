@@ -13,6 +13,8 @@
     version: SCHEMA_VERSION,
     name: '',
     title: '',
+    department: '',
+    company: '',
     pronouns: '',
     tagline: '',
     email: '',
@@ -21,9 +23,11 @@
     website: '',
     websiteDisplay: '',
     location: '',
+    linkTree: '',
+    userName: '',
     booking: { url: '', label: 'Book a call →' },
-    socials: { linkedin: '', github: '', x: '', instagram: '', youtube: '' },
-    images: { photo: 'assets/images/photo.png', monogram: 'assets/images/monogram.png', logo: '', remotePhoto: '' },
+    socials: { linkedin: '', github: '', x: '', facebook: '', instagram: '', youtube: '' },
+    images: { photo: 'assets/images/photo.png', monogram: 'assets/images/monogram.png', logo: '', remotePhoto: '', nameAnim: '' },
     brand: DEFAULT_BRAND,
     signature: { template: 'a', perTemplate: {} }
   };

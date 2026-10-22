@@ -209,15 +209,27 @@ test('W renders split portrait layout with flush photo', () => {
   assert.ok(htmlW.includes('border-top-left-radius:18px'), 'W should have rounded left photo');
   assert.ok(htmlW.includes(T.escapeHtml(FIXTURE.name)), 'W should render name');
 });
-test('X renders accent divider minimal with accented name', () => {
-  const p = S.migrate(Object.assign({}, FIXTURE));
+test('X renders corporate top banner signature', () => {
+  const p = S.migrate(Object.assign({}, FIXTURE, { company: 'TechNova Solutions Ltd.', tagline: 'Innovating Tomorrow' }));
   const htmlX = T.render('x', p, { assetPrefix: '..' });
-  assert.ok(htmlX.includes('color:#2563eb'), 'X should render blue accent on name');
+  assert.ok(htmlX.includes('TechNova Solutions Ltd.'), 'X should render company name');
+  assert.ok(htmlX.includes('#1e3a5f'), 'X should render corporate navy top banner');
 });
 test('Y renders watermark initials backdrop', () => {
   const p = S.migrate(Object.assign({}, FIXTURE));
   const htmlY = T.render('y', p, { assetPrefix: '..' });
   assert.ok(htmlY.includes('RJ'), 'Y should render RJ watermark');
+});
+test('Z renders animated glow name GIF with fallback alt', () => {
+  const p = S.migrate(Object.assign({}, FIXTURE));
+  const htmlZ = T.render('z', p, { assetPrefix: '..' });
+  assert.ok(htmlZ.includes('name-anim.gif'), 'Z should reference name-anim.gif');
+  assert.ok(htmlZ.includes(`alt="${T.escapeHtml(FIXTURE.name)}"`), 'Z should have fallback alt text');
+});
+test('G does not render empty parentheses when pronouns is empty', () => {
+  const p = S.migrate(Object.assign({}, FIXTURE, { pronouns: '' }));
+  const htmlG = T.render('g', p, { assetPrefix: '..' });
+  assert.ok(!htmlG.includes('()'), 'G should not output empty () when pronouns missing');
 });
 console.log('check new template assertions: passed');
 

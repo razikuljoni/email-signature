@@ -1414,6 +1414,10 @@
           <input type="text" class="field-input" id="inp-social-x" placeholder="https://x.com/..." oninput="updateSocialField('x', this.value)">
         </div>
         <div class="field-group">
+          <label class="field-label">Facebook URL</label>
+          <input type="text" class="field-input" id="inp-social-facebook" placeholder="https://facebook.com/..." oninput="updateSocialField('facebook', this.value)">
+        </div>
+        <div class="field-group">
           <label class="field-label">Instagram URL</label>
           <input type="text" class="field-input" id="inp-social-instagram" placeholder="https://instagram.com/..." oninput="updateSocialField('instagram', this.value)">
         </div>
@@ -1473,6 +1477,16 @@
             <img id="thumb-logo" src="" class="image-thumb-preview" alt="Logo" onerror="this.style.display='none'">
             <div class="image-upload-info">
               <input type="file" accept="image/*" class="field-input" onchange="handleImageUpload('logo', this)">
+            </div>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">Animated Name GIF <span class="field-hint">(Used in Template Z & Glow signatures)</span></label>
+          <div class="image-upload-card">
+            <img id="thumb-name-anim" src="assets/images/name-anim.gif" class="image-thumb-preview" style="width:120px; height:auto; object-fit:contain;" alt="Animated name preview">
+            <div class="image-upload-info">
+              <input type="file" accept="image/gif,image/*" class="field-input" onchange="handleImageUpload('nameAnim', this)">
             </div>
           </div>
         </div>
@@ -1787,6 +1801,8 @@
       document.getElementById('inp-social-linkedin').value = soc.linkedin || '';
       document.getElementById('inp-social-github').value = soc.github || '';
       document.getElementById('inp-social-x').value = soc.x || '';
+      const fbInp = document.getElementById('inp-social-facebook');
+      if (fbInp) fbInp.value = soc.facebook || '';
       document.getElementById('inp-social-instagram').value = soc.instagram || '';
       document.getElementById('inp-social-youtube').value = soc.youtube || '';
 
@@ -1796,6 +1812,11 @@
 
       const remoteImg = (profile.images && profile.images.remotePhoto) || '';
       document.getElementById('inp-photo-url').value = remoteImg;
+
+      // Update thumbnail previews
+      const nameAnimSrc = (profile.images && profile.images.nameAnim) || 'assets/images/name-anim.gif';
+      const thumbName = document.getElementById('thumb-name-anim');
+      if (thumbName) thumbName.src = nameAnimSrc;
 
       // Update header details
       document.getElementById('header-username').textContent = profile.name || 'Set Your Profile';
@@ -1895,6 +1916,16 @@
       if (!file) return;
       const reader = new FileReader();
       reader.onload = () => {
+        // For GIF animations (e.g. nameAnim), preserve raw animated frames directly
+        if (file.type === 'image/gif' || key === 'nameAnim') {
+          if (!profile.images) profile.images = {};
+          profile.images[key] = reader.result;
+          saveProfile();
+          populateDrawerInputs();
+          renderCards();
+          showToast(`${key} animated image updated!`);
+          return;
+        }
         const img = new Image();
         img.onload = () => {
           const MAX = 512;
