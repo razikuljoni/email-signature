@@ -5,6 +5,18 @@ All notable changes to the Email Signature Studio project will be documented in 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.0] - 2026-10-22
+
+### Added
+- **5 New Developer Signature Templates**:
+  - **Template P (`signature-p-dev-badges`)**: Developer Shields Badges — Shields.io style dual-color pill badges for contact endpoints and tech stack (`email`, `whatsapp`, `web`, `Next.js`, `TypeScript`, `Node.js`, `PostgreSQL`), circular avatar, and clean social links.
+  - **Template Q (`signature-q-npm-package`)**: NPM Package Card — Authentic npm package registry layout featuring `$ npm install <pkg>` terminal block, package version tag, status pills (`open to work ✓`, `stack: next.js · ts · node`, `based: dhaka, bd`).
+  - **Template R (`signature-r-git-contributor`)**: Git Contributor Card — Clean white bordered card with circular developer avatar, `@handle`, `Book a call` CTA button, and responsive 4-row GitHub commit contribution heatmap grid.
+  - **Template S (`signature-s-code-editor`)**: VS Code Editor Card — Dark Visual Studio Code window mock with `developer.ts` tab, line numbers 1–8, and syntax-highlighted export object.
+  - **Template T (`signature-t-terminal-prompt`)**: macOS Terminal Prompt — Dark terminal window with macOS red/yellow/green traffic lights, `$ whoami` zsh prompt, formatted system spec keys, and array link bracket footer.
+- **Dedicated Developer Filter**: Added quick category filter button `Developer` in the dashboard with live dynamic count.
+- **Test Suite Enhancements**: Added 5 new automated unit tests validating rendering integrity, badge markers, syntax highlighting, and commit heatmap cells in `scripts/check.js`.
+
 ---
 
 ## [2.0.0] - 2026-10-17
