@@ -51,7 +51,7 @@
     {
       id: 'sig-e', letter: 'e', slug: 'signature-e-developer-pro-banner', name: 'Developer Pro Banner',
       desc: 'Dual-color accent bar, photo avatar, and social badge grid.',
-      tags: ['photo'], bestFor: 'Engineering leaders & technical advocates',
+      tags: ['photo', 'dev'], bestFor: 'Engineering leaders & technical advocates',
       settings: { fields: ['photo', 'name', 'title', 'email', 'phone', 'whatsapp', 'website', 'location', 'booking', 'socials'], layouts: ['horizontal'], supportsDark: false }
     },
     {
@@ -113,6 +113,66 @@
       desc: 'Vertical gradient accent rail with icon contact rows and clean text socials.',
       tags: ['minimal'], bestFor: 'Engineers & technical writers who prefer structure',
       settings: { fields: ['name', 'title', 'email', 'phone', 'website', 'location', 'socials'], layouts: ['horizontal'], supportsDark: false }
+    },
+    {
+      id: 'sig-p', letter: 'p', slug: 'signature-p-dev-badges', name: 'Developer Shields Badges',
+      desc: 'Shields.io style color-coded badges for contact endpoints and tech stack, with circular avatar.',
+      tags: ['dev', 'photo'], bestFor: 'Full-stack engineers, open-source maintainers & tech leads',
+      settings: { fields: ['photo', 'name', 'title', 'email', 'phone', 'whatsapp', 'website', 'booking', 'socials'], layouts: ['horizontal'], supportsDark: false }
+    },
+    {
+      id: 'sig-q', letter: 'q', slug: 'signature-q-npm-package', name: 'NPM Package Card',
+      desc: 'Modern npm registry card with install command banner, package version, and status chips.',
+      tags: ['dev', 'minimal'], bestFor: 'JavaScript / TypeScript developers, package authors & full-stack engineers',
+      settings: { fields: ['name', 'title', 'email', 'website', 'location', 'booking', 'socials'], layouts: ['stacked'], supportsDark: false }
+    },
+    {
+      id: 'sig-r', letter: 'r', slug: 'signature-r-git-contributor', name: 'Git Contributor Card',
+      desc: 'Clean bordered card with developer photo, GitHub handle, Book a call CTA button, and active commit activity graph.',
+      tags: ['dev', 'photo'], bestFor: 'GitHub power users, open-source contributors & full-stack freelancers',
+      settings: { fields: ['photo', 'name', 'title', 'email', 'website', 'location', 'booking', 'socials'], layouts: ['horizontal'], supportsDark: false }
+    },
+    {
+      id: 'sig-s', letter: 's', slug: 'signature-s-code-editor', name: 'VS Code Editor Card',
+      desc: 'Visual Studio Code IDE window mock with developer.ts file tab and syntax-highlighted export object.',
+      tags: ['dev', 'dark'], bestFor: 'TypeScript developers, frontend engineers & software architects',
+      settings: { fields: ['name', 'title', 'email', 'website', 'booking', 'socials'], layouts: ['stacked'], supportsDark: true }
+    },
+    {
+      id: 'sig-t', letter: 't', slug: 'signature-t-terminal-prompt', name: 'macOS Terminal Prompt',
+      desc: 'macOS Terminal window with traffic lights, zsh prompt, whoami output, and system spec styled links.',
+      tags: ['dev', 'dark'], bestFor: 'Backend engineers, DevOps, Linux enthusiasts & terminal power users',
+      settings: { fields: ['name', 'title', 'email', 'phone', 'website', 'location', 'booking', 'socials'], layouts: ['stacked'], supportsDark: true }
+    },
+    {
+      id: 'sig-u', letter: 'u', slug: 'signature-u-qr-contact-card', name: 'QR Contact Card',
+      desc: 'White bordered card with contact details, social links, and scannable QR code for phone contacts.',
+      tags: ['photo', 'minimal'], bestFor: 'In-person networkers, founders, conference attendees & consultants',
+      settings: { fields: ['photo', 'name', 'title', 'email', 'website', 'socials'], layouts: ['horizontal'], supportsDark: false }
+    },
+    {
+      id: 'sig-v', letter: 'v', slug: 'signature-v-availability-stack', name: 'Availability & Stack Rail',
+      desc: 'Left-rail layout featuring green project availability indicator, core tech stack, and action links.',
+      tags: ['dev', 'photo'], bestFor: 'Freelancers, contract engineers & agency developers seeking new clients',
+      settings: { fields: ['photo', 'name', 'title', 'email', 'phone', 'booking', 'socials'], layouts: ['horizontal'], supportsDark: false }
+    },
+    {
+      id: 'sig-w', letter: 'w', slug: 'signature-w-split-portrait-card', name: 'Split Portrait Card',
+      desc: 'Bordered container card with flush full-height portrait photo on left and structured 2×2 contact grid.',
+      tags: ['photo'], bestFor: 'Client-facing leaders, speakers, agency heads & design directors',
+      settings: { fields: ['photo', 'name', 'title', 'email', 'phone', 'website', 'location', 'booking', 'socials'], layouts: ['horizontal'], supportsDark: false }
+    },
+    {
+      id: 'sig-x', letter: 'x', slug: 'signature-x-accent-divider-minimal', name: 'Accent Divider Minimal',
+      desc: 'Clean horizontal portrait with two-tone accent name, vertical divider line, and contact icons.',
+      tags: ['photo', 'minimal'], bestFor: 'Full-stack engineers & designers who appreciate clean typography',
+      settings: { fields: ['photo', 'name', 'title', 'email', 'phone', 'website', 'location', 'booking', 'socials'], layouts: ['horizontal'], supportsDark: false }
+    },
+    {
+      id: 'sig-y', letter: 'y', slug: 'signature-y-monogram-watermark', name: 'Monogram Watermark Card',
+      desc: 'Elegant typographic signature with subtle high-contrast monogram watermark initials backdrop.',
+      tags: ['minimal'], bestFor: 'Developers, architects & technical writers preferring typographic branding',
+      settings: { fields: ['name', 'title', 'email', 'phone', 'website', 'location', 'booking', 'socials'], layouts: ['horizontal'], supportsDark: false }
     }
   ];
 
@@ -883,6 +943,590 @@
 <!-- SIGNATURE-END -->`;
   }
 
+  function renderSignatureP(p, opts = {}) {
+    const assetPrefix = opts.assetPrefix || '../assets';
+    const photo = photoSrc(p, assetPrefix);
+    const email = escapeHtml(p.email || '');
+    const phone = escapeHtml(p.phone || '');
+    const web = escapeHtml(p.websiteDisplay || (p.website ? p.website.replace(/^https?:\/\/(www\.)?/, '') : ''));
+    const cleanPhone = String(p.phone || '').replace(/[^0-9+]/g, '');
+    const waUrl = sanitizeUrl(p.whatsapp || (cleanPhone ? `https://wa.me/${cleanPhone.replace(/^\+/, '')}` : '#'));
+
+    return `<!-- SIGNATURE-START -->
+<table cellpadding="0" cellspacing="0" border="0" style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; max-width:580px; color:#111827;">
+  <tr>
+    <td style="padding-bottom:12px;">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td style="vertical-align:middle; padding-right:16px;">
+            <img src="${photo}" alt="${escapeHtml(p.name)}" width="64" height="64" style="display:block; width:64px; height:64px; border-radius:50%; object-fit:cover;">
+          </td>
+          <td style="vertical-align:middle;">
+            <div style="font-size:18px; font-weight:700; color:#111827; line-height:1.2; letter-spacing:-0.2px;">${escapeHtml(p.name)}</div>
+            <div style="font-size:13px; font-weight:400; color:#6b7280; line-height:1.4; margin-top:3px;">${escapeHtml(p.title)}</div>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td style="padding-bottom:6px;">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td>
+            <a href="${sanitizeUrl(`mailto:${p.email}`)}" style="text-decoration:none; display:inline-block; margin-right:6px; margin-bottom:6px;">
+              <table cellpadding="0" cellspacing="0" border="0" style="border-radius:4px; overflow:hidden; font-size:11px; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; line-height:1;">
+                <tr>
+                  <td style="background:#4b5563; color:#ffffff; padding:4px 8px; font-weight:500;">email</td>
+                  <td style="background:#e11d48; color:#ffffff; padding:4px 9px; font-weight:700;">${email}</td>
+                </tr>
+              </table>
+            </a>
+            <a href="${waUrl}" style="text-decoration:none; display:inline-block; margin-right:6px; margin-bottom:6px;">
+              <table cellpadding="0" cellspacing="0" border="0" style="border-radius:4px; overflow:hidden; font-size:11px; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; line-height:1;">
+                <tr>
+                  <td style="background:#4b5563; color:#ffffff; padding:4px 8px; font-weight:500;">whatsapp</td>
+                  <td style="background:#10b981; color:#ffffff; padding:4px 9px; font-weight:700;">${phone}</td>
+                </tr>
+              </table>
+            </a>
+            <a href="${sanitizeUrl(p.website)}" style="text-decoration:none; display:inline-block; margin-bottom:6px;">
+              <table cellpadding="0" cellspacing="0" border="0" style="border-radius:4px; overflow:hidden; font-size:11px; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; line-height:1;">
+                <tr>
+                  <td style="background:#4b5563; color:#ffffff; padding:4px 8px; font-weight:500;">web</td>
+                  <td style="background:#2563eb; color:#ffffff; padding:4px 9px; font-weight:700;">${web}</td>
+                </tr>
+              </table>
+            </a>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td style="padding-bottom:10px;">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td>
+            <span style="display:inline-block; margin-right:6px; margin-bottom:6px;">
+              <table cellpadding="0" cellspacing="0" border="0" style="border-radius:4px; overflow:hidden; font-size:11px; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; line-height:1;">
+                <tr>
+                  <td style="background:#4b5563; color:#ffffff; padding:4px 8px; font-weight:500;">stack</td>
+                  <td style="background:#000000; color:#ffffff; padding:4px 9px; font-weight:700;">Next.js</td>
+                </tr>
+              </table>
+            </span>
+            <span style="display:inline-block; margin-right:6px; margin-bottom:6px;">
+              <table cellpadding="0" cellspacing="0" border="0" style="border-radius:4px; overflow:hidden; font-size:11px; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; line-height:1;">
+                <tr>
+                  <td style="background:#4b5563; color:#ffffff; padding:4px 8px; font-weight:500;">stack</td>
+                  <td style="background:#3178c6; color:#ffffff; padding:4px 9px; font-weight:700;">TypeScript</td>
+                </tr>
+              </table>
+            </span>
+            <span style="display:inline-block; margin-right:6px; margin-bottom:6px;">
+              <table cellpadding="0" cellspacing="0" border="0" style="border-radius:4px; overflow:hidden; font-size:11px; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; line-height:1;">
+                <tr>
+                  <td style="background:#4b5563; color:#ffffff; padding:4px 8px; font-weight:500;">stack</td>
+                  <td style="background:#16a34a; color:#ffffff; padding:4px 9px; font-weight:700;">Node.js</td>
+                </tr>
+              </table>
+            </span>
+            <span style="display:inline-block; margin-bottom:6px;">
+              <table cellpadding="0" cellspacing="0" border="0" style="border-radius:4px; overflow:hidden; font-size:11px; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; line-height:1;">
+                <tr>
+                  <td style="background:#4b5563; color:#ffffff; padding:4px 8px; font-weight:500;">db</td>
+                  <td style="background:#336791; color:#ffffff; padding:4px 9px; font-weight:700;">PostgreSQL</td>
+                </tr>
+              </table>
+            </span>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td style="font-size:12.5px; color:#6b7280; line-height:1.5;">
+      <a href="${sanitizeUrl(p.socials && p.socials.linkedin)}" style="color:#4b5563; text-decoration:none; font-weight:500;">LinkedIn</a>
+      <span style="color:#d1d5db;">&nbsp;&nbsp;&middot;&nbsp;&nbsp;</span>
+      <a href="${sanitizeUrl(p.socials && p.socials.github)}" style="color:#4b5563; text-decoration:none; font-weight:500;">GitHub</a>
+      <span style="color:#d1d5db;">&nbsp;&middot;&nbsp;&nbsp;</span>
+      <a href="${sanitizeUrl(p.socials && p.socials.x)}" style="color:#4b5563; text-decoration:none; font-weight:500;">X</a>
+      <span style="color:#d1d5db;">&nbsp;&nbsp;&middot;&nbsp;&nbsp;</span>
+      <a href="${sanitizeUrl(p.booking && p.booking.url)}" style="color:#2563eb; text-decoration:none; font-weight:600;">${escapeHtml(p.booking && p.booking.label || 'Book a call →')}</a>
+    </td>
+  </tr>
+</table>
+<!-- SIGNATURE-END -->`;
+  }
+
+  function renderSignatureQ(p, opts = {}) {
+    const handle = (p.socials && p.socials.github ? p.socials.github.split('/').filter(Boolean).pop() : '') || 'razikuljoni';
+    const email = escapeHtml(p.email || '');
+    const web = escapeHtml(p.websiteDisplay || (p.website ? p.website.replace(/^https?:\/\/(www\.)?/, '') : ''));
+    const loc = escapeHtml(p.location || 'Dhaka, Bangladesh');
+
+    return `<!-- SIGNATURE-START -->
+<table cellpadding="0" cellspacing="0" border="0" style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; max-width:580px; color:#1e293b;">
+  <tr>
+    <td style="padding-bottom:6px;">
+      <span style="display:inline-block; background:#cb3837; color:#ffffff; font-family:'Courier New',Consolas,Monaco,monospace; font-size:11px; font-weight:700; padding:2.5px 7px; border-radius:4px; vertical-align:middle; line-height:1;">npm</span>
+      <span style="display:inline-block; color:#64748b; font-family:'Courier New',Consolas,Monaco,monospace; font-size:12px; margin-left:6px; vertical-align:middle;">package</span>
+    </td>
+  </tr>
+  <tr>
+    <td style="line-height:1.2;">
+      <span style="font-family:'Courier New',Consolas,Monaco,monospace; font-size:23px; font-weight:700; color:#0f172a; letter-spacing:-0.4px;">${escapeHtml(handle)}</span>
+      <span style="font-family:'Courier New',Consolas,Monaco,monospace; font-size:13px; color:#64748b; margin-left:8px; font-weight:400;">v2.0.0</span>
+    </td>
+  </tr>
+  <tr>
+    <td style="font-size:13px; color:#334155; line-height:1.45; padding-top:4px; padding-bottom:8px;">
+      ${escapeHtml(p.title)} &mdash; builds realtime SaaS dashboards with Next.js &amp; Node.js
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <table cellpadding="0" cellspacing="0" border="0" width="100%" style="background:#0f172a; border-radius:6px; margin-bottom:10px;">
+        <tr>
+          <td style="padding:9px 14px; font-family:'Courier New',Consolas,Monaco,monospace; font-size:13px; line-height:1.4; color:#e2e8f0;">
+            <span style="color:#38bdf8; font-weight:700;">$</span>&nbsp;&nbsp;<span style="color:#f8fafc; font-weight:600;">npm install ${escapeHtml(handle)}</span>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td style="font-size:12.5px; color:#64748b; line-height:1.5; padding-bottom:10px;">
+      <a href="${sanitizeUrl(`mailto:${p.email}`)}" style="color:#64748b; text-decoration:none;">${email}</a>
+      <span style="color:#cbd5e1;">&nbsp;&nbsp;&middot;&nbsp;&nbsp;</span>
+      <a href="${sanitizeUrl(p.website)}" style="color:#64748b; text-decoration:none;">${web}</a>
+      <span style="color:#cbd5e1;">&nbsp;&nbsp;&middot;&nbsp;&nbsp;</span>
+      <span>${loc}</span>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <table cellpadding="0" cellspacing="0" border="0" style="font-family:'Courier New',Consolas,Monaco,monospace;">
+        <tr>
+          <td>
+            <span style="display:inline-block; background:#16a34a; color:#ffffff; font-size:11px; font-weight:700; padding:3px 9px; border-radius:4px; margin-right:6px;">open to work &#10003;</span>
+            <span style="display:inline-block; background:#2563eb; color:#ffffff; font-size:11px; font-weight:600; padding:3px 9px; border-radius:4px; margin-right:6px;">stack: next.js &middot; ts &middot; node</span>
+            <span style="display:inline-block; background:#64748b; color:#ffffff; font-size:11px; font-weight:600; padding:3px 9px; border-radius:4px;">based: dhaka, bd</span>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- SIGNATURE-END -->`;
+  }
+
+  function renderSignatureR(p, opts = {}) {
+    const assetPrefix = opts.assetPrefix || '../assets';
+    const photo = photoSrc(p, assetPrefix);
+    const handle = (p.socials && p.socials.github ? p.socials.github.split('/').filter(Boolean).pop() : '') || 'razikuljoni';
+    const email = escapeHtml(p.email || '');
+    const web = escapeHtml(p.websiteDisplay || (p.website ? p.website.replace(/^https?:\/\/(www\.)?/, '') : ''));
+    const loc = escapeHtml(p.location || 'Dhaka, Bangladesh');
+
+    const heatmapRows = [
+      ['#ebedf0','#ebedf0','#ebedf0','#ebedf0','#216e39','#9be9a8','#ebedf0','#ebedf0','#216e39','#30a14e','#9be9a8','#ebedf0','#ebedf0','#216e39','#30a14e','#ebedf0','#ebedf0','#9be9a8','#9be9a8','#ebedf0','#30a14e','#ebedf0','#216e39','#30a14e','#30a14e'],
+      ['#ebedf0','#ebedf0','#ebedf0','#ebedf0','#ebedf0','#ebedf0','#ebedf0','#9be9a8','#ebedf0','#30a14e','#9be9a8','#30a14e','#ebedf0','#30a14e','#30a14e','#ebedf0','#216e39','#30a14e','#30a14e','#216e39','#30a14e','#ebedf0','#216e39','#ebedf0','#30a14e'],
+      ['#ebedf0','#9be9a8','#ebedf0','#216e39','#ebedf0','#ebedf0','#9be9a8','#ebedf0','#216e39','#ebedf0','#30a14e','#30a14e','#ebedf0','#ebedf0','#ebedf0','#216e39','#ebedf0','#ebedf0','#30a14e','#ebedf0','#9be9a8','#ebedf0','#ebedf0','#30a14e','#ebedf0'],
+      ['#ebedf0','#ebedf0','#ebedf0','#ebedf0','#ebedf0','#ebedf0','#ebedf0','#ebedf0','#ebedf0','#ebedf0','#ebedf0','#ebedf0','#ebedf0','#ebedf0','#ebedf0','#ebedf0','#ebedf0','#ebedf0','#ebedf0','#ebedf0','#ebedf0','#9be9a8','#ebedf0','#ebedf0','#ebedf0']
+    ];
+
+    const heatmapHtml = heatmapRows.map(row => {
+      const cells = row.map(color => `<td width="8" height="8" style="width:8px; height:8px; min-width:8px; background:${color}; border-radius:2px; font-size:0; line-height:0;">&nbsp;</td>`).join('');
+      return `<tr>${cells}</tr>`;
+    }).join('');
+
+    return `<!-- SIGNATURE-START -->
+<table cellpadding="0" cellspacing="0" border="0" style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; max-width:580px; background:#ffffff; border:1px solid #e2e8f0; border-radius:14px; color:#0f172a;">
+  <tr>
+    <td style="padding:22px 24px;">
+      <table cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+          <td style="vertical-align:top;">
+            <table cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td style="vertical-align:top; padding-right:14px;">
+                  <img src="${photo}" alt="${escapeHtml(p.name)}" width="56" height="56" style="display:block; width:56px; height:56px; border-radius:50%; object-fit:cover;">
+                </td>
+                <td style="vertical-align:top;">
+                  <div>
+                    <span style="font-size:16.5px; font-weight:700; color:#0f172a; line-height:1.2;">${escapeHtml(p.name)}</span>
+                    <span style="color:#64748b; font-size:13px; font-weight:400; margin-left:6px;">@${escapeHtml(handle)}</span>
+                  </div>
+                  <div style="font-size:12.5px; color:#475569; line-height:1.4; margin-top:2px;">
+                    ${escapeHtml(p.title)} &middot; ${loc}
+                  </div>
+                  <div style="font-size:12.5px; color:#2563eb; line-height:1.5; margin-top:4px;">
+                    <a href="${sanitizeUrl(`mailto:${p.email}`)}" style="color:#2563eb; text-decoration:none;">${email}</a>
+                    <span style="color:#cbd5e1;">&nbsp;&nbsp;&middot;&nbsp;&nbsp;</span>
+                    <a href="${sanitizeUrl(p.website)}" style="color:#2563eb; text-decoration:none;">${web}</a>
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </td>
+          <td style="vertical-align:top; text-align:right;">
+            <a href="${sanitizeUrl(p.booking && p.booking.url)}" style="background:#15803d; color:#ffffff; font-size:13px; font-weight:600; text-decoration:none; padding:8px 16px; border-radius:8px; display:inline-block; white-space:nowrap;">Book a call</a>
+          </td>
+        </tr>
+      </table>
+      <div style="margin-top:16px; padding-left:70px;">
+        <table cellpadding="0" cellspacing="2" border="0">
+          ${heatmapHtml}
+        </table>
+      </div>
+    </td>
+  </tr>
+</table>
+<!-- SIGNATURE-END -->`;
+  }
+
+  function renderSignatureS(p, opts = {}) {
+    const handle = (p.socials && p.socials.github ? p.socials.github.split('/').filter(Boolean).pop() : '') || 'razikuljoni';
+    const email = escapeHtml(p.email || '');
+    const web = escapeHtml(p.websiteDisplay || (p.website ? p.website.replace(/^https?:\/\/(www\.)?/, '') : ''));
+
+    return `<!-- SIGNATURE-START -->
+<table cellpadding="0" cellspacing="0" border="0" style="background:#18181b; border-radius:12px; max-width:580px; width:100%; overflow:hidden; font-family:'JetBrains Mono',Consolas,Monaco,monospace; color:#e2e8f0;">
+  <tr>
+    <td style="background:#131316; border-bottom:1px solid #27272a; padding:8px 16px;">
+      <table cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+          <td>
+            <span style="display:inline-block; width:7px; height:7px; background:#3b82f6; border-radius:50%; vertical-align:middle; margin-right:7px;"></span>
+            <span style="color:#f4f4f5; font-size:12px; font-weight:600; vertical-align:middle;">developer.ts</span>
+          </td>
+          <td style="text-align:center; color:#71717a; font-size:11px; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;">
+            ${escapeHtml(handle)} &mdash; Visual Studio Code
+          </td>
+          <td style="width:40px;">&nbsp;</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td style="padding:14px 18px;">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td style="color:#52525b; width:22px; padding-right:16px; text-align:right; font-size:12.5px; line-height:1.65; vertical-align:top; user-select:none;">
+            1<br>2<br>3<br>4<br>5<br>6<br>7<br>8
+          </td>
+          <td style="font-size:12.5px; line-height:1.65; color:#e2e8f0; vertical-align:top; white-space:nowrap;">
+            <span style="color:#c084fc;">export const</span> <span style="color:#60a5fa;">developer</span> <span style="color:#e2e8f0;">=</span> <span style="color:#fbbf24;">{</span><br>
+            &nbsp;&nbsp;<span style="color:#38bdf8;">name</span><span style="color:#e2e8f0;">:</span> <span style="color:#fdba74;">&quot;${escapeHtml(p.name)}&quot;</span><span style="color:#e2e8f0;">,</span><br>
+            &nbsp;&nbsp;<span style="color:#38bdf8;">role</span><span style="color:#e2e8f0;">:</span> <span style="color:#fdba74;">&quot;${escapeHtml(p.title)}&quot;</span><span style="color:#e2e8f0;">,</span><br>
+            &nbsp;&nbsp;<span style="color:#38bdf8;">stack</span><span style="color:#e2e8f0;">:</span> <span style="color:#e2e8f0;">[</span><span style="color:#fdba74;">&quot;Next.js&quot;</span><span style="color:#e2e8f0;">,</span> <span style="color:#fdba74;">&quot;TypeScript&quot;</span><span style="color:#e2e8f0;">,</span> <span style="color:#fdba74;">&quot;Node.js&quot;</span><span style="color:#e2e8f0;">],</span><br>
+            &nbsp;&nbsp;<span style="color:#38bdf8;">email</span><span style="color:#e2e8f0;">:</span> <a href="${sanitizeUrl(`mailto:${p.email}`)}" style="color:#fdba74; text-decoration:none;"><span style="color:#fdba74;">&quot;${email}&quot;</span></a><span style="color:#e2e8f0;">,</span><br>
+            &nbsp;&nbsp;<span style="color:#38bdf8;">web</span><span style="color:#e2e8f0;">:</span> <a href="${sanitizeUrl(p.website)}" style="color:#fdba74; text-decoration:none;"><span style="color:#fdba74;">&quot;${web}&quot;</span></a><span style="color:#e2e8f0;">,</span><br>
+            &nbsp;&nbsp;<span style="color:#38bdf8;">openToWork</span><span style="color:#e2e8f0;">:</span> <span style="color:#38bdf8;">true</span><span style="color:#e2e8f0;">,</span><br>
+            <span style="color:#fbbf24;">}</span><span style="color:#e2e8f0;">;</span>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- SIGNATURE-END -->`;
+  }
+
+  function renderSignatureT(p, opts = {}) {
+    const handle = (p.socials && p.socials.github ? p.socials.github.split('/').filter(Boolean).pop() : '') || 'razikuljoni';
+    const email = escapeHtml(p.email || '');
+    const phone = escapeHtml(p.phone || '');
+    const web = escapeHtml(p.websiteDisplay || (p.website ? p.website.replace(/^https?:\/\/(www\.)?/, '') : ''));
+    const loc = escapeHtml(p.location || 'Dhaka, Bangladesh');
+
+    return `<!-- SIGNATURE-START -->
+<table cellpadding="0" cellspacing="0" border="0" style="background:#0c1017; border-radius:12px; border:1px solid #1e293b; max-width:580px; width:100%; overflow:hidden; font-family:'JetBrains Mono',Consolas,Monaco,monospace; color:#f8fafc;">
+  <tr>
+    <td style="padding:10px 14px; background:#080b11; border-bottom:1px solid #1e293b;">
+      <table cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+          <td style="width:60px;">
+            <span style="display:inline-block; width:10px; height:10px; background:#ff5f56; border-radius:50%; margin-right:6px; vertical-align:middle;"></span>
+            <span style="display:inline-block; width:10px; height:10px; background:#ffbd2e; border-radius:50%; margin-right:6px; vertical-align:middle;"></span>
+            <span style="display:inline-block; width:10px; height:10px; background:#27c93f; border-radius:50%; vertical-align:middle;"></span>
+          </td>
+          <td style="text-align:center; color:#64748b; font-size:11.5px; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;">
+            ${escapeHtml(handle)} &mdash; zsh
+          </td>
+          <td style="width:60px;">&nbsp;</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td style="padding:16px 20px;">
+      <div style="font-size:13px; line-height:1.4;">
+        <span style="color:#22c55e; font-weight:700;">$</span>&nbsp;&nbsp;<span style="color:#f8fafc; font-weight:600;">whoami</span>
+      </div>
+      <div style="font-size:16px; font-weight:700; color:#f8fafc; margin-top:8px; line-height:1.2;">
+        ${escapeHtml(p.name)}
+      </div>
+      <div style="font-size:12.5px; color:#94a3b8; line-height:1.4; margin-top:2px;">
+        ${escapeHtml(p.title)}
+      </div>
+      <div style="font-size:12.5px; line-height:1.8; margin-top:12px; color:#f8fafc;">
+        <div><span style="color:#38bdf8;">email</span>&nbsp;&nbsp;: <a href="${sanitizeUrl(`mailto:${p.email}`)}" style="color:#f8fafc; text-decoration:none;">${email}</a></div>
+        <div><span style="color:#38bdf8;">phone</span>&nbsp;&nbsp;: <a href="${sanitizeUrl(p.whatsapp || `tel:${String(p.phone||'').replace(/[^0-9+]/g, '')}`)}" style="color:#f8fafc; text-decoration:none;">${phone}</a></div>
+        <div><span style="color:#38bdf8;">web</span>&nbsp;&nbsp;&nbsp;&nbsp;: <a href="${sanitizeUrl(p.website)}" style="color:#f8fafc; text-decoration:none;">${web}</a></div>
+        <div><span style="color:#38bdf8;">based</span>&nbsp;&nbsp;: <span style="color:#f8fafc;">${loc}</span></div>
+      </div>
+      <div style="font-size:12.5px; line-height:1.6; margin-top:12px; color:#f8fafc;">
+        <span style="color:#38bdf8;">links</span>: <span style="color:#fbbf24;">[</span> <a href="${sanitizeUrl(p.socials && p.socials.linkedin)}" style="color:#fbbf24; text-decoration:none;">linkedin</a> <span style="color:#64748b;">&middot;</span> <a href="${sanitizeUrl(p.socials && p.socials.github)}" style="color:#fbbf24; text-decoration:none;">github</a> <span style="color:#64748b;">&middot;</span> <a href="${sanitizeUrl(p.socials && p.socials.x)}" style="color:#fbbf24; text-decoration:none;">x</a> <span style="color:#64748b;">&middot;</span> <a href="${sanitizeUrl(p.booking && p.booking.url)}" style="color:#fbbf24; text-decoration:none;">book-a-call</a> <span style="color:#fbbf24;">]</span>
+      </div>
+    </td>
+  </tr>
+</table>
+<!-- SIGNATURE-END -->`;
+  }
+
+  function renderSignatureU(p, opts = {}) {
+    const assetPrefix = opts.assetPrefix || '../assets';
+    const photo = photoSrc(p, assetPrefix);
+    const email = escapeHtml(p.email || '');
+    const web = escapeHtml(p.websiteDisplay || (p.website ? p.website.replace(/^https?:\/\/(www\.)?/, '') : ''));
+    const qrTarget = p.website || (p.email ? `mailto:${p.email}` : 'https://www.razikuljoni.xyz');
+    const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=${encodeURIComponent(qrTarget)}&color=0f172a&bgcolor=ffffff`;
+
+    return `<!-- SIGNATURE-START -->
+<table cellpadding="0" cellspacing="0" border="0" style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; max-width:580px; background:#ffffff; border:1px solid #e5e7eb; border-radius:18px; color:#0f172a;">
+  <tr>
+    <td style="padding:22px 26px;">
+      <table cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+          <td style="vertical-align:middle; padding-right:16px;">
+            <table cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td style="vertical-align:middle; padding-right:16px;">
+                  <img src="${photo}" alt="${escapeHtml(p.name)}" width="60" height="60" style="display:block; width:60px; height:60px; border-radius:50%; object-fit:cover;">
+                </td>
+                <td style="vertical-align:middle;">
+                  <div style="font-size:18px; font-weight:700; color:#0f172a; line-height:1.2; letter-spacing:-0.2px;">${escapeHtml(p.name)}</div>
+                  <div style="font-size:13px; color:#64748b; line-height:1.4; margin-top:2px;">${escapeHtml(p.title)}</div>
+                  <div style="font-size:12.5px; color:#334155; line-height:1.65; margin-top:8px;">
+                    <img src="${sanitizeImageSrc(`${assetPrefix}/icons/i-mail.png`)}" alt="" width="14" height="14" style="width:14px; height:14px; vertical-align:-2px; margin-right:6px;">
+                    <a href="${sanitizeUrl(`mailto:${p.email}`)}" style="color:#334155; text-decoration:none;">${email}</a>
+                  </div>
+                  <div style="font-size:12.5px; color:#2563eb; line-height:1.65; margin-top:2px;">
+                    <img src="${sanitizeImageSrc(`${assetPrefix}/icons/i-globe.png`)}" alt="" width="14" height="14" style="width:14px; height:14px; vertical-align:-2px; margin-right:6px;">
+                    <a href="${sanitizeUrl(p.website)}" style="color:#2563eb; text-decoration:none;">${web}</a>
+                  </div>
+                  <div style="margin-top:8px; line-height:1;">
+                    <a href="${sanitizeUrl(p.socials && p.socials.linkedin)}" style="text-decoration:none; vertical-align:middle;"><img src="${sanitizeImageSrc(`${assetPrefix}/icons/s-linkedin.png`)}" alt="LinkedIn" width="16" height="16" border="0" style="width:16px; height:16px; vertical-align:middle;"></a>
+                    <span style="font-size:12px; color:#d1d5db; vertical-align:middle;">&nbsp;&nbsp;&nbsp;</span>
+                    <a href="${sanitizeUrl(p.socials && p.socials.github)}" style="text-decoration:none; vertical-align:middle;"><img src="${sanitizeImageSrc(`${assetPrefix}/icons/s-github.png`)}" alt="GitHub" width="16" height="16" border="0" style="width:16px; height:16px; vertical-align:middle;"></a>
+                    <span style="font-size:12px; color:#d1d5db; vertical-align:middle;">&nbsp;&nbsp;&nbsp;</span>
+                    <a href="${sanitizeUrl(p.socials && p.socials.x)}" style="text-decoration:none; vertical-align:middle;"><img src="${sanitizeImageSrc(`${assetPrefix}/icons/s-x.png`)}" alt="X" width="15" height="15" border="0" style="width:15px; height:15px; vertical-align:middle;"></a>
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </td>
+          <td style="vertical-align:middle; width:1px; background:#f1f5f9; font-size:0; line-height:0;">&nbsp;</td>
+          <td style="vertical-align:middle; padding-left:20px; text-align:center; width:90px;">
+            <img src="${qrUrl}" alt="QR Code" width="80" height="80" style="display:block; width:80px; height:80px; border-radius:6px; border:1px solid #e5e7eb; padding:3px; background:#ffffff; margin:0 auto;">
+            <div style="font-size:10px; color:#94a3b8; margin-top:5px; line-height:1.2; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; white-space:nowrap;">Scan to save my contact</div>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- SIGNATURE-END -->`;
+  }
+
+  function renderSignatureV(p, opts = {}) {
+    const assetPrefix = opts.assetPrefix || '../assets';
+    const photo = photoSrc(p, assetPrefix);
+    const email = escapeHtml(p.email || '');
+    const phone = escapeHtml(p.phone || '');
+
+    return `<!-- SIGNATURE-START -->
+<table cellpadding="0" cellspacing="0" border="0" style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; max-width:580px; color:#0f172a;">
+  <tr>
+    <td style="vertical-align:middle; padding-right:18px;">
+      <img src="${photo}" alt="${escapeHtml(p.name)}" width="64" height="64" style="display:block; width:64px; height:64px; border-radius:50%; object-fit:cover;">
+    </td>
+    <td style="vertical-align:middle; width:1px; background:#e5e7eb; font-size:0; line-height:0;">&nbsp;</td>
+    <td style="vertical-align:middle; padding-left:18px;">
+      <div style="font-size:20px; font-weight:700; color:#0f172a; line-height:1.2; letter-spacing:-0.3px;">${escapeHtml(p.name)}</div>
+      <div style="font-size:13px; color:#64748b; line-height:1.4; margin-top:2px;">${escapeHtml(p.title)}</div>
+      <div style="font-size:13px; font-weight:600; color:#16a34a; line-height:1.4; margin-top:6px;">
+        <span style="display:inline-block; width:7px; height:7px; background:#16a34a; border-radius:50%; vertical-align:1px; margin-right:5px;"></span>Available for new projects
+      </div>
+      <div style="font-size:12.5px; color:#475569; line-height:1.5; margin-top:4px;">
+        React &middot; Next.js &middot; TypeScript &middot; Node.js
+      </div>
+      <div style="font-size:12.5px; color:#334155; line-height:1.65; margin-top:8px;">
+        <img src="${sanitizeImageSrc(`${assetPrefix}/icons/i-mail.png`)}" alt="" width="14" height="14" style="width:14px; height:14px; vertical-align:-2px; margin-right:5px;">
+        <a href="${sanitizeUrl(`mailto:${p.email}`)}" style="color:#334155; text-decoration:none;">${email}</a>
+        <span style="color:#cbd5e1;">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <img src="${sanitizeImageSrc(`${assetPrefix}/icons/i-phone.png`)}" alt="" width="14" height="14" style="width:14px; height:14px; vertical-align:-2px; margin-right:5px;">
+        <a href="${sanitizeUrl(p.whatsapp || `tel:${String(p.phone||'').replace(/[^0-9+]/g, '')}`)}" style="color:#334155; text-decoration:none;">${phone}</a>
+      </div>
+      <div style="font-size:12px; color:#6b7280; line-height:1.5; margin-top:8px;">
+        <a href="${sanitizeUrl(p.socials && p.socials.linkedin)}" style="color:#4b5563; text-decoration:none; font-weight:500;">LinkedIn</a>
+        <span style="color:#d1d5db;">&nbsp;&nbsp;&middot;&nbsp;&nbsp;</span>
+        <a href="${sanitizeUrl(p.socials && p.socials.github)}" style="color:#4b5563; text-decoration:none; font-weight:500;">GitHub</a>
+        <span style="color:#d1d5db;">&nbsp;&nbsp;&middot;&nbsp;&nbsp;</span>
+        <a href="${sanitizeUrl(p.socials && p.socials.x)}" style="color:#4b5563; text-decoration:none; font-weight:500;">X</a>
+        <span style="color:#d1d5db;">&nbsp;&nbsp;&middot;&nbsp;&nbsp;</span>
+        <a href="${sanitizeUrl(p.booking && p.booking.url)}" style="color:#2563eb; text-decoration:none; font-weight:600;">${escapeHtml(p.booking && p.booking.label || 'Book a call →')}</a>
+      </div>
+    </td>
+  </tr>
+</table>
+<!-- SIGNATURE-END -->`;
+  }
+
+  function renderSignatureW(p, opts = {}) {
+    const assetPrefix = opts.assetPrefix || '../assets';
+    const photo = photoSrc(p, assetPrefix);
+    const email = escapeHtml(p.email || '');
+    const phone = escapeHtml(p.phone || '');
+    const web = escapeHtml(p.websiteDisplay || (p.website ? p.website.replace(/^https?:\/\/(www\.)?/, '') : ''));
+    const loc = escapeHtml(p.location || 'Dhaka, Bangladesh');
+
+    return `<!-- SIGNATURE-START -->
+<table cellpadding="0" cellspacing="0" border="0" style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; max-width:580px; background:#ffffff; border:1px solid #e5e7eb; border-radius:18px; color:#0f172a; overflow:hidden;">
+  <tr>
+    <td style="vertical-align:top; width:150px; font-size:0; line-height:0; padding:0;">
+      <img src="${photo}" alt="${escapeHtml(p.name)}" width="150" height="175" style="display:block; width:150px; height:175px; border-top-left-radius:18px; border-bottom-left-radius:18px; object-fit:cover;">
+    </td>
+    <td style="vertical-align:top; padding:22px 26px;">
+      <div style="font-size:20px; font-weight:700; color:#0f172a; line-height:1.2; letter-spacing:-0.3px;">${escapeHtml(p.name)}</div>
+      <div style="font-size:13px; color:#64748b; line-height:1.4; margin-top:3px;">${escapeHtml(p.title)}</div>
+      <div style="font-size:12.5px; color:#334155; line-height:1.65; margin-top:10px;">
+        <img src="${sanitizeImageSrc(`${assetPrefix}/icons/i-mail.png`)}" alt="" width="14" height="14" style="width:14px; height:14px; vertical-align:-2px; margin-right:5px;">
+        <a href="${sanitizeUrl(`mailto:${p.email}`)}" style="color:#334155; text-decoration:none;">${email}</a>
+        <span style="color:#cbd5e1;">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <img src="${sanitizeImageSrc(`${assetPrefix}/icons/i-phone.png`)}" alt="" width="14" height="14" style="width:14px; height:14px; vertical-align:-2px; margin-right:5px;">
+        <a href="${sanitizeUrl(p.whatsapp || `tel:${String(p.phone||'').replace(/[^0-9+]/g, '')}`)}" style="color:#334155; text-decoration:none;">${phone}</a>
+      </div>
+      <div style="font-size:12.5px; color:#334155; line-height:1.65; margin-top:3px;">
+        <img src="${sanitizeImageSrc(`${assetPrefix}/icons/i-globe.png`)}" alt="" width="14" height="14" style="width:14px; height:14px; vertical-align:-2px; margin-right:5px;">
+        <a href="${sanitizeUrl(p.website)}" style="color:#2563eb; text-decoration:none;">${web}</a>
+        <span style="color:#cbd5e1;">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <img src="${sanitizeImageSrc(`${assetPrefix}/icons/i-map-pin.png`)}" alt="" width="14" height="14" style="width:14px; height:14px; vertical-align:-2px; margin-right:5px;">
+        <span>${loc}</span>
+      </div>
+      <div style="margin-top:10px; line-height:1;">
+        <a href="${sanitizeUrl(p.socials && p.socials.linkedin)}" style="text-decoration:none; vertical-align:middle;"><img src="${sanitizeImageSrc(`${assetPrefix}/icons/s-linkedin.png`)}" alt="LinkedIn" width="16" height="16" border="0" style="width:16px; height:16px; vertical-align:middle;"></a>
+        <span style="font-size:12px; color:#d1d5db; vertical-align:middle;">&nbsp;&nbsp;&nbsp;</span>
+        <a href="${sanitizeUrl(p.socials && p.socials.github)}" style="text-decoration:none; vertical-align:middle;"><img src="${sanitizeImageSrc(`${assetPrefix}/icons/s-github.png`)}" alt="GitHub" width="16" height="16" border="0" style="width:16px; height:16px; vertical-align:middle;"></a>
+        <span style="font-size:12px; color:#d1d5db; vertical-align:middle;">&nbsp;&nbsp;&nbsp;</span>
+        <a href="${sanitizeUrl(p.socials && p.socials.x)}" style="text-decoration:none; vertical-align:middle;"><img src="${sanitizeImageSrc(`${assetPrefix}/icons/s-x.png`)}" alt="X" width="15" height="15" border="0" style="width:15px; height:15px; vertical-align:middle;"></a>
+        <span style="font-size:12px; color:#d1d5db; vertical-align:middle;">&nbsp;&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <a href="${sanitizeUrl(p.booking && p.booking.url)}" style="font-size:12.5px; font-weight:600; color:#2563eb; text-decoration:none; vertical-align:middle;">${escapeHtml(p.booking && p.booking.label || 'Book a call →')}</a>
+      </div>
+    </td>
+  </tr>
+</table>
+<!-- SIGNATURE-END -->`;
+  }
+
+  function renderSignatureX(p, opts = {}) {
+    const assetPrefix = opts.assetPrefix || '../assets';
+    const photo = photoSrc(p, assetPrefix);
+    const email = escapeHtml(p.email || '');
+    const phone = escapeHtml(p.phone || '');
+    const web = escapeHtml(p.websiteDisplay || (p.website ? p.website.replace(/^https?:\/\/(www\.)?/, '') : ''));
+    const loc = escapeHtml(p.location || 'Dhaka, Bangladesh');
+
+    return `<!-- SIGNATURE-START -->
+<table cellpadding="0" cellspacing="0" border="0" style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; max-width:580px; color:#0f172a;">
+  <tr>
+    <td style="vertical-align:middle; padding-right:18px;">
+      <img src="${photo}" alt="${escapeHtml(p.name)}" width="62" height="62" style="display:block; width:62px; height:62px; border-radius:50%; object-fit:cover;">
+    </td>
+    <td style="vertical-align:middle; width:1px; background:#e5e7eb; font-size:0; line-height:0;">&nbsp;</td>
+    <td style="vertical-align:middle; padding-left:18px;">
+      <div style="font-size:20px; font-weight:700; color:#0f172a; line-height:1.2; letter-spacing:-0.3px;">
+        MD <span style="color:#2563eb;">Razikul Islam</span> Joni
+      </div>
+      <div style="font-size:13px; color:#64748b; line-height:1.4; margin-top:2px;">${escapeHtml(p.title)}</div>
+      <div style="font-size:12.5px; color:#334155; line-height:1.65; margin-top:8px;">
+        <img src="${sanitizeImageSrc(`${assetPrefix}/icons/i-mail.png`)}" alt="" width="14" height="14" style="width:14px; height:14px; vertical-align:-2px; margin-right:5px;">
+        <a href="${sanitizeUrl(`mailto:${p.email}`)}" style="color:#334155; text-decoration:none;">${email}</a>
+        <span style="color:#cbd5e1;">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <img src="${sanitizeImageSrc(`${assetPrefix}/icons/i-phone.png`)}" alt="" width="14" height="14" style="width:14px; height:14px; vertical-align:-2px; margin-right:5px;">
+        <a href="${sanitizeUrl(p.whatsapp || `tel:${String(p.phone||'').replace(/[^0-9+]/g, '')}`)}" style="color:#334155; text-decoration:none;">${phone}</a>
+      </div>
+      <div style="font-size:12.5px; color:#334155; line-height:1.65; margin-top:2px;">
+        <img src="${sanitizeImageSrc(`${assetPrefix}/icons/i-globe.png`)}" alt="" width="14" height="14" style="width:14px; height:14px; vertical-align:-2px; margin-right:5px;">
+        <a href="${sanitizeUrl(p.website)}" style="color:#2563eb; text-decoration:none;">${web}</a>
+        <span style="color:#cbd5e1;">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <img src="${sanitizeImageSrc(`${assetPrefix}/icons/i-map-pin.png`)}" alt="" width="14" height="14" style="width:14px; height:14px; vertical-align:-2px; margin-right:5px;">
+        <span>${loc}</span>
+      </div>
+      <div style="margin-top:8px; line-height:1;">
+        <a href="${sanitizeUrl(p.socials && p.socials.linkedin)}" style="text-decoration:none; vertical-align:middle;"><img src="${sanitizeImageSrc(`${assetPrefix}/icons/s-linkedin.png`)}" alt="LinkedIn" width="16" height="16" border="0" style="width:16px; height:16px; vertical-align:middle;"></a>
+        <span style="font-size:12px; color:#d1d5db; vertical-align:middle;">&nbsp;&nbsp;&nbsp;</span>
+        <a href="${sanitizeUrl(p.socials && p.socials.github)}" style="text-decoration:none; vertical-align:middle;"><img src="${sanitizeImageSrc(`${assetPrefix}/icons/s-github.png`)}" alt="GitHub" width="16" height="16" border="0" style="width:16px; height:16px; vertical-align:middle;"></a>
+        <span style="font-size:12px; color:#d1d5db; vertical-align:middle;">&nbsp;&nbsp;&nbsp;</span>
+        <a href="${sanitizeUrl(p.socials && p.socials.x)}" style="text-decoration:none; vertical-align:middle;"><img src="${sanitizeImageSrc(`${assetPrefix}/icons/s-x.png`)}" alt="X" width="15" height="15" border="0" style="width:15px; height:15px; vertical-align:middle;"></a>
+        <span style="font-size:12px; color:#d1d5db; vertical-align:middle;">&nbsp;&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <a href="${sanitizeUrl(p.booking && p.booking.url)}" style="font-size:12.5px; font-weight:600; color:#2563eb; text-decoration:none; vertical-align:middle;">${escapeHtml(p.booking && p.booking.label || 'Book a call →')}</a>
+      </div>
+    </td>
+  </tr>
+</table>
+<!-- SIGNATURE-END -->`;
+  }
+
+  function renderSignatureY(p, opts = {}) {
+    const assetPrefix = opts.assetPrefix || '../assets';
+    const email = escapeHtml(p.email || '');
+    const phone = escapeHtml(p.phone || '');
+    const web = escapeHtml(p.websiteDisplay || (p.website ? p.website.replace(/^https?:\/\/(www\.)?/, '') : ''));
+    const loc = escapeHtml(p.location || 'Dhaka, Bangladesh');
+
+    return `<!-- SIGNATURE-START -->
+<table cellpadding="0" cellspacing="0" border="0" style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; max-width:580px; color:#0f172a;">
+  <tr>
+    <td style="vertical-align:middle; padding-right:24px;">
+      <div style="font-size:20px; font-weight:700; color:#0f172a; line-height:1.2; letter-spacing:-0.3px;">${escapeHtml(p.name)}</div>
+      <div style="font-size:13px; color:#64748b; line-height:1.4; margin-top:2px;">${escapeHtml(p.title)}</div>
+      <div style="border-bottom:1px solid #e5e7eb; font-size:0; line-height:0; margin-top:8px; margin-bottom:8px;">&nbsp;</div>
+      <div style="font-size:12.5px; color:#334155; line-height:1.65;">
+        <img src="${sanitizeImageSrc(`${assetPrefix}/icons/i-mail.png`)}" alt="" width="14" height="14" style="width:14px; height:14px; vertical-align:-2px; margin-right:5px;">
+        <a href="${sanitizeUrl(`mailto:${p.email}`)}" style="color:#334155; text-decoration:none;">${email}</a>
+        <span style="color:#cbd5e1;">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <img src="${sanitizeImageSrc(`${assetPrefix}/icons/i-phone.png`)}" alt="" width="14" height="14" style="width:14px; height:14px; vertical-align:-2px; margin-right:5px;">
+        <a href="${sanitizeUrl(p.whatsapp || `tel:${String(p.phone||'').replace(/[^0-9+]/g, '')}`)}" style="color:#334155; text-decoration:none;">${phone}</a>
+      </div>
+      <div style="font-size:12.5px; color:#334155; line-height:1.65; margin-top:2px;">
+        <img src="${sanitizeImageSrc(`${assetPrefix}/icons/i-globe.png`)}" alt="" width="14" height="14" style="width:14px; height:14px; vertical-align:-2px; margin-right:5px;">
+        <a href="${sanitizeUrl(p.website)}" style="color:#2563eb; text-decoration:none;">${web}</a>
+        <span style="color:#cbd5e1;">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <img src="${sanitizeImageSrc(`${assetPrefix}/icons/i-map-pin.png`)}" alt="" width="14" height="14" style="width:14px; height:14px; vertical-align:-2px; margin-right:5px;">
+        <span>${loc}</span>
+      </div>
+      <div style="font-size:12px; color:#6b7280; line-height:1.5; margin-top:8px;">
+        <a href="${sanitizeUrl(p.socials && p.socials.linkedin)}" style="color:#4b5563; text-decoration:none; font-weight:500;">LinkedIn</a>
+        <span style="color:#d1d5db;">&nbsp;&nbsp;&middot;&nbsp;&nbsp;</span>
+        <a href="${sanitizeUrl(p.socials && p.socials.github)}" style="color:#4b5563; text-decoration:none; font-weight:500;">GitHub</a>
+        <span style="color:#d1d5db;">&nbsp;&nbsp;&middot;&nbsp;&nbsp;</span>
+        <a href="${sanitizeUrl(p.socials && p.socials.x)}" style="color:#4b5563; text-decoration:none; font-weight:500;">X</a>
+        <span style="color:#d1d5db;">&nbsp;&nbsp;&middot;&nbsp;&nbsp;</span>
+        <a href="${sanitizeUrl(p.booking && p.booking.url)}" style="color:#2563eb; text-decoration:none; font-weight:600;">${escapeHtml(p.booking && p.booking.label || 'Book a call →')}</a>
+      </div>
+    </td>
+    <td style="vertical-align:middle; text-align:right; width:130px; font-size:92px; font-weight:800; font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,sans-serif; color:#f1f5f9; line-height:0.9; letter-spacing:-4px; user-select:none;">
+      RJ
+    </td>
+  </tr>
+</table>
+<!-- SIGNATURE-END -->`;
+  }
+
   function render(letter, p, opts) {
     const l = String(letter || 'a').toLowerCase();
     if (l === 'b') return renderSignatureB(p, opts);
@@ -899,10 +1543,21 @@
     if (l === 'm') return renderSignatureM(p, opts);
     if (l === 'n') return renderSignatureN(p, opts);
     if (l === 'o') return renderSignatureO(p, opts);
+    if (l === 'p') return renderSignatureP(p, opts);
+    if (l === 'q') return renderSignatureQ(p, opts);
+    if (l === 'r') return renderSignatureR(p, opts);
+    if (l === 's') return renderSignatureS(p, opts);
+    if (l === 't') return renderSignatureT(p, opts);
+    if (l === 'u') return renderSignatureU(p, opts);
+    if (l === 'v') return renderSignatureV(p, opts);
+    if (l === 'w') return renderSignatureW(p, opts);
+    if (l === 'x') return renderSignatureX(p, opts);
+    if (l === 'y') return renderSignatureY(p, opts);
     return renderSignatureA(p, opts);
   }
 
   function getStandaloneHead(title) {
+    const isDark = title.includes('Noir') || title.includes('Split Dark') || title.includes('VS Code') || title.includes('Terminal');
     return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1015,8 +1670,8 @@
     </div>
     <div class="actions">
       <div class="sim-toggle">
-        <button class="sim-btn active" id="sim-light-btn" onclick="setTheme('light')">Light</button>
-        <button class="sim-btn" id="sim-dark-btn" onclick="setTheme('dark')">Dark</button>
+        <button class="sim-btn${isDark ? '' : ' active'}" id="sim-light-btn" onclick="setTheme('light')">Light</button>
+        <button class="sim-btn${isDark ? ' active' : ''}" id="sim-dark-btn" onclick="setTheme('dark')">Dark</button>
       </div>
       <button class="btn btn-secondary" id="btn-html" onclick="copyHtmlCode()">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
@@ -1030,7 +1685,7 @@
   </div>
 
   <main class="preview-canvas">
-    <div class="card-preview${(title.includes('Noir') || title.includes('Split Dark')) ? ' bg-dark-preview' : ''}" id="preview-wrapper">
+    <div class="card-preview${isDark ? ' bg-dark-preview' : ''}" id="preview-wrapper">
       <div id="signature-container">`;
   }
 

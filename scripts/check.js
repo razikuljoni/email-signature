@@ -157,4 +157,67 @@ test('H renders name only, no job title', () => {
   const between = htmlH.slice(nameIdx, contactIdx);
   assert.ok(!between.includes(T.escapeHtml(FIXTURE.title)), 'H should not render job title');
 });
+test('P renders shields-style dual-color badges for contact and tech stack', () => {
+  const p = S.migrate(Object.assign({}, FIXTURE));
+  const htmlP = T.render('p', p, { assetPrefix: '..' });
+  assert.ok(htmlP.includes('email'), 'P should render email label');
+  assert.ok(htmlP.includes('Next.js'), 'P should render Next.js stack badge');
+  assert.ok(htmlP.includes('TypeScript'), 'P should render TypeScript badge');
+  assert.ok(htmlP.includes('PostgreSQL'), 'P should render PostgreSQL badge');
+});
+test('Q renders npm package format with install command', () => {
+  const p = S.migrate(Object.assign({}, FIXTURE));
+  const htmlQ = T.render('q', p, { assetPrefix: '..' });
+  assert.ok(htmlQ.includes('npm install'), 'Q should render npm install command');
+  assert.ok(htmlQ.includes('open to work'), 'Q should render open to work pill');
+});
+test('R renders Git contributor card with commit heatmap', () => {
+  const p = S.migrate(Object.assign({}, FIXTURE));
+  const htmlR = T.render('r', p, { assetPrefix: '..' });
+  assert.ok(htmlR.includes('#216e39'), 'R should render GitHub dark green commit square');
+  assert.ok(htmlR.includes('Book a call'), 'R should render Book a call CTA');
+});
+test('S renders VS Code IDE editor with developer.ts and line numbers', () => {
+  const p = S.migrate(Object.assign({}, FIXTURE));
+  const htmlS = T.render('s', p, { assetPrefix: '..' });
+  assert.ok(htmlS.includes('developer.ts'), 'S should render developer.ts tab');
+  assert.ok(htmlS.includes('export const'), 'S should render export const keyword');
+  assert.ok(htmlS.includes('Visual Studio Code'), 'S should include VS Code title');
+});
+test('T renders macOS terminal prompt with whoami output', () => {
+  const p = S.migrate(Object.assign({}, FIXTURE));
+  const htmlT = T.render('t', p, { assetPrefix: '..' });
+  assert.ok(htmlT.includes('whoami'), 'T should render whoami command');
+  assert.ok(htmlT.includes('zsh'), 'T should include zsh title');
+  assert.ok(htmlT.includes('#ff5f56'), 'T should render macOS red traffic light');
+});
+test('U renders QR contact card with QR code and scan instruction', () => {
+  const p = S.migrate(Object.assign({}, FIXTURE));
+  const htmlU = T.render('u', p, { assetPrefix: '..' });
+  assert.ok(htmlU.includes('qrserver.com'), 'U should render QR code API url');
+  assert.ok(htmlU.includes('Scan to save my contact'), 'U should render scan caption');
+});
+test('V renders availability indicator and tech stack list', () => {
+  const p = S.migrate(Object.assign({}, FIXTURE));
+  const htmlV = T.render('v', p, { assetPrefix: '..' });
+  assert.ok(htmlV.includes('Available for new projects'), 'V should render availability text');
+  assert.ok(htmlV.includes('React'), 'V should render React in stack');
+});
+test('W renders split portrait layout with flush photo', () => {
+  const p = S.migrate(Object.assign({}, FIXTURE));
+  const htmlW = T.render('w', p, { assetPrefix: '..' });
+  assert.ok(htmlW.includes('border-top-left-radius:18px'), 'W should have rounded left photo');
+  assert.ok(htmlW.includes(T.escapeHtml(FIXTURE.name)), 'W should render name');
+});
+test('X renders accent divider minimal with accented name', () => {
+  const p = S.migrate(Object.assign({}, FIXTURE));
+  const htmlX = T.render('x', p, { assetPrefix: '..' });
+  assert.ok(htmlX.includes('color:#2563eb'), 'X should render blue accent on name');
+});
+test('Y renders watermark initials backdrop', () => {
+  const p = S.migrate(Object.assign({}, FIXTURE));
+  const htmlY = T.render('y', p, { assetPrefix: '..' });
+  assert.ok(htmlY.includes('RJ'), 'Y should render RJ watermark');
+});
 console.log('check new template assertions: passed');
+

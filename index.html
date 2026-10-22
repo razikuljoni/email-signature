@@ -1139,7 +1139,7 @@
         <div class="stat-pill">
           <div class="stat-indicator"></div>
           <span class="stat-label">Templates:</span>
-          <span class="stat-val" id="stat-total-count">15 Ready</span>
+          <span class="stat-val" id="stat-total-count">25 Ready</span>
         </div>
         <div class="stat-pill">
           <span class="stat-label">Output:</span>
@@ -1198,7 +1198,10 @@
       <div class="filters-row">
         <div class="chips-group">
           <button class="filter-chip active" data-filter="all" onclick="filterCategory('all', this)">
-            All Templates <span class="chip-count" id="chip-count-all">(15)</span>
+            All Templates <span class="chip-count" id="chip-count-all">(25)</span>
+          </button>
+          <button class="filter-chip" data-filter="dev" onclick="filterCategory('dev', this)">
+            Developer <span class="chip-count" id="chip-count-dev"></span>
           </button>
           <button class="filter-chip" data-filter="minimal" onclick="filterCategory('minimal', this)">
             Minimalist <span class="chip-count" id="chip-count-minimal"></span>
@@ -1211,7 +1214,7 @@
           </button>
         </div>
 
-        <div class="results-count-text" id="results-count-text">Showing 15 of 15 signatures</div>
+        <div class="results-count-text" id="results-count-text">Showing 25 of 25 signatures</div>
       </div>
     </section>
 
@@ -2049,13 +2052,15 @@
 
     // Initialize counts on category chips
     function initCategoryCounts() {
-      const counts = { all: SIGNATURE_DEFINITIONS.length, minimal: 0, photo: 0, dark: 0 };
+      const counts = { all: SIGNATURE_DEFINITIONS.length, dev: 0, minimal: 0, photo: 0, dark: 0 };
       SIGNATURE_DEFINITIONS.forEach(s => {
+        if (s.tags.includes('dev')) counts.dev++;
         if (s.tags.includes('minimal')) counts.minimal++;
         if (s.tags.includes('photo')) counts.photo++;
         if (s.tags.includes('dark')) counts.dark++;
       });
       document.getElementById('chip-count-all').textContent = `(${counts.all})`;
+      document.getElementById('chip-count-dev').textContent = `(${counts.dev})`;
       document.getElementById('chip-count-minimal').textContent = `(${counts.minimal})`;
       document.getElementById('chip-count-photo').textContent = `(${counts.photo})`;
       document.getElementById('chip-count-dark').textContent = `(${counts.dark})`;

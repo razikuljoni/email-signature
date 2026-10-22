@@ -36,7 +36,7 @@ Zero runtime dependencies &bull; 100% offline &bull; HTML 4.01 Strict email comp
 
 ## 🎨 Signature Template Directory
 
-All 15 templates are rendered in both the studio dashboard and standalone HTML files inside `signatures/`:
+All 25 templates are rendered in both the studio dashboard and standalone HTML files inside `signatures/`:
 
 | Letter | Template Name | Tags | Best Suited For | Standalone File |
 |:---:|---|---|---|---|
@@ -44,7 +44,7 @@ All 15 templates are rendered in both the studio dashboard and standalone HTML f
 | **B** | **Portrait Minimal** | `photo`, `minimal` | Founders, designers, client-facing roles | [`signatures/signature-b-portrait-minimal.html`](signatures/signature-b-portrait-minimal.html) |
 | **C** | **Monogram Avatar** | `minimal` | Engineers & developers wanting a minimal visual anchor | [`signatures/signature-c-monogram-avatar.html`](signatures/signature-c-monogram-avatar.html) |
 | **D** | **Noir Dark Card** | `dark`, `photo` | Dark-mode enthusiasts & design-forward tech brands | [`signatures/signature-d-noir-dark-card.html`](signatures/signature-d-noir-dark-card.html) |
-| **E** | **Developer Pro Banner** | `photo` | Engineering leaders & technical advocates | [`signatures/signature-e-developer-pro-banner.html`](signatures/signature-e-developer-pro-banner.html) |
+| **E** | **Developer Pro Banner** | `photo`, `dev` | Engineering leaders & technical advocates | [`signatures/signature-e-developer-pro-banner.html`](signatures/signature-e-developer-pro-banner.html) |
 | **F** | **Executive Bordered Card** | `photo`, `minimal` | Executive leaders & enterprise consultants | [`signatures/signature-f-executive-bordered-card.html`](signatures/signature-f-executive-bordered-card.html) |
 | **G** | **Gradient Badge Stack** | `photo` | Product managers, startup founders & tech evangelists | [`signatures/signature-g-gradient-badge-stack.html`](signatures/signature-g-gradient-badge-stack.html) |
 | **H** | **Contact Rail** | `photo`, `minimal` | Minimalists who want a photo without clutter | [`signatures/signature-h-contact-rail.html`](signatures/signature-h-contact-rail.html) |
@@ -55,6 +55,16 @@ All 15 templates are rendered in both the studio dashboard and standalone HTML f
 | **M** | **Split Dark Panel** | `photo`, `dark` | Design directors & brand-conscious leaders | [`signatures/signature-m-split-dark-panel.html`](signatures/signature-m-split-dark-panel.html) |
 | **N** | **Card + CTA** | `photo` | Sales professionals & business development leads | [`signatures/signature-n-card-cta.html`](signatures/signature-n-card-cta.html) |
 | **O** | **Accent Rail** | `minimal` | Engineers & technical writers who prefer structure | [`signatures/signature-o-accent-rail.html`](signatures/signature-o-accent-rail.html) |
+| **P** | **Developer Shields Badges** | `dev`, `photo` | Full-stack engineers, open-source maintainers & tech leads | [`signatures/signature-p-dev-badges.html`](signatures/signature-p-dev-badges.html) |
+| **Q** | **NPM Package Card** | `dev`, `minimal` | JavaScript / TypeScript developers & package authors | [`signatures/signature-q-npm-package.html`](signatures/signature-q-npm-package.html) |
+| **R** | **Git Contributor Card** | `dev`, `photo` | GitHub power users, open-source contributors & freelancers | [`signatures/signature-r-git-contributor.html`](signatures/signature-r-git-contributor.html) |
+| **S** | **VS Code Editor Card** | `dev`, `dark` | TypeScript developers, frontend engineers & software architects | [`signatures/signature-s-code-editor.html`](signatures/signature-s-code-editor.html) |
+| **T** | **macOS Terminal Prompt** | `dev`, `dark` | Backend engineers, DevOps, Linux enthusiasts & CLI power users | [`signatures/signature-t-terminal-prompt.html`](signatures/signature-t-terminal-prompt.html) |
+| **U** | **QR Contact Card** | `photo`, `minimal` | In-person networkers, founders & conference attendees | [`signatures/signature-u-qr-contact-card.html`](signatures/signature-u-qr-contact-card.html) |
+| **V** | **Availability & Stack Rail** | `dev`, `photo` | Freelancers, contract engineers & agency developers | [`signatures/signature-v-availability-stack.html`](signatures/signature-v-availability-stack.html) |
+| **W** | **Split Portrait Card** | `photo` | Client-facing leaders, speakers & design directors | [`signatures/signature-w-split-portrait-card.html`](signatures/signature-w-split-portrait-card.html) |
+| **X** | **Accent Divider Minimal** | `photo`, `minimal` | Engineers & designers who appreciate clean typography | [`signatures/signature-x-accent-divider-minimal.html`](signatures/signature-x-accent-divider-minimal.html) |
+| **Y** | **Monogram Watermark Card** | `minimal` | Developers, architects & technical writers | [`signatures/signature-y-monogram-watermark.html`](signatures/signature-y-monogram-watermark.html) |
 
 ---
 
@@ -62,7 +72,7 @@ All 15 templates are rendered in both the studio dashboard and standalone HTML f
 
 ```text
 email-signature/
-├── index.html                   # Showcase & preview dashboard for all 15 signatures
+├── index.html                   # Showcase & preview dashboard for all 25 signatures
 ├── data/
 │   ├── profile.json             # Single source of truth for personal / contact info (Schema v2)
 │   └── profile.js               # Auto-synced global data for zero-CORS browser support
@@ -74,7 +84,7 @@ email-signature/
 │       ├── i-mail.png, i-phone.png, i-globe.png, i-map-pin.png, i-whatsapp.png
 │       └── s-github.png, s-linkedin.png, s-x.png, s-instagram.png, s-youtube.png
 ├── signatures/                  # Standalone signature pages with simulator toggles
-│   └── signature-[a-o]-*.html   # 15 standalone HTML signature files
+│   └── signature-[a-y]-*.html   # 25 standalone HTML signature files
 ├── scripts/
 │   ├── build.js                 # Rebuilds standalone signatures and data/profile.js
 │   └── check.js                 # Automated test suite (security, escaping, schema)
@@ -96,7 +106,7 @@ email-signature/
 # Run automated test suite (XSS escaping, URL sanitization, schema migration)
 npm test
 
-# Regenerate data/profile.js and all 15 signatures/ files
+# Regenerate data/profile.js and all 25 signatures/ files
 npm run build
 
 # Run tests and verify build integrity
