@@ -2,14 +2,18 @@
   "version": 2,
   "name": "MD Razikul Islam Joni",
   "title": "Full-Stack Developer",
-  "pronouns": "",
-  "tagline": "",
+  "department": "Engineering Department",
+  "company": "Nexora Labs",
+  "pronouns": "He/Him",
+  "tagline": "Innovating Tomorrow",
   "email": "razikuljoni@gmail.com",
   "phone": "+880 1623-208660",
   "whatsapp": "https://wa.me/8801623208660",
   "website": "https://www.razikuljoni.xyz",
   "websiteDisplay": "razikuljoni.xyz",
   "location": "Dhaka, Bangladesh",
+  "linkTree": "https://linktr.ee/mdrazikulislamjoni",
+  "userName": "razikuljoni",
   "booking": {
     "url": "https://cal.com/razikuljoni",
     "label": "Book a call →"
@@ -18,14 +22,16 @@
     "linkedin": "https://www.linkedin.com/in/razikuljoni",
     "github": "https://github.com/razikuljoni",
     "x": "https://x.com/razikuljoni",
-    "instagram": "",
+    "facebook": "https://www.facebook.com/mdrazikulislamjoni",
+    "instagram": "https://www.instagram.com/razikuljoni",
     "youtube": ""
   },
   "images": {
     "photo": "assets/images/photo.png",
     "monogram": "assets/images/monogram.png",
     "logo": "",
-    "remotePhoto": "https://i.ibb.co/YDmnRvZ/pro-bg-white-2.jpg"
+    "remotePhoto": "https://i.ibb.co/YDmnRvZ/pro-bg-white-2.jpg",
+    "nameAnim": "assets/images/name-anim.gif"
   },
   "brand": {
     "accent": "#2B4BF2",
